@@ -6,3 +6,11 @@ D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\_Builds\Cozyheim_BurnBabyBurn.dll
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\BurnBabyBurn.csproj.AssemblyReference.cache
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\BurnBabyBurn.csproj.CoreCompileInputs.cache
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\Cozyheim_BurnBabyBurn.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_BurnBabyBurn.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\BurnBabyBurn.csproj.AssemblyReference.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\BurnBabyBurn.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\Cozyheim_BurnBabyBurn.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim_BurnBabyBurn.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\BurnBabyBurn.csproj.AssemblyReference.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\BurnBabyBurn.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\BurnBabyBurn\Burn Baby Burn (C#)\obj\Debug\Cozyheim_BurnBabyBurn.dll

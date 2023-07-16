@@ -2,3 +2,11 @@ D:\Cozyheim Mods\Cozyheim-Repository\MagicFromTheStart\Magic From The Start (C#)
 D:\Cozyheim Mods\Cozyheim-Repository\MagicFromTheStart\Magic From The Start (C#)\obj\Debug\MagicFromTheStart.csproj.CoreCompileInputs.cache
 D:\Cozyheim Mods\Cozyheim-Repository\_Builds\Cozyheim_MagicFromTheStart.dll
 D:\Cozyheim Mods\Cozyheim-Repository\MagicFromTheStart\Magic From The Start (C#)\obj\Debug\Cozyheim_MagicFromTheStart.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_MagicFromTheStart.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\MagicFromTheStart\Magic From The Start (C#)\obj\Debug\MagicFromTheStart.csproj.AssemblyReference.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\MagicFromTheStart\Magic From The Start (C#)\obj\Debug\MagicFromTheStart.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\MagicFromTheStart\Magic From The Start (C#)\obj\Debug\Cozyheim_MagicFromTheStart.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim_MagicFromTheStart.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\MagicFromTheStart\Magic From The Start (C#)\obj\Debug\MagicFromTheStart.csproj.AssemblyReference.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\MagicFromTheStart\Magic From The Start (C#)\obj\Debug\MagicFromTheStart.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\MagicFromTheStart\Magic From The Start (C#)\obj\Debug\Cozyheim_MagicFromTheStart.dll

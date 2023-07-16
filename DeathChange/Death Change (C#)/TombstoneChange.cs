@@ -86,7 +86,7 @@ namespace Cozyheim.DeathChange
 
             private static bool IsNonDropItem(ItemDrop.ItemData item)
             {
-                if(item.m_shared.m_questItem || item.m_equiped || item.m_gridPos.y == 0)
+                if(item.m_shared.m_questItem || item.m_equipped || item.m_gridPos.y == 0)
                 {
                     return true;
                 }

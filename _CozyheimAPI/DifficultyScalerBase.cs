@@ -1,100 +1,117 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Cozyheim.API {
 
-    public class DifficultyScalerBase : MonoBehaviour {
+    public class DifficultyScalerBase : MonoBehaviour
+    {
+        private Dictionary<DifficultyScalerMultiplier, float> _multipliers = new();
 
-        private float startHealth = 0f;
-        private int level = 0;
+        public float StartHealth { get; private set; }
+        public int Level { get; private set; }
 
-        private float damageMultiplier = 0f;
-        private float healthMultiplier = 0f;
-        private float biomeMultiplier = 0f;
-        private float nightMultiplier = 0f;
-        private float bossKillMultiplier = 0f;
-        private float starMultiplier = 0f;
+        private void Awake()
+        {
+            var characterComponent = GetComponent<Character>();
+            if (characterComponent == null) {
+                return;
+            }
 
-        public void SetAllMultipliers(float health, float damage, float biome, float night, float bossKill, float star) {
-            healthMultiplier = health;
-            damageMultiplier = damage;
-            biomeMultiplier = biome;
-            nightMultiplier = night;
-            bossKillMultiplier = bossKill;
-            starMultiplier = star;
+            StartHealth = characterComponent.m_health;
         }
 
-        public void SetLevel(int value) {
-            level = value;
+        private void Start()
+        {
+            Setup();
         }
 
-        public void SetStartHealth(float value) {
-            startHealth = value;
+        private void Setup()
+        {
+            var characterComponent = GetComponent<Character>();
+            if (characterComponent == null) {
+                return;
+            }
+            
+            if (!TryGetComponent<ZNetView>(out var nview)) {
+                return;
+            }
+
+            var zdo = nview.GetZDO();
+            if (zdo == null) {
+                return;
+            }
+
+            Level = zdo.GetInt(ZDOVars.s_level, 1);
+            var currentNetHealth = zdo.GetFloat(ZDOVars.s_maxHealth, StartHealth);
+            var shouldScale = Mathf.Approximately(currentNetHealth, StartHealth) || Mathf.Approximately(currentNetHealth, StartHealth * Level);
+            if (!shouldScale) {
+                //Debug.Log($"Skipping scaling for {name}. NetHealth: {currentNetHealth} | StartHealth: {StartHealth} | StartHealth*Level: {StartHealth*Level}");
+                return;
+            }
+            
+            StartHealth *= Level;
+            
+            //Debug.Log($"{characterComponent.name}: Level = {Level}");
+            var multiplierSum = 1f + GetTotalHealthMultiplier();
+            characterComponent.SetMaxHealth(StartHealth * multiplierSum);
+            
+            foreach (var keyValuePair in _multipliers) {
+                var multiplier = GetMultiplier(keyValuePair.Key);
+                //Debug.Log($"{name} -> {keyValuePair.Key.ToString()} Bonus: +{multiplier * 100f:N0}%");
+            }
+            
+            /*Debug.Log($"{name} -> Total health bonus: +{GetTotalHealthMultiplier() * 100f:N0}%");
+            Debug.Log($"{name} -> Total damage bonus: +{GetTotalDamageMultiplier() * 100f:N0}%");
+            Debug.Log($"{characterComponent.name} -> Health: {StartHealth} -> {StartHealth * multiplierSum}");*/
+        }
+        
+        /// <summary>
+        /// Sets the value of the specified multiplier type.
+        /// </summary>
+        /// <param name="multiplierType">The multiplier type to get the value of.</param>
+        /// <param name="multiplierValue">The value to set the multiplier to.</param>
+        public void SetMultiplier(DifficultyScalerMultiplier multiplierType, float multiplierValue)
+        {
+            if (_multipliers.ContainsKey(multiplierType)) {
+                _multipliers[multiplierType] = multiplierValue;
+                return;
+            }
+
+            _multipliers.Add(multiplierType, multiplierValue);
         }
 
-        public void SetHealthMultiplier(float value) {
-            healthMultiplier = value;
-        }
+        /// <summary>
+        /// Returns the multiplier value for the specified type.
+        /// The default return value will be 0 If there are no multiplier for the specified type.
+        /// </summary>
+        /// <param name="multiplierType">The multiplier type to get the value of.</param>
+        /// <returns>
+        /// The multiplier value for the specified type.
+        /// The default return value will be 0 If there are no multiplier for the specified type.
+        /// </returns>
+        public float GetMultiplier(DifficultyScalerMultiplier multiplierType) =>
+            _multipliers.TryGetValue(multiplierType, out float multiplier)
+                ? (IsMultiplierBasedOnLevel(multiplierType)
+                    ? (Level - 1) * multiplier
+                    : multiplier)
+                : 0.0f;
 
-        public void SetDamageMultiplier(float value) {
-            damageMultiplier = value;
-        }
+        public float GetSumOfMultipliers(IEnumerable<DifficultyScalerMultiplier> multiplierTypes) =>
+            multiplierTypes.Sum(GetMultiplier);
 
-        public void SetBiomeMultiplier(float value) {
-            biomeMultiplier = value;
-        }
+        public float GetTotalDamageMultiplier() =>
+            _multipliers.Sum(keyValuePair =>
+                keyValuePair.Key == DifficultyScalerMultiplier.HealthMultiplier
+                    ? 0.0f
+                    : GetMultiplier(keyValuePair.Key));
 
-        public void SetNightMultiplier(float value) {
-            nightMultiplier = value;
-        }
+        public float GetTotalHealthMultiplier() => _multipliers.Sum(keyValuePair =>
+            keyValuePair.Key == DifficultyScalerMultiplier.DamageMultiplier
+                    ? 0.0f
+                    : GetMultiplier(keyValuePair.Key));
 
-        public void SetBossKillMultiplier(float value) {
-            bossKillMultiplier = value;
-        }
-
-        public void SetStarMultiplier(float value) {
-            starMultiplier = value;
-        }
-
-        public int GetLevel() {
-            return level;
-        }
-
-        public float GetHealthMultiplier() {
-            return healthMultiplier;
-        }
-
-        public float GetStartHealth() {
-            return startHealth;
-        }
-
-        public float GetDamageMultiplier() {
-            return damageMultiplier;
-        }
-
-        public float GetBiomeMultiplier() {
-            return biomeMultiplier;
-        }
-
-        public float GetNightMultiplier() {
-            return nightMultiplier;
-        }
-
-        public float GetBossKillMultiplier() {
-            return bossKillMultiplier;
-        }
-
-        public float GetStarMultiplier() {
-            return starMultiplier;
-        }
-
-        public float GetTotalDamageMultiplier() {
-            return damageMultiplier + biomeMultiplier + nightMultiplier + bossKillMultiplier + starMultiplier;
-        }
-
-        public float GetTotalHealthMultiplier() {
-            return healthMultiplier + biomeMultiplier + nightMultiplier + bossKillMultiplier + starMultiplier;
-        }
+        public bool IsMultiplierBasedOnLevel(DifficultyScalerMultiplier multiplierType) => multiplierType == DifficultyScalerMultiplier.StarMultiplier;
     }
-
 }
 

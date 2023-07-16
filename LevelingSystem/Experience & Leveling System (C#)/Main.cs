@@ -30,7 +30,7 @@ namespace Cozyheim.LevelingSystem
 
         // Mod information
         internal const string modName = "LevelingSystem";
-        internal const string version = "0.5.1";
+        internal const string version = "0.5.4";
         internal const string GUID = "dk.thrakal." + modName;
 
         // Core objects that is required to patch and configure the mod
@@ -127,9 +127,9 @@ namespace Cozyheim.LevelingSystem
 
             modAugaLoaded = CheckIfModIsLoaded("randyknapp.mods.auga");
             modDifficultyScalerLoaded = CheckIfModIsLoaded("dk.thrakal.DifficultyScaler");
-
             harmony.PatchAll();
-            configFile = new ConfigFile(Config.ConfigFilePath, true);
+            configFile = Config;/*new ConfigFile(Config.ConfigFilePath, true, Info.Metadata)
+            { SaveOnConfigSet = true };*/
             configFile.SaveOnConfigSet = true;
 
             // Asset Bundle loaded

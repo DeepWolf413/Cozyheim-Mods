@@ -27,81 +27,81 @@ namespace Cozyheim.LevelingSystem
                     switch(skill.skillType)
                     {
                         case SkillType.HP:
-                            skills.Add(skill.skillType, new SkillHP(skill.GetMaxLevel(), skill.GetBonusValue(), "HP", "Health"));
+                            skills.Add(skill.skillType, new SkillHP(skill.GetMaxLevel(), skill.GetBonusValue(), "HP", "Health", string.Empty, skill.GetBaseValue()));
                             break;
                         case SkillType.Stamina:
-                            skills.Add(skill.skillType, new SkillStamina(skill.GetMaxLevel(), skill.GetBonusValue(), "Stamina", "Stamina"));
+                            skills.Add(skill.skillType, new SkillStamina(skill.GetMaxLevel(), skill.GetBonusValue(), "Stamina", "Stamina", string.Empty, skill.GetBaseValue()));
                             break;
                         case SkillType.Eitr:
-                            skills.Add(skill.skillType, new SkillEitr(skill.GetMaxLevel(), skill.GetBonusValue(), "Eitr", "Eitr"));
+                            skills.Add(skill.skillType, new SkillEitr(skill.GetMaxLevel(), skill.GetBonusValue(), "Eitr", "Eitr", string.Empty, skill.GetBaseValue()));
                             break;
                         case SkillType.HPRegen:
-                            skills.Add(skill.skillType, new SkillHPRegen(skill.GetMaxLevel(), skill.GetBonusValue(), "HPRegen", "Health Regen", "%"));
+                            skills.Add(skill.skillType, new SkillHPRegen(skill.GetMaxLevel(), skill.GetBonusValue(), "HPRegen", "Health Regen", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.StaminaRegen:
-                            skills.Add(skill.skillType, new SkillStaminaRegen(skill.GetMaxLevel(), skill.GetBonusValue(), "StaminaRegen", "Stamina Regen", "%"));
+                            skills.Add(skill.skillType, new SkillStaminaRegen(skill.GetMaxLevel(), skill.GetBonusValue(), "StaminaRegen", "Stamina Regen", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.EitrRegen:
-                            skills.Add(skill.skillType, new SkillEitrRegen(skill.GetMaxLevel(), skill.GetBonusValue(), "EitrRegen", "Eitr Regen", "%"));
+                            skills.Add(skill.skillType, new SkillEitrRegen(skill.GetMaxLevel(), skill.GetBonusValue(), "EitrRegen", "Eitr Regen", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.CarryWeight:
-                            skills.Add(skill.skillType, new SkillCarryWeight(skill.GetMaxLevel(), skill.GetBonusValue(), "CarryWeight", "Carry Weight"));
+                            skills.Add(skill.skillType, new SkillCarryWeight(skill.GetMaxLevel(), skill.GetBonusValue(), "CarryWeight", "Carry Weight", string.Empty, skill.GetBaseValue()));
                             break;
                         case SkillType.Woodcutting:
-                            skills.Add(skill.skillType, new SkillWoodcutting(skill.GetMaxLevel(), skill.GetBonusValue(), "Woodcutting", "Woodcutting", "% damage"));
+                            skills.Add(skill.skillType, new SkillWoodcutting(skill.GetMaxLevel(), skill.GetBonusValue(), "Woodcutting", "Woodcutting", "% damage", skill.GetBaseValue()));
                             break;
                         case SkillType.Mining:
-                            skills.Add(skill.skillType, new SkillMining(skill.GetMaxLevel(), skill.GetBonusValue(), "Mining", "Mining", "% damage"));
+                            skills.Add(skill.skillType, new SkillMining(skill.GetMaxLevel(), skill.GetBonusValue(), "Mining", "Mining", "% damage", skill.GetBaseValue()));
                             break;
                         case SkillType.PhysicalDamage:
-                            skills.Add(skill.skillType, new SkillPhysicalDamage(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalDamage", "Physical Damage", "%"));
+                            skills.Add(skill.skillType, new SkillPhysicalDamage(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalDamage", "Physical Damage", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ElementalDamage:
-                            skills.Add(skill.skillType, new SkillElementalDamage(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalDamage", "Elemental Damage", "%"));
+                            skills.Add(skill.skillType, new SkillElementalDamage(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalDamage", "Elemental Damage", "%", skill.GetBaseValue()));
                             break;
 
                         // Physical defense skills
                         case SkillType.PhysicalResistance:
-                            skills.Add(skill.skillType, new SkillPhysicalResistance(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalResistance", "Physical Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillPhysicalResistance(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalResistance", "Physical Resistance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ResistanceSlash:
-                            skills.Add(skill.skillType, new SkillResistanceSlash(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalResistance", "Slash Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillResistanceSlash(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalResistance", "Slash Resistance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ResistancePierce:
-                            skills.Add(skill.skillType, new SkillResistancePierce(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalResistance", "Pierce Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillResistancePierce(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalResistance", "Pierce Resistance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ResistanceBlunt:
-                            skills.Add(skill.skillType, new SkillResistanceBlunt(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalResistance", "Blunt Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillResistanceBlunt(skill.GetMaxLevel(), skill.GetBonusValue(), "PhysicalResistance", "Blunt Resistance", "%", skill.GetBaseValue()));
                             break;
 
                         // Elemental defense skills
                         case SkillType.ElementalResistance:
-                            skills.Add(skill.skillType, new SkillElementalResistance(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Elemental Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillElementalResistance(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Elemental Resistance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ResistanceFire:
-                            skills.Add(skill.skillType, new SkillResistanceFire(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Fire Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillResistanceFire(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Fire Resistance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ResistanceFrost:
-                            skills.Add(skill.skillType, new SkillResistanceFrost(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Frost Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillResistanceFrost(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Frost Resistance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ResistanceLightning:
-                            skills.Add(skill.skillType, new SkillResistanceLightning(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Lightning Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillResistanceLightning(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Lightning Resistance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ResistancePoison:
-                            skills.Add(skill.skillType, new SkillResistancePoison(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Poison Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillResistancePoison(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Poison Resistance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.ResistanceSpirit:
-                            skills.Add(skill.skillType, new SkillResistanceSpirit(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Spirit Resistance", "%"));
+                            skills.Add(skill.skillType, new SkillResistanceSpirit(skill.GetMaxLevel(), skill.GetBonusValue(), "ElementalResistance", "Spirit Resistance", "%", skill.GetBaseValue()));
                             break;
 
                         case SkillType.MovementSpeed:
-                            skills.Add(skill.skillType, new SkillMovementSpeed(skill.GetMaxLevel(), skill.GetBonusValue(), "MovementSpeed", "Movement Speed", "%"));
+                            skills.Add(skill.skillType, new SkillMovementSpeed(skill.GetMaxLevel(), skill.GetBonusValue(), "MovementSpeed", "Movement Speed", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.CriticalChance:
-                            skills.Add(skill.skillType, new SkillCriticalHitChance(skill.GetMaxLevel(), skill.GetBonusValue(), "CriticalHitChance", "Critical Hit Chance", "%", 1f));
+                            skills.Add(skill.skillType, new SkillCriticalHitChance(skill.GetMaxLevel(), skill.GetBonusValue(), "CriticalHitChance", "Critical Hit Chance", "%", skill.GetBaseValue()));
                             break;
                         case SkillType.CriticalDamage:
-                            skills.Add(skill.skillType, new SkillCriticalHitDamage(skill.GetMaxLevel(), skill.GetBonusValue(), "CriticalHitDamage", "Critical Hit Damage", "%", 10f));
+                            skills.Add(skill.skillType, new SkillCriticalHitDamage(skill.GetMaxLevel(), skill.GetBonusValue(), "CriticalHitDamage", "Critical Hit Damage", "%", skill.GetBaseValue()));
                             break;
                         default:
                             break;
@@ -140,10 +140,15 @@ namespace Cozyheim.LevelingSystem
             }
         }
 
-        public void SkillSetLevel(SkillType skill, int level)
+        public void SkillSetLevel(SkillType skillType, int level)
         {
-            ConsoleLog.Print("Set skill " + skill.ToString() + " to level " + level.ToString());
-            skills[skill].SetLevel(level);
+            var skill = GetSkillByType(skillType);
+            if (skill == null) {
+                return;
+            }
+            
+            ConsoleLog.Print("Set skill " + skillType.ToString() + " to level " + level.ToString());
+            skill.SetLevel(level);
             UpdateUnspendPoints();
         }
 
@@ -164,11 +169,16 @@ namespace Cozyheim.LevelingSystem
 
         public SkillBase GetSkillByType(SkillType type)
         {
-            return skills[type];
+            return skills.TryGetValue(type, out var skill) ? skill : null;
         }
 
-        public void SkillLevelUp(SkillType skill)
+        public void SkillLevelUp(SkillType skillType)
         {
+            var skill = GetSkillByType(skillType);
+            if (skill == null) {
+                return;
+            }
+            
             if(!HasUnspendPoints())
             {
                 return;
@@ -185,15 +195,20 @@ namespace Cozyheim.LevelingSystem
             }
 
             for(int i = 0; i < pointsToSpend; i++) {
-                if(!skills[skill].AddLevel()) {
+                if(!skill.AddLevel()) {
                     break;
                 }
             }
             UpdateUnspendPoints();
         }
 
-        public void SkillLevelDown(SkillType skill)
+        public void SkillLevelDown(SkillType skillType)
         {
+            var skill = GetSkillByType(skillType);
+            if (skill == null) {
+                return;
+            }
+            
             int pointsToRemove = 1;
 
             if(Input.GetKey(Main.addMultiplePointsKey.Value)) {
@@ -201,12 +216,12 @@ namespace Cozyheim.LevelingSystem
             }
 
             if(Input.GetKey(Main.addMaxPointsKey.Value)) {
-                SkillReset(skill);
+                SkillReset(skillType);
                 return;
             }
 
             for(int i = 0; i < pointsToRemove; i++) {
-                if(!skills[skill].RemoveLevel()) {
+                if(!skill.RemoveLevel()) {
                     break;
                 }
             }
@@ -214,9 +229,14 @@ namespace Cozyheim.LevelingSystem
             UpdateUnspendPoints();
         }
 
-        public int SkillReset(SkillType skill)
+        public int SkillReset(SkillType skillType)
         {
-            int value = skills[skill].ResetLevel();
+            var skill = GetSkillByType(skillType);
+            if (skill == null) {
+                return 0;
+            }
+            
+            int value = skill.ResetLevel();
             UpdateUnspendPoints();
             return value;
         }
@@ -230,9 +250,14 @@ namespace Cozyheim.LevelingSystem
             UpdateUnspendPoints();
         }
 
-        public bool IsSkillMaxLevel(SkillType skill)
+        public bool IsSkillMaxLevel(SkillType skillType)
         {
-            return skills[skill].IsLevelMax();
+            var skill = GetSkillByType(skillType);
+            if (skill == null) {
+                return false;
+            }
+            
+            return skill.IsLevelMax();
         }
 
         public bool HasUnspendPoints()
@@ -245,6 +270,10 @@ namespace Cozyheim.LevelingSystem
             int count = 0;
             foreach(SkillSettings skill in SkillConfig.skillSettings)
             {
+                if (!skill.GetEnabled()) {
+                    continue;
+                }
+                
                 if(skill.category == category)
                 {
                     count += GetSkillByType(skill.skillType).GetLevel();

@@ -6,3 +6,11 @@ D:\Cozyheim Mods\Cozyheim-Repository\_Builds\Cozyheim_TameAll.dll
 D:\Cozyheim Mods\Cozyheim-Repository\TameAll\Tame All (C#)\obj\Debug\TameAll.csproj.AssemblyReference.cache
 D:\Cozyheim Mods\Cozyheim-Repository\TameAll\Tame All (C#)\obj\Debug\TameAll.csproj.CoreCompileInputs.cache
 D:\Cozyheim Mods\Cozyheim-Repository\TameAll\Tame All (C#)\obj\Debug\Cozyheim_TameAll.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_TameAll.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\TameAll\Tame All (C#)\obj\Debug\TameAll.csproj.AssemblyReference.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\TameAll\Tame All (C#)\obj\Debug\TameAll.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\TameAll\Tame All (C#)\obj\Debug\Cozyheim_TameAll.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim_TameAll.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\TameAll\Tame All (C#)\obj\Debug\TameAll.csproj.AssemblyReference.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\TameAll\Tame All (C#)\obj\Debug\TameAll.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\TameAll\Tame All (C#)\obj\Debug\Cozyheim_TameAll.dll

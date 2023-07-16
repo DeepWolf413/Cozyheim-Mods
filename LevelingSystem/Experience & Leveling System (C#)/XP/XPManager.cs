@@ -75,7 +75,7 @@ namespace Cozyheim.LevelingSystem
 
         public void AddMonsterDamage(Character monster, Character player, float damage)
         {
-            uint monsterID = monster.GetZDOID().id;
+            uint monsterID = monster.GetZDOID().ID;
             long playerID = player.GetComponent<Player>().GetPlayerID();
             string playerName = player.GetComponent<Player>().GetPlayerName();
 

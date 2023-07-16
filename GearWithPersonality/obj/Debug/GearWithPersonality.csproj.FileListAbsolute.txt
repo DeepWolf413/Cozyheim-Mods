@@ -2,3 +2,11 @@ D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\_Builds\Cozyheim_GearWithPersonal
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\GearWithPersonality\obj\Debug\GearWithPersonality.csproj.AssemblyReference.cache
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\GearWithPersonality\obj\Debug\GearWithPersonality.csproj.CoreCompileInputs.cache
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\GearWithPersonality\obj\Debug\Cozyheim_GearWithPersonality.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_GearWithPersonality.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\GearWithPersonality\obj\Debug\GearWithPersonality.csproj.AssemblyReference.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\GearWithPersonality\obj\Debug\GearWithPersonality.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\GearWithPersonality\obj\Debug\Cozyheim_GearWithPersonality.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim_GearWithPersonality.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\GearWithPersonality\obj\Debug\GearWithPersonality.csproj.AssemblyReference.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\GearWithPersonality\obj\Debug\GearWithPersonality.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\GearWithPersonality\obj\Debug\Cozyheim_GearWithPersonality.dll

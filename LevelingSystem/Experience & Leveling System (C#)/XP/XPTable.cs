@@ -28,6 +28,9 @@ namespace Cozyheim.LevelingSystem
             {"highstone_frac", "Stone"},
             {"Rock_3", "Stone"},
             {"Rock_3_frac", "Stone"},
+            {"Rock_4", "Stone"},
+            {"Rock_4_frac", "Stone"},
+            {"___MineRock5 m_meshFilter", "Stone"},
             {"rock2_heath", "Stone"},
             {"rock2_heath_frac", "Stone"},
             {"rock4_forest_", "Stone"},
@@ -484,6 +487,10 @@ namespace Cozyheim.LevelingSystem
         {
             name = name.Replace("(Clone)", "");
             string material = miningXPMappingTable.ContainsKey(name) ? miningXPMappingTable[name] : "";
+            if (string.IsNullOrEmpty(material)) {
+                return miningXPTable.ContainsKey(name) ? miningXPTable[name] : 0;
+            }
+            
             return miningXPTable.ContainsKey(material) ? miningXPTable[material] : 0;
         }
 

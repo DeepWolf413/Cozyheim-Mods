@@ -11,3 +11,11 @@ D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\_Builds\Cozyheim_AutoCloseDoors.d
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\AutoCloseDoors.csproj.AssemblyReference.cache
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\AutoCloseDoors.csproj.CoreCompileInputs.cache
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\Cozyheim_AutoCloseDoors.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_AutoCloseDoors.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\AutoCloseDoors.csproj.AssemblyReference.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\AutoCloseDoors.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\Cozyheim_AutoCloseDoors.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim_AutoCloseDoors.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\AutoCloseDoors.csproj.AssemblyReference.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\AutoCloseDoors.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\AutoCloseDoors\Auto Close Doors (C#)\obj\Debug\Cozyheim_AutoCloseDoors.dll

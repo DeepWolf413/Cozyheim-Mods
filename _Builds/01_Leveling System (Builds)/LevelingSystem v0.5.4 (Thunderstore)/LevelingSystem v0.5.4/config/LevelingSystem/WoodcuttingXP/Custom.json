@@ -1,0 +1,12 @@
+{
+/*
+*   Add your own custom entries to this list with the following format:
+*   PrefabName (string) : xpAmount (int)
+*
+*   Example
+*   "MyPrefab": 42,
+*   "AnotherPrefab": 1337 
+*/
+
+
+}

@@ -10,6 +10,8 @@ namespace Cozyheim.LevelingSystem
 {
     internal class UIManager : MonoBehaviour
     {
+        private static readonly int s_statusEffectRested = "Rested".GetStableHashCode();
+        
         // XP Bar
         private Text levelText, levelTextShadow;
         private Text levelUpText, levelUpTextShadow;
@@ -163,6 +165,10 @@ namespace Cozyheim.LevelingSystem
 
             foreach (SkillSettings skillSetting in SkillConfig.skillSettings)
             {
+                if (!skillSetting.GetEnabled()) {
+                    continue;
+                }
+                
                 if(index == (int)skillSetting.category)
                 {
                     SkillBase skill = SkillManager.Instance.GetSkillByType(skillSetting.skillType);
@@ -465,7 +471,7 @@ namespace Cozyheim.LevelingSystem
 
                     int totalXpGained = 0;
 
-                    StatusEffect SERested = Player.m_localPlayer.GetSEMan().GetStatusEffect("Rested");
+                    StatusEffect SERested = Player.m_localPlayer.GetSEMan().GetStatusEffect(s_statusEffectRested);
 
                     if (awardedXP > 0)
                     {

@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using static ItemDrop;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Cozyheim.GearWithPersonality {
     internal class RegisterKills {
@@ -61,9 +62,9 @@ namespace Cozyheim.GearWithPersonality {
                 }
 
                 // Register the kill
-                if(target.IsMonsterFaction() || target.IsBoss()) {
-                    for(int i = 0; i < player.GetInventory().GetEquipedtems().Count; i++) {
-                        ItemDrop.ItemData item = player.GetInventory().GetEquipedtems()[i];
+                if(target.IsMonsterFaction(Time.time) || target.IsBoss()) {
+                    for(int i = 0; i < player.GetInventory().GetEquippedItems().Count; i++) {
+                        ItemDrop.ItemData item = player.GetInventory().GetEquippedItems()[i];
                         if(IsItemAWeapon(item)) {
                             MaxDamagePersonality(item, totalDamage);
 

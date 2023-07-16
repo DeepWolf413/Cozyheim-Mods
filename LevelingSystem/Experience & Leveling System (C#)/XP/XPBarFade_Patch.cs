@@ -49,9 +49,19 @@ namespace Cozyheim.LevelingSystem
 
             if (player == null || player.IsDead() || player.IsTeleporting() || Game.instance.IsShuttingDown() || player.IsSleeping())
             {
+                if (UIManager.Instance == null) {
+                    ConsoleLog.Print("UIManager is missing! Can't fade out XPBar", LogType.Error);
+                    return;
+                }
+                
                 UIManager.Instance.FadeOutXPBar(fadeTime);
             } else
             {
+                if (UIManager.Instance == null) {
+                    ConsoleLog.Print("UIManager is missing! Can't fade out XPBar", LogType.Error);
+                    return;
+                }
+                
                 UIManager.Instance.FadeInXPBar(fadeTime);
             }
         }

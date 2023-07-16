@@ -21,8 +21,9 @@ namespace Cozyheim.MiningAOE {
         internal static ConfigSync configSync = new ConfigSync(GUID) { DisplayName = modName, CurrentVersion = version, MinimumRequiredVersion = version };
         internal static ConfigFile configFile;
 
-        void Awake() {
-            configFile = new ConfigFile(Config.ConfigFilePath, true);
+        void Awake()
+        {
+            configFile = Config;/*new ConfigFile(Config.ConfigFilePath, true);*/
             configFile.SaveOnConfigSet = true;
 
             ConfigSettings.Init();

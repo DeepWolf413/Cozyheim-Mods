@@ -2,3 +2,11 @@ D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\CookingRock\obj\Debug\CookingRock
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\CookingRock\obj\Debug\CookingRock.csproj.CoreCompileInputs.cache
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\_Builds\Cozyheim_CookingRock.dll
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\CookingRock\obj\Debug\Cozyheim_CookingRock.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_CookingRock.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\CookingRock\obj\Debug\CookingRock.csproj.AssemblyReference.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\CookingRock\obj\Debug\CookingRock.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\CookingRock\obj\Debug\Cozyheim_CookingRock.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim_CookingRock.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\CookingRock\obj\Debug\CookingRock.csproj.AssemblyReference.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\CookingRock\obj\Debug\CookingRock.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\CookingRock\obj\Debug\Cozyheim_CookingRock.dll

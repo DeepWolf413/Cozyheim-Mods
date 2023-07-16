@@ -7,3 +7,13 @@ D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\DifficultyScaler\Difficulty Scale
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\_Builds\Cozyheim_DifficultyScaler.dll
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\Cozyheim_DifficultyScaler.dll
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\DifficultyScaler.csproj.CopyComplete
+E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_DifficultyScaler.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\DifficultyScaler.csproj.AssemblyReference.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\DifficultyScaler.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\DifficultyScaler.csproj.CopyComplete
+E:\Projects\Modding\Valheim\Cozyheim-Mods\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\Cozyheim_DifficultyScaler.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim.DifficultyScaler.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\DifficultyScaler.csproj.AssemblyReference.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\DifficultyScaler.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\DifficultyScaler.csproj.CopyComplete
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\DifficultyScaler\Difficulty Scaler (C#)\obj\Debug\Cozyheim.DifficultyScaler.dll

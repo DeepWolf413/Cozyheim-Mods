@@ -1,0 +1,10 @@
+﻿{
+    "name": "DifficultyScaler_Fixed",
+    "version_number": "0.1.4",
+    "website_url": "https://www.nexusmods.com/valheim/users/169446733?tab=user+files",
+    "description": "This mod makes it possible to adjust the overall difficulty of the game, by adjusting the monster's base health and damage.",
+    "dependencies": [
+        "denikson-BepInExPack_Valheim-5.4.2105",
+        "ValheimModding-Jotunn-2.11.4"
+    ]
+}

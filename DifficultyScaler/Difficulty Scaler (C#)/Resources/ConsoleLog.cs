@@ -95,11 +95,31 @@ namespace Cozyheim.DifficultyScaler
                 string textToPrint = printMsg.ToString();
                 switch (type)
                 {
-                    case LogType.Info: Log.LogInfo(textToPrint); break;
-                    case LogType.Message: Log.LogMessage(textToPrint); break;
-                    case LogType.Warning: Log.LogWarning(textToPrint); break;
-                    case LogType.Error: Log.LogError(textToPrint); break;
-                    case LogType.Fatal: Log.LogFatal(textToPrint); break;
+                    case LogType.Info:
+                        if (Main.debugLevel.Value == LogType.Info) {
+                            Log.LogInfo(textToPrint);
+                        }
+                        break;
+                    case LogType.Message:
+                        if (Main.debugLevel.Value <= LogType.Message) {
+                            Log.LogMessage(textToPrint);
+                        }
+                        break;
+                    case LogType.Warning:
+                        if (Main.debugLevel.Value <= LogType.Warning) {
+                            Log.LogWarning(textToPrint);
+                        }
+                        break;
+                    case LogType.Error:
+                        if (Main.debugLevel.Value <= LogType.Error) {
+                            Log.LogError(textToPrint);
+                        }
+                        break;
+                    case LogType.Fatal:
+                        if (Main.debugLevel.Value <= LogType.Fatal) {
+                            Log.LogFatal(textToPrint);
+                        }
+                        break;
                     default: Log.LogInfo(textToPrint); break;
                 }
             }

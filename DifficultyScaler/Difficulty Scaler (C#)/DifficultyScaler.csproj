@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DifficultyScaler</RootNamespace>
-    <AssemblyName>Cozyheim_DifficultyScaler</AssemblyName>
+    <AssemblyName>Cozyheim.DifficultyScaler</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -108,6 +108,9 @@
   <ItemGroup>
     <Compile Include="MonsterModifier.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Patches\CharacterPatch.cs" />
+    <Compile Include="Patches\SpawnAreaPatch.cs" />
+    <Compile Include="Patches\WearNTearPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ConfigSync.cs" />
     <Compile Include="Resources\SimpleJSON.cs" />

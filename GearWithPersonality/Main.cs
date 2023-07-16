@@ -34,17 +34,17 @@ namespace Cozyheim.GearWithPersonality {
 
         void Update() {
             if(Input.GetKey(KeyCode.RightControl)) {
-                if(Player.m_localPlayer.GetInventory().GetEquipedtems().Count > 0) {
+                if(Player.m_localPlayer.GetInventory().GetEquippedItems().Count > 0) {
                     if(Input.GetKeyDown(KeyCode.P)) {
-                        ItemDrop.ItemData firstItem = Player.m_localPlayer.GetInventory().GetEquipedtems()[0];
+                        ItemDrop.ItemData firstItem = Player.m_localPlayer.GetInventory().GetEquippedItems()[0];
                         ItemPersonality.PrintAllPersonalityValues(firstItem);
                     }
                     if(Input.GetKeyDown(KeyCode.R)) {
-                        ItemDrop.ItemData firstItem = Player.m_localPlayer.GetInventory().GetEquipedtems()[0];
+                        ItemDrop.ItemData firstItem = Player.m_localPlayer.GetInventory().GetEquippedItems()[0];
                         ItemPersonality.RemoveAllPersonalities(firstItem);
                     }
                     if(Input.GetKeyDown(KeyCode.G)) {
-                        ItemDrop.ItemData firstItem = Player.m_localPlayer.GetInventory().GetEquipedtems()[0];
+                        ItemDrop.ItemData firstItem = Player.m_localPlayer.GetInventory().GetEquippedItems()[0];
                         float bonus = PersonalityTraits.GetWeaponTraitBonus(firstItem, Traits.TraitType.Slayer, "Neck");
                         if(bonus > 0) {
                             ConsoleLog.Print("Trait bonus: " + bonus);

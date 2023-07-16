@@ -101,7 +101,7 @@ namespace Cozyheim.LevelingSystem
                 {
                     ZPackage newPackage = new ZPackage();
 
-                    newPackage.Write(__instance.GetZDOID().id);
+                    newPackage.Write(__instance.GetZDOID().ID);
                     newPackage.Write(__instance.GetLevel());
                     newPackage.Write(__instance.name);
 
@@ -112,12 +112,12 @@ namespace Cozyheim.LevelingSystem
                     ConsoleLog.Print(__instance.name + ": Found DS = " + dsFound);
 
                     if(comp != null) {
-                        newPackage.Write(comp.GetHealthMultiplier());
-                        newPackage.Write(comp.GetDamageMultiplier());
-                        newPackage.Write(comp.GetBiomeMultiplier());
-                        newPackage.Write(comp.GetNightMultiplier());
-                        newPackage.Write(comp.GetBossKillMultiplier());
-                        newPackage.Write(comp.GetStarMultiplier());
+                        newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.HealthMultiplier));
+                        newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.DamageMultiplier));
+                        newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.BiomeMultiplier));
+                        newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.NightMultiplier));
+                        newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.BossKillMultiplier));
+                        newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.StarMultiplier));
                     }
 
                     XPManager.rpc_RewardXPMonster.SendPackage(ZRoutedRpc.Everybody, newPackage);

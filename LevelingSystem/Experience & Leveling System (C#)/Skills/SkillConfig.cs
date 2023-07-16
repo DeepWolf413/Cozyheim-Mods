@@ -14,7 +14,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 5f,
-                category = SkillCategory.Core
+                category = SkillCategory.Core,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -22,7 +23,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 5f,
-                category = SkillCategory.Core
+                category = SkillCategory.Core,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -30,14 +32,16 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 5f,
-                category = SkillCategory.Core
+                category = SkillCategory.Core,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings() {
                 skillType = SkillType.HPRegen,
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 5f,
-                category = SkillCategory.Core
+                category = SkillCategory.Core,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -45,7 +49,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 5f,
-                category = SkillCategory.Core
+                category = SkillCategory.Core,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -53,7 +58,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 5f,
-                category = SkillCategory.Core
+                category = SkillCategory.Core,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -61,7 +67,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 7.5f,
-                category = SkillCategory.Utility
+                category = SkillCategory.Utility,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -69,7 +76,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 1.5f,
-                category = SkillCategory.Utility
+                category = SkillCategory.Utility,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -77,7 +85,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 1.5f,
-                category = SkillCategory.Utility
+                category = SkillCategory.Utility,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -85,7 +94,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 1.5f,
-                category = SkillCategory.Offensive
+                category = SkillCategory.Offensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -93,7 +103,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 1.5f,
-                category = SkillCategory.Offensive
+                category = SkillCategory.Offensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -101,7 +112,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 1.5f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -109,7 +121,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 30,
                 defaultBonusValue = 3f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -117,7 +130,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 30,
                 defaultBonusValue = 3f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -125,7 +139,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 30,
                 defaultBonusValue = 3f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
 
             // Elemental defense skills
@@ -135,42 +150,48 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 1.5f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings() {
                 skillType = SkillType.ResistanceFire,
                 enabled = true,
                 defaultMaxLevel = 30,
                 defaultBonusValue = 3f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings() {
                 skillType = SkillType.ResistanceFrost,
                 enabled = true,
                 defaultMaxLevel = 30,
                 defaultBonusValue = 3f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings() {
                 skillType = SkillType.ResistanceLightning,
                 enabled = true,
                 defaultMaxLevel = 30,
                 defaultBonusValue = 3f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings() {
                 skillType = SkillType.ResistancePoison,
                 enabled = true,
                 defaultMaxLevel = 30,
                 defaultBonusValue = 3f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
             new SkillSettings() {
                 skillType = SkillType.ResistanceSpirit,
                 enabled = true,
                 defaultMaxLevel = 30,
                 defaultBonusValue = 3f,
-                category = SkillCategory.Defensive
+                category = SkillCategory.Defensive,
+            defaultBaseValue = 0.0f
             },
 
             new SkillSettings()
@@ -179,7 +200,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 1f,
-                category = SkillCategory.Utility
+                category = SkillCategory.Utility,
+                defaultBaseValue = 0.0f
             },
             new SkillSettings()
             {
@@ -187,7 +209,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 0.5f,
-                category = SkillCategory.Offensive
+                category = SkillCategory.Offensive,
+                defaultBaseValue = 1.0f
             },
             new SkillSettings()
             {
@@ -195,7 +218,8 @@ namespace Cozyheim.LevelingSystem
                 enabled = true,
                 defaultMaxLevel = 20,
                 defaultBonusValue = 5f,
-                category = SkillCategory.Offensive
+                category = SkillCategory.Offensive,
+                defaultBaseValue = 10.0f
             }
         };
     
@@ -228,19 +252,20 @@ namespace Cozyheim.LevelingSystem
         public bool enabled;
         public int defaultMaxLevel;
         public float defaultBonusValue;
+        public float defaultBaseValue;
         public SkillCategory category;
 
         private ConfigEntry<string> configSettings;
 
         public void CreateConfigEntries()
         {
-            string settingsString = enabled.ToString() + ":" + defaultMaxLevel.ToString() + ":" + defaultBonusValue.ToString();
+            string settingsString = enabled.ToString() + ":" + defaultMaxLevel.ToString() + ":" + defaultBonusValue.ToString() + ":" + defaultBaseValue.ToString();
             configSettings = Main.CreateConfigEntry
             (
                 "Skills",
                 skillType.ToString(),
                 settingsString,
-                "Settings for " + skillType.ToString() + ". Must follow the following format 'bool:int:float' (enabled:maxLevel:bonusValue)",
+                "Settings for " + skillType.ToString() + ". Must follow the following format 'bool:int:float:float' (enabled:maxLevel:bonusValue:baseValue)",
                 true
             );
         }
@@ -264,6 +289,59 @@ namespace Cozyheim.LevelingSystem
         public float GetBonusValue()
         {
             string data = configSettings.Value.Split(':')[2];
+
+            float valueA;
+            float valueB;
+            float valueC;
+
+            bool boolA = float.TryParse(data, out valueA);
+            bool boolB = float.TryParse(data.Replace(',', '.'), out valueB);
+            bool boolC = float.TryParse(data.Replace('.', ','), out valueC);
+
+            float lowestValue = 0f;
+
+            if (boolA && boolB && boolC)
+            {
+                lowestValue = Mathf.Min(Mathf.Min(valueA, valueB), valueC);
+            }
+            else if (boolA && boolB)
+            {
+                lowestValue = Mathf.Min(valueA, valueB);
+            }
+            else if (boolA && boolC)
+            {
+                lowestValue = Mathf.Min(valueA, valueC);
+            }
+            else if (boolB && boolC)
+            {
+                lowestValue = Mathf.Min(valueB, valueC);
+            }
+            else if (boolA)
+            {
+                lowestValue = valueA;
+            }
+            else if (boolB)
+            {
+                lowestValue = valueB;
+            }
+            else if (boolC)
+            {
+                lowestValue = valueC;
+            }
+
+            return lowestValue;
+        }
+        
+        public float GetBaseValue()
+        {
+            var splitData = configSettings.Value.Split(':');
+            string data;
+            if (splitData.Length < 4) {
+                data = defaultBaseValue.ToString();
+            }
+            else {
+                data = splitData[3];
+            }
 
             float valueA;
             float valueB;

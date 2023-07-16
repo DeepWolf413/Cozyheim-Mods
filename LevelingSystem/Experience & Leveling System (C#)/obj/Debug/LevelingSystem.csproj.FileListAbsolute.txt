@@ -12,3 +12,13 @@ D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\LevelingSystem\Experience & Level
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\LevelingSystem.csproj.CoreCompileInputs.cache
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\Cozyheim_LevelingSystem.dll
 D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\LevelingSystem.csproj.CopyComplete
+E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_LevelingSystem.dll
+E:\Projects\Modding\Valheim\Cozyheim-Mods\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\LevelingSystem.csproj.AssemblyReference.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\LevelingSystem.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Valheim\Cozyheim-Mods\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\LevelingSystem.csproj.CopyComplete
+E:\Projects\Modding\Valheim\Cozyheim-Mods\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\Cozyheim_LevelingSystem.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim_LevelingSystem.dll
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\LevelingSystem.csproj.AssemblyReference.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\LevelingSystem.csproj.CoreCompileInputs.cache
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\LevelingSystem.csproj.CopyComplete
+E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\LevelingSystem\Experience & Leveling System (C#)\obj\Debug\Cozyheim_LevelingSystem.dll
