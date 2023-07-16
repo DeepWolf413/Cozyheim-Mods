@@ -2,10 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Cozyheim.LevelingSystem.XPTable;
 
 namespace Cozyheim.LevelingSystem
 {
@@ -30,7 +26,6 @@ namespace Cozyheim.LevelingSystem
             {"Rock_3_frac", "Stone"},
             {"Rock_4", "Stone"},
             {"Rock_4_frac", "Stone"},
-            {"___MineRock5 m_meshFilter", "Stone"},
             {"rock2_heath", "Stone"},
             {"rock2_heath_frac", "Stone"},
             {"rock4_forest_", "Stone"},

@@ -11,6 +11,34 @@ namespace Cozyheim.LevelingSystem
         private class PatchClass
         {
             [HarmonyPrefix]
+            [HarmonyPatch(typeof(MineRock5), "Start")]
+            private static void MineRock5_Start_Prefix(MineRock5 __instance, ref object[] __state)
+            {
+                if (__instance == null)
+                {
+                    return;
+                }
+
+                __state = new object[] { __instance.name };
+            }
+            
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(MineRock5), "Start")]
+            private static void MineRock5_Start_Postfix(MineRock5 __instance, object[] __state)
+            {
+                if (__instance == null)
+                {
+                    return;
+                }
+
+                if (__state.Length == 0) {
+                    return;
+                }
+
+                __instance.name = (string)__state[0];
+            }
+            
+            [HarmonyPrefix]
             [HarmonyPatch(typeof(MineRock5), "Damage")]
             private static void MineRock5_Damage_Prefix(MineRock5 __instance, HitData hit, ZNetView ___m_nview)
             {
