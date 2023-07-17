@@ -1,4 +1,0 @@
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\_Builds\Cozyheim_UpgradeGear.dll
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\UpgradeGear\obj\Debug\UpgradeGear.csproj.AssemblyReference.cache
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\UpgradeGear\obj\Debug\UpgradeGear.csproj.CoreCompileInputs.cache
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\UpgradeGear\obj\Debug\Cozyheim_UpgradeGear.dll

@@ -1,4 +1,0 @@
-D:\Steam Games\steamapps\common\Valheim\BepInEx\scripts\SpawnTamedAnimals.dll
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\SpawnTamedAnimals\obj\Release\SpawnTamedAnimals.csproj.AssemblyReference.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\SpawnTamedAnimals\obj\Release\SpawnTamedAnimals.csproj.CoreCompileInputs.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\SpawnTamedAnimals\obj\Release\SpawnTamedAnimals.dll

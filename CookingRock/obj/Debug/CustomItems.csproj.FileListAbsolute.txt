@@ -1,4 +1,0 @@
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\_Builds\Cozyheim_CustomItems.dll
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\CustomItems\obj\Debug\CustomItems.csproj.AssemblyReference.cache
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\CustomItems\obj\Debug\CustomItems.csproj.CoreCompileInputs.cache
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\CustomItems\obj\Debug\Cozyheim_CustomItems.dll

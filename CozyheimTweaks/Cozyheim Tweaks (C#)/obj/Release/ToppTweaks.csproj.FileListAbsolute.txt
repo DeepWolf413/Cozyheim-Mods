@@ -1,6 +1,0 @@
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\ToppTweaks\bin\Release\ToppTweaks.dll
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\ToppTweaks\bin\Release\ToppTweaks.pdb
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\ToppTweaks\obj\Release\ToppTweaks.csproj.AssemblyReference.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\ToppTweaks\obj\Release\ToppTweaks.csproj.CoreCompileInputs.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\ToppTweaks\obj\Release\ToppTweaks.dll
-D:\Steam Games\steamapps\common\Valheim\BepInEx\scripts\ToppTweaks.dll

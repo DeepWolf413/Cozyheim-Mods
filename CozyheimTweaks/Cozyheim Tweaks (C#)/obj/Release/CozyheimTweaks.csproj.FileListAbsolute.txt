@@ -1,4 +1,0 @@
-D:\Steam Games\steamapps\common\Valheim\BepInEx\scripts\CozyheimTweaks.dll
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\ToppTweaks\obj\Release\CozyheimTweaks.csproj.AssemblyReference.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\ToppTweaks\obj\Release\CozyheimTweaks.csproj.CoreCompileInputs.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\ToppTweaks\obj\Release\CozyheimTweaks.dll

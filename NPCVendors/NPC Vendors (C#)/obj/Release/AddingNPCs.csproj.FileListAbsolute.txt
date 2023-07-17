@@ -1,4 +1,0 @@
-D:\Steam Games\steamapps\common\Valheim\BepInEx\scripts\AddingNPCs.dll
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\AddingNPCs\obj\Release\AddingNPCs.csproj.AssemblyReference.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\AddingNPCs\obj\Release\AddingNPCs.csproj.CoreCompileInputs.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\AddingNPCs\obj\Release\AddingNPCs.dll

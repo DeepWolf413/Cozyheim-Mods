@@ -1,4 +1,0 @@
-D:\Cozyheim Mods\Cozyheim-Repository\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\CozyheimModDependencies.csproj.AssemblyReference.cache
-D:\Cozyheim Mods\Cozyheim-Repository\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\CozyheimModDependencies.csproj.CoreCompileInputs.cache
-D:\Cozyheim Mods\Cozyheim-Repository\_Builds\Cozyheim_ModDependencies.dll
-D:\Cozyheim Mods\Cozyheim-Repository\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\Cozyheim_ModDependencies.dll

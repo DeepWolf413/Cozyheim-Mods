@@ -1,4 +1,0 @@
-D:\Steam Games\steamapps\common\Valheim\BepInEx\scripts\DeathChange.dll
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\DeathChange\obj\Release\DeathChange.csproj.AssemblyReference.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\DeathChange\obj\Release\DeathChange.csproj.CoreCompileInputs.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\DeathChange\obj\Release\DeathChange.dll

@@ -1,4 +1,0 @@
-D:\Steam Games\steamapps\common\Valheim\BepInEx\scripts\AutoCloseDoors.dll
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\AutoCloseDoors\obj\Release\AutoCloseDoors.csproj.AssemblyReference.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\AutoCloseDoors\obj\Release\AutoCloseDoors.csproj.CoreCompileInputs.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\AutoCloseDoors\obj\Release\AutoCloseDoors.dll

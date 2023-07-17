@@ -1,8 +1,0 @@
-E:\Projects\Modding\Valheim\Cozyheim-Mods\_Builds\Cozyheim_ModDependencies.dll
-E:\Projects\Modding\Valheim\Cozyheim-Mods\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\ModDependencies.csproj.AssemblyReference.cache
-E:\Projects\Modding\Valheim\Cozyheim-Mods\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\ModDependencies.csproj.CoreCompileInputs.cache
-E:\Projects\Modding\Valheim\Cozyheim-Mods\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\Cozyheim_ModDependencies.dll
-E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\_Builds\Cozyheim_ModDependencies.dll
-E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\ModDependencies.csproj.AssemblyReference.cache
-E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\ModDependencies.csproj.CoreCompileInputs.cache
-E:\Projects\Modding\Unity Games\Valheim\Cozyheim-Mods\CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\obj\Debug\Cozyheim_ModDependencies.dll

@@ -1,4 +1,0 @@
-D:\Cozyheim Mods\Cozyheim-Repository\_Builds\Cozyheim_Tweaks.dll
-D:\Cozyheim Mods\Cozyheim-Repository\CozyheimTweaks\Cozyheim Tweaks (C#)\obj\Debug\CozyheimTweaks.csproj.AssemblyReference.cache
-D:\Cozyheim Mods\Cozyheim-Repository\CozyheimTweaks\Cozyheim Tweaks (C#)\obj\Debug\CozyheimTweaks.csproj.CoreCompileInputs.cache
-D:\Cozyheim Mods\Cozyheim-Repository\CozyheimTweaks\Cozyheim Tweaks (C#)\obj\Debug\Cozyheim_Tweaks.dll

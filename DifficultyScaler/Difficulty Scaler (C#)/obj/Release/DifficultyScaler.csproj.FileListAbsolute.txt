@@ -1,9 +1,0 @@
-D:\Steam Games\steamapps\common\Valheim\BepInEx\scripts\DifficultyScaler.dll
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\DifficultyScaler\obj\Release\DifficultyScaler.csproj.AssemblyReference.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\DifficultyScaler\obj\Release\DifficultyScaler.csproj.CoreCompileInputs.cache
-D:\Valheim Mods (Custom mods)\Custom Mods - Patches (VS C#)\DifficultyScaler\obj\Release\DifficultyScaler.dll
-D:\Cozyheim Mods (Valheim)\Steam Games\steamapps\common\Valheim\BepInEx\scripts\Cozyheim_DifficultyScaler.dll
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\DifficultyScaler\Difficulty Scaler (C#)\obj\Release\DifficultyScaler.csproj.AssemblyReference.cache
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\DifficultyScaler\Difficulty Scaler (C#)\obj\Release\DifficultyScaler.csproj.CoreCompileInputs.cache
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\DifficultyScaler\Difficulty Scaler (C#)\obj\Release\Cozyheim_DifficultyScaler.dll
-D:\Cozyheim Mods (Valheim)\Cozyheim-Repository\DifficultyScaler\Difficulty Scaler (C#)\obj\Release\DifficultyScaler.csproj.CopyComplete
