@@ -31,7 +31,7 @@ internal class Main : BaseUnityPlugin
 
 	// Mod information
 	internal const string modName = "LevelingSystem";
-	internal const string version = "0.5.6";
+	internal const string version = "0.5.7";
 	internal const string GUID = "dk.thrakal." + modName;
 
 	internal static ConfigSync configSync = new(GUID)
