@@ -162,7 +162,7 @@ internal class ConsoleLog : ConsoleCommand
 
 	private static bool IsUserAdmin()
 	{
-		if (!SynchronizationManager.Instance.PlayerIsAdmin) {
+		if (!SynchronizationManager.Instance.PlayerIsAdmin && !ZNet.IsSinglePlayer) {
 			Player.m_localPlayer.Message(MessageHud.MessageType.Center, "Only admins are allowed to use this command");
 			return false;
 		}

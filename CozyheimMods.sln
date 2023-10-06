@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BountyHunter", "BountyHunte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurnBabyBurn", "BurnBabyBurn\Burn Baby Burn (C#)\BurnBabyBurn.csproj", "{08E95E0B-9564-440F-9D0B-E1DB1FF81B9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModDependencies", "CozyheimModDependencies\Cozyheim Mod Dependencies (C#)\ModDependencies.csproj", "{7A04B0BE-3AC2-4E3A-A137-9EC21F4722B7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweaks", "CozyheimTweaks\Cozyheim Tweaks (C#)\Tweaks.csproj", "{21A63F74-FAB0-4F71-9E4E-0DD830779DAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeathChange", "DeathChange\Death Change (C#)\DeathChange.csproj", "{CC4007F7-DBDA-4726-8CAA-721803D3D369}"
@@ -38,8 +36,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AugaTextFix", "AugaTextFix\AugaTextFix.csproj", "{288CB725-9070-4E85-8312-405C0B70B6B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiningAOE", "MiningAOE\MiningAOE.csproj", "{8A28E7CE-62C3-4339-BF7A-67C33D5CCE2F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_CozyheimAPI", "_CozyheimAPI\_CozyheimAPI.csproj", "{0B55E941-0EB5-4DB8-8F44-211C3CBD7919}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GearWithPersonality", "GearWithPersonality\GearWithPersonality.csproj", "{96E18EFC-4932-4BFC-B8C3-9A1E5546F3E3}"
 EndProject
@@ -71,10 +67,6 @@ Global
 		{08E95E0B-9564-440F-9D0B-E1DB1FF81B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08E95E0B-9564-440F-9D0B-E1DB1FF81B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08E95E0B-9564-440F-9D0B-E1DB1FF81B9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A04B0BE-3AC2-4E3A-A137-9EC21F4722B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A04B0BE-3AC2-4E3A-A137-9EC21F4722B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A04B0BE-3AC2-4E3A-A137-9EC21F4722B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A04B0BE-3AC2-4E3A-A137-9EC21F4722B7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21A63F74-FAB0-4F71-9E4E-0DD830779DAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21A63F74-FAB0-4F71-9E4E-0DD830779DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21A63F74-FAB0-4F71-9E4E-0DD830779DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -127,10 +119,6 @@ Global
 		{8A28E7CE-62C3-4339-BF7A-67C33D5CCE2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A28E7CE-62C3-4339-BF7A-67C33D5CCE2F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A28E7CE-62C3-4339-BF7A-67C33D5CCE2F}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{0B55E941-0EB5-4DB8-8F44-211C3CBD7919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B55E941-0EB5-4DB8-8F44-211C3CBD7919}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B55E941-0EB5-4DB8-8F44-211C3CBD7919}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B55E941-0EB5-4DB8-8F44-211C3CBD7919}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{96E18EFC-4932-4BFC-B8C3-9A1E5546F3E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{96E18EFC-4932-4BFC-B8C3-9A1E5546F3E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96E18EFC-4932-4BFC-B8C3-9A1E5546F3E3}.Release|Any CPU.ActiveCfg = Debug|Any CPU

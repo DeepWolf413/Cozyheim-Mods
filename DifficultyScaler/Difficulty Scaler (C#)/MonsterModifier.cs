@@ -1,15 +1,10 @@
 ﻿using HarmonyLib;
-using Cozyheim.API;
-using UnityEngine;
 
-namespace Cozyheim.DifficultyScaler
+namespace Cozyheim.DifficultyScaler;
+
+internal class MonsterModifier
 {
-    internal class MonsterModifier
-    {
-        [HarmonyPatch]
-        private class Patch
-        {
-            
-        }
-    }
+	[HarmonyPatch]
+	private class Patch
+	{ }
 }

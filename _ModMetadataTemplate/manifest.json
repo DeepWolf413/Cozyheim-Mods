@@ -4,7 +4,7 @@
     "website_url": "https://github.com/DeepWolf413/Cozyheim-Mods",
     "description": "A full experience and leveling system for Valheim. Allows you to gain experience for killing monsters, bosses & gathering resources",
     "dependencies": [
-        "denikson-BepInExPack_Valheim-5.4.2105",
-        "ValheimModding-Jotunn-2.11.4"
+        "denikson-BepInExPack_Valheim-5.4.2200",
+        "ValheimModding-Jotunn-2.14.3"
     ]
 }

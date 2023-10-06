@@ -31,7 +31,7 @@ internal class Main : BaseUnityPlugin
 
 	// Mod information
 	internal const string modName = "LevelingSystem";
-	internal const string version = "0.5.7";
+	internal const string version = "0.5.9";
 	internal const string GUID = "dk.thrakal." + modName;
 
 	internal static ConfigSync configSync = new(GUID)
@@ -147,7 +147,7 @@ internal class Main : BaseUnityPlugin
 		PrefabManager.OnVanillaPrefabsAvailable += LoadAssets;
 
 		// Assigning config entries
-		modEnabled = CreateConfigEntry("General", "modEnabled", true, "[ServerSync] Enable this mod");
+		modEnabled = CreateConfigEntry("General", "modEnabled", true, "[ServerSync] Enable this mod", true, true);
 		debugEnabled = CreateConfigEntry("General", "debugEnabled", false, "Display debug messages in the console", false);
 		debugMonsterInternalName = CreateConfigEntry("General", "debugMonsterInternalName", false, "Display the internal ID (prefab name) of monsters in the console, when you hit them", false);
 
@@ -164,7 +164,7 @@ internal class Main : BaseUnityPlugin
 		xpBarLevelTextPosition = CreateConfigEntry("XP Bar", "xpBarLevelTextPosition", Position.Above, "The position of the level text, relative to the xp bar.", false);
 
 		// Levels
-		pointsPerLevel = CreateConfigEntry("Levels", "pointsPerLevel", 1f, "[ServerSync] The amount of skill points gained per level");
+		pointsPerLevel = CreateConfigEntry("Levels", "pointsPerLevel", 1f, "[ServerSync] The amount of skill points gained per level", true, true);
 
 		// Skills Menu
 		showScrollbar = CreateConfigEntry("Skills Menu", "showScrollbar", true, "Display the scroll bar. (Setting to false only disables the graphics, you can still keep scrolling)", false);
@@ -188,36 +188,36 @@ internal class Main : BaseUnityPlugin
 		xpFontSize = CreateConfigEntry("XP Text", "xpFontSize", 100f, "The size  (in percentage) of the floating xp text. (100 = 100%, 50 = 50% etc.)", false);
 
 		// XP Multipliers
-		allXPMultiplier = CreateConfigEntry("XP Multipliers", "XPMultipliers", 100f, "[ServerSync] XP gained (in percentage) compared to the Monster XP Table. (100 = Same as XP table, 150 = +50%, 70 = -30%)");
-		monsterLvlXPMultiplier = CreateConfigEntry("XP Multipliers", "monsterLvlXPMultiplier", 50f, "[ServerSync] Bonus XP gained per monster level. (0 = No Bonus, 50 = +50% per level)");
-		restedXPMultiplier = CreateConfigEntry("XP Multipliers", "restedXPMultiplier", 30f, "[ServerSync] Bonus XP gained while rested. (0 = No Bonus, 30 = +30%)");
-		baseXpSpreadMin = CreateConfigEntry("XP Multipliers", "baseXpSpreadMin", 5f, "[ServerSync] Base XP spread, Minimum. (0 = Same as XP table, 5 = -5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.");
-		baseXpSpreadMax = CreateConfigEntry("XP Multipliers", "baseXpSpreadMax", 5f, "[ServerSync] Base XP spread, Maximum. (0 = Same as XP table, 5 = +5% from XP table) Used to ensure that the same monster don't reqard the exact same amount of XP every time.");
+		allXPMultiplier = CreateConfigEntry("XP Multipliers", "XPMultipliers", 100f, "[ServerSync] XP gained (in percentage) compared to the Monster XP Table. (100 = Same as XP table, 150 = +50%, 70 = -30%)", true, true);
+		monsterLvlXPMultiplier = CreateConfigEntry("XP Multipliers", "monsterLvlXPMultiplier", 50f, "[ServerSync] Bonus XP gained per monster level. (0 = No Bonus, 50 = +50% per level)", true, true);
+		restedXPMultiplier = CreateConfigEntry("XP Multipliers", "restedXPMultiplier", 30f, "[ServerSync] Bonus XP gained while rested. (0 = No Bonus, 30 = +30%)", true, true);
+		baseXpSpreadMin = CreateConfigEntry("XP Multipliers", "baseXpSpreadMin", 5f, "[ServerSync] Base XP spread, Minimum. (0 = Same as XP table, 5 = -5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.", true, true);
+		baseXpSpreadMax = CreateConfigEntry("XP Multipliers", "baseXpSpreadMax", 5f, "[ServerSync] Base XP spread, Maximum. (0 = Same as XP table, 5 = +5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.", true, true);
 
 		// Auga integration
 		useAugaBuildMenuUI = CreateConfigEntry("Auga Compatibility", "useAugaBuildMenuUI", true, "Using the Auga build menu HUD. Fixes compatibility issues. MUST be the same value as inthe Auga config. (Only required if you have Auga installed)", false);
 
 		// Difficulty Scaler integration
 		if (modDifficultyScalerLoaded) {
-			enableDifficultyScalerXP = CreateConfigEntry("Difficulty Scaler", "enableDifficultyScalerXP", false, "[ServerSync] Enable Difficulty Scaler XP integration (Requires the Difficulty Scaler mod is installed)");
+			enableDifficultyScalerXP = CreateConfigEntry("Difficulty Scaler", "enableDifficultyScalerXP", false, "[ServerSync] Enable Difficulty Scaler XP integration (Requires the Difficulty Scaler mod is installed)", true, true);
 
-			difficultyScalerOverallHealth = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallHealth", true, "[ServerSync] Use Difficulty Scaler's overall health difficulty multiplier");
-			difficultyScalerOverallHealthRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallHealthRatio", 0.5f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling");
+			difficultyScalerOverallHealth = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallHealth", true, "[ServerSync] Use Difficulty Scaler's overall health difficulty multiplier", true, true);
+			difficultyScalerOverallHealthRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallHealthRatio", 0.5f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling", true, true);
 
-			difficultyScalerOverallDamage = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallDamage", true, "[ServerSync] Use Difficulty Scaler's overall damage difficulty multiplier");
-			difficultyScalerOverallDamageRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallDamageRatio", 0.5f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling");
+			difficultyScalerOverallDamage = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallDamage", true, "[ServerSync] Use Difficulty Scaler's overall damage difficulty multiplier", true, true);
+			difficultyScalerOverallDamageRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallDamageRatio", 0.5f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling", true, true);
 
-			difficultyScalerBiome = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBiome", true, "[ServerSync] Use Difficulty Scaler's biome difficulty multiplier");
-			difficultyScalerBiomeRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBiomeRatio", 1f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling");
+			difficultyScalerBiome = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBiome", true, "[ServerSync] Use Difficulty Scaler's biome difficulty multiplier", true, true);
+			difficultyScalerBiomeRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBiomeRatio", 1f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling", true, true);
 
-			difficultyScalerBoss = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBoss", true, "[ServerSync] Use Difficulty Scaler's boss difficulty multiplier");
-			difficultyScalerBossRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBossRatio", 1f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling");
+			difficultyScalerBoss = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBoss", true, "[ServerSync] Use Difficulty Scaler's boss difficulty multiplier", true, true);
+			difficultyScalerBossRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBossRatio", 1f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling", true, true);
 
-			difficultyScalerNight = CreateConfigEntry("Difficulty Scaler", "difficultyScalerNight", true, "[ServerSync] Use Difficulty Scaler' night difficulty multiplier");
-			difficultyScalerNightRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerNightRatio", 1f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling");
+			difficultyScalerNight = CreateConfigEntry("Difficulty Scaler", "difficultyScalerNight", true, "[ServerSync] Use Difficulty Scaler' night difficulty multiplier", true, true);
+			difficultyScalerNightRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerNightRatio", 1f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling", true, true);
 
-			difficultyScalerStar = CreateConfigEntry("Difficulty Scaler", "difficultyScalerStar", true, "[ServerSync] Use Difficulty Scaler's star difficulty multiplier");
-			difficultyScalerStarRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerStarRatio", 1f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling");
+			difficultyScalerStar = CreateConfigEntry("Difficulty Scaler", "difficultyScalerStar", true, "[ServerSync] Use Difficulty Scaler's star difficulty multiplier", true, true);
+			difficultyScalerStarRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerStarRatio", 1f, "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling", true, true);
 		}
 
 		SkillConfig.Init();
@@ -231,15 +231,15 @@ internal class Main : BaseUnityPlugin
 		monsterXpTable = CreateConfigEntry("XP Table", "monsterXpTable", "", "(Obsolete! - Change the JSON file in the config folder instead) The base xp of monsters. (Changes requires to realod the config file)");
 
 		// Pickables
-		pickableXpEnabled = CreateConfigEntry("XP Table", "pickableXpEnabled", true, "[ServerSync] Gain XP when interacting with Pickables");
+		pickableXpEnabled = CreateConfigEntry("XP Table", "pickableXpEnabled", true, "[ServerSync] Gain XP when interacting with Pickables", true, true);
 		pickableXpTable = CreateConfigEntry("XP Table", "pickableXpTable", "", "(Obsolete! - Change the JSON file in the config folder instead) The base xp of pickables. (Changes requires to reload the config file)");
 
 		// Mining
-		miningXpEnabled = CreateConfigEntry("XP Table", "miningXpEnabled", true, "[ServerSync] Gain XP when mining");
+		miningXpEnabled = CreateConfigEntry("XP Table", "miningXpEnabled", true, "[ServerSync] Gain XP when mining", true, true);
 		miningXpTable = CreateConfigEntry("XP Table", "miningXpTable", "", "(Obsolete! - Change the JSON file in the config folder instead) The base xp for mining. (Changes requires to reload the config file)");
 
 		// Woodcutting
-		woodcuttingXpEnabled = CreateConfigEntry("XP Table", "woodcuttingXpEnabled", true, "[ServerSync] Gain XP when chopping trees");
+		woodcuttingXpEnabled = CreateConfigEntry("XP Table", "woodcuttingXpEnabled", true, "[ServerSync] Gain XP when chopping trees", true, true);
 		woodcuttingXpTable = CreateConfigEntry("XP Table", "woodcuttingXpTable", "", "(Obsolete! - Change the JSON file in the config folder instead) The base xp for woodcutting. (Changes requires to reload the config file)");
 
 
@@ -400,7 +400,13 @@ internal class Main : BaseUnityPlugin
 		return configEntry;
 	}
 
-	public static ConfigEntry<T> CreateConfigEntry<T>(string group, string name, T value, string description, bool synchronizedSetting = true) { return CreateConfigEntry(group, name, value, new ConfigDescription(description), synchronizedSetting); }
+	public static ConfigEntry<T> CreateConfigEntry<T>(string group, string name, T value, string description, bool synchronizedSetting = true, bool requiresAdminToChange = false)
+	{
+		var configAttributes = new ConfigurationManagerAttributes
+		{ IsAdminOnly = requiresAdminToChange };
+
+		return CreateConfigEntry(group, name, value, new ConfigDescription(description, null, configAttributes), synchronizedSetting);
+	}
 
 	#endregion
 }
