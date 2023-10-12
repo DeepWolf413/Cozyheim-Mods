@@ -248,6 +248,8 @@ namespace Cozyheim.LevelingSystem
 
 			skillsUIVisible = value;
 			viewportContent.anchoredPosition3D = Vector3.zero;
+
+			skillsUI.gameObject.SetActive(value);
 			GUIManager.BlockInput(value);
 
 			if (value) {

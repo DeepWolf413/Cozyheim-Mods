@@ -18,7 +18,7 @@ internal class Main : BaseUnityPlugin
 {
 	// Mod information
 	internal const string modName = "DifficultyScaler";
-	internal const string version = "0.1.5";
+	internal const string version = "0.1.6";
 	internal const string GUID = "dk.thrakal." + modName;
 
 	private static Dictionary<string, float> _monsterHealth;
