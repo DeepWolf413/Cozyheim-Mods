@@ -2,7 +2,6 @@
 using HarmonyLib;
 using Jotunn.Managers;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Cozyheim.LevelingSystem;
 
@@ -126,31 +125,6 @@ internal class PatchXP_Monster : MonoBehaviour
 		private static void Game_Logout_Prefix()
 		{
 			if (UIManager.Instance != null) UIManager.Instance.DestroySelf();
-		}
-
-
-		[HarmonyPrefix]
-		[HarmonyPatch(typeof(Hud), "SetupPieceInfo")]
-		private static void Hud_SetupPieceInfo_Prefix(ref Text ___m_buildSelection, ref Text ___m_pieceDescription, ref GameObject[] ___m_requirementItems)
-		{
-			var hudOffset = new Vector2(0f, 50f);
-
-			if (Main.modAugaLoaded && Main.useAugaBuildMenuUI.Value) {
-				var buildSelection = ___m_buildSelection.GetComponent<RectTransform>();
-				buildSelection.anchoredPosition = new Vector2(214f, -23f) + hudOffset;
-
-				var pieceDescription = ___m_pieceDescription.GetComponent<RectTransform>();
-				pieceDescription.anchoredPosition = new Vector2(214f, -59f) + hudOffset;
-
-				var background = buildSelection.parent.Find("Darken").GetComponent<RectTransform>();
-				background.anchoredPosition = new Vector2(0f, -10f) + hudOffset;
-
-				for (var i = 0; i < ___m_requirementItems.Length; i++)
-					if (___m_requirementItems[i].activeSelf) {
-						var rect = ___m_requirementItems[i].GetComponent<RectTransform>();
-						rect.anchoredPosition = new Vector2(32f + 70f * i, -32f) + hudOffset;
-					}
-			}
 		}
 
 		private static bool CanTargetAwardXP(Character target)

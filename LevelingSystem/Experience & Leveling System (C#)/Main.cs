@@ -17,7 +17,6 @@ namespace Cozyheim.LevelingSystem;
 
 [BepInPlugin(GUID, modName, version)]
 [BepInDependency(Jotunn.Main.ModGuid)]
-[BepInDependency("randyknapp.mods.auga", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("dk.thrakal.DifficultyScaler", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("org.bepinex.plugins.jewelcrafting", BepInDependency.DependencyFlags.SoftDependency)]
 [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
@@ -31,7 +30,7 @@ internal class Main : BaseUnityPlugin
 
 	// Mod information
 	internal const string modName = "LevelingSystem";
-	internal const string version = "0.5.11";
+	internal const string version = "0.5.12";
 	internal const string GUID = "dk.thrakal." + modName;
 
 	internal static ConfigSync configSync = new(GUID)
@@ -44,7 +43,6 @@ internal class Main : BaseUnityPlugin
 	internal static AssetBundle assetBundle;
 
 	// Check for other mods loaded
-	internal static bool modAugaLoaded;
 	internal static bool modDifficultyScalerLoaded;
 	internal static bool modJewelcraftingLoaded;
 
@@ -121,12 +119,6 @@ internal class Main : BaseUnityPlugin
 	internal static ConfigEntry<bool> difficultyScalerStar;
 	internal static ConfigEntry<float> difficultyScalerStarRatio;
 
-
-	// Auga integration
-	internal static ConfigEntry<bool> useAugaBuildMenuUI;
-
-	internal static ConfigEntry<int> nexusID;
-
 	// Core objects that is required to patch and configure the mod
 	private readonly Harmony harmony = new(GUID);
 
@@ -134,7 +126,6 @@ internal class Main : BaseUnityPlugin
 	{
 		AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-		modAugaLoaded = CheckIfModIsLoaded("randyknapp.mods.auga");
 		modDifficultyScalerLoaded = CheckIfModIsLoaded("dk.thrakal.DifficultyScaler");
 		modJewelcraftingLoaded = CheckIfModIsLoaded("org.bepinex.plugins.jewelcrafting");
 		harmony.PatchAll();
@@ -150,9 +141,6 @@ internal class Main : BaseUnityPlugin
 		modEnabled = CreateConfigEntry("General", "modEnabled", true, "[ServerSync] Enable this mod", true, true);
 		debugEnabled = CreateConfigEntry("General", "debugEnabled", false, "Display debug messages in the console", false);
 		debugMonsterInternalName = CreateConfigEntry("General", "debugMonsterInternalName", false, "Display the internal ID (prefab name) of monsters in the console, when you hit them", false);
-
-		// Nexus ID
-		nexusID = Config.Bind("General", "NexusID", 2282, "Nexus mod ID for updates");
 
 		// XP Bar
 		showLevel = CreateConfigEntry("XP Bar", "showLevel", true, "Display Level text", false);
@@ -193,9 +181,6 @@ internal class Main : BaseUnityPlugin
 		restedXPMultiplier = CreateConfigEntry("XP Multipliers", "restedXPMultiplier", 30f, "[ServerSync] Bonus XP gained while rested. (0 = No Bonus, 30 = +30%)", true, true);
 		baseXpSpreadMin = CreateConfigEntry("XP Multipliers", "baseXpSpreadMin", 5f, "[ServerSync] Base XP spread, Minimum. (0 = Same as XP table, 5 = -5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.", true, true);
 		baseXpSpreadMax = CreateConfigEntry("XP Multipliers", "baseXpSpreadMax", 5f, "[ServerSync] Base XP spread, Maximum. (0 = Same as XP table, 5 = +5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.", true, true);
-
-		// Auga integration
-		useAugaBuildMenuUI = CreateConfigEntry("Auga Compatibility", "useAugaBuildMenuUI", true, "Using the Auga build menu HUD. Fixes compatibility issues. MUST be the same value as inthe Auga config. (Only required if you have Auga installed)", false);
 
 		// Difficulty Scaler integration
 		if (modDifficultyScalerLoaded) {
@@ -249,8 +234,6 @@ internal class Main : BaseUnityPlugin
 		NetworkHandler.Init();
 		UIManager.Init();
 		XPManager.Init();
-
-		ConsoleLog.Print("Auga loaded: " + modAugaLoaded, LogType.Warning);
 	}
 
 	private void OnDestroy() { harmony.UnpatchSelf(); }

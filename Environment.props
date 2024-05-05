@@ -11,6 +11,6 @@
 
         <!-- This is the folder where your build gets copied to when using the post-build automations.
              Note the default value $(VALHEIM_INSTALL)\BepInEx\plugins requires the VALHEIM_INSTALL property to be set. -->
-        <!--<MOD_DEPLOYPATH>$(BEPINEX_PATH)\plugins</MOD_DEPLOYPATH>-->
+        <MOD_DEPLOYPATH>$(BEPINEX_PATH)\plugins</MOD_DEPLOYPATH>
     </PropertyGroup>
 </Project>
