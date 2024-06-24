@@ -34,7 +34,7 @@ internal static class CharacterPatch
 		var multipliers = new Dictionary<DifficultyScalerMultiplier, float>
 		{ { DifficultyScalerMultiplier.BiomeMultiplier, Main.GetBiomeMultiplier(Heightmap.FindBiome(__instance.transform.position)) },
 		  { DifficultyScalerMultiplier.BossKillMultiplier, Main.GetCalculatedBossKillMultiplier() },
-		  { DifficultyScalerMultiplier.NightMultiplier, EnvMan.instance.IsNight() ? Main.nightMultiplier.Value : 0f },
+		  { DifficultyScalerMultiplier.NightMultiplier, EnvMan.instance.CalculateNight() ? Main.nightMultiplier.Value : 0f },
 		  { DifficultyScalerMultiplier.HealthMultiplier, Main.overallHealthMultipler.Value },
 		  { DifficultyScalerMultiplier.DamageMultiplier, Main.overallDamageMultipler.Value },
 		  { DifficultyScalerMultiplier.StarMultiplier, Main.starMultiplier.Value } };

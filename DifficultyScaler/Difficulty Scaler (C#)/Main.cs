@@ -13,12 +13,13 @@ namespace Cozyheim.DifficultyScaler;
 [BepInPlugin(GUID, modName, version)]
 [BepInDependency(Jotunn.Main.ModGuid)]
 [BepInDependency("spawner_tweaks", BepInDependency.DependencyFlags.SoftDependency)]
+[BepInDependency("org.bepinex.plugins.creaturelevelcontrol", BepInDependency.DependencyFlags.SoftDependency)]
 [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
 internal class Main : BaseUnityPlugin
 {
 	// Mod information
 	internal const string modName = "DifficultyScaler";
-	internal const string version = "0.1.6";
+	internal const string version = "0.1.8";
 	internal const string GUID = "dk.thrakal." + modName;
 
 	private static Dictionary<string, float> _monsterHealth;
@@ -193,10 +194,11 @@ internal class Main : BaseUnityPlugin
 		for (var i = 0; i < monsterArray.Length; i++) {
 			var monsterData = monsterArray[i].Split(':');
 			if (monsterData.Length >= 2)
-				if (float.TryParse(monsterData[1], out var health)) {
-					var originalHealth = PrefabManager.Instance.GetPrefab(monsterData[0]).GetComponent<Humanoid>().m_health;
-					_monsterHealth.Add(monsterData[0].Trim() + "(Clone)", health);
-					ConsoleLog.Print(monsterData[0].Trim() + ": (" + originalHealth + " -> " + health + " HP)");
+				if (float.TryParse(monsterData[1].Trim(), out var health)) {
+					var monsterName = monsterData[0].Trim();
+					var originalHealth = PrefabManager.Instance.GetPrefab(monsterName).GetComponent<Humanoid>().m_health;
+					_monsterHealth.Add(monsterName + "(Clone)", health);
+					ConsoleLog.Print(monsterName + ": (" + originalHealth + " -> " + health + " HP)");
 				}
 		}
 
@@ -213,10 +215,11 @@ internal class Main : BaseUnityPlugin
 		for (var i = 0; i < monsterArray.Length; i++) {
 			var monsterData = monsterArray[i].Split(':');
 			if (monsterData.Length >= 2)
-				if (float.TryParse(monsterData[1], out var damage)) {
-					ConsoleLog.Print(monsterData[0].Trim() + ": " + damage + "% damage");
+				if (float.TryParse(monsterData[1].Trim(), out var damage)) {
+					var monsterName = monsterData[0].Trim();
+					ConsoleLog.Print(monsterName + ": " + damage + "% damage");
 					damage /= 100f;
-					_monsterDamage.Add(monsterData[0].Trim() + "(Clone)", damage);
+					_monsterDamage.Add(monsterName + "(Clone)", damage);
 				}
 		}
 
