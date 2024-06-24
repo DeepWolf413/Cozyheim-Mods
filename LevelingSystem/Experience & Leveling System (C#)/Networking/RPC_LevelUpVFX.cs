@@ -24,14 +24,19 @@ namespace Cozyheim.LevelingSystem
         private static IEnumerator LevelUpVFX_Server(long sender, ZPackage package)
         {
             ConsoleLog.Print("LevelUpVFX RPC");
-            if (!NetworkHandler.IsServer())
-            {
+            if (!NetworkHandler.IsServer() || package == null) {
                 yield break;
             }
+            
             ConsoleLog.Print("LevelUpVFX RPC Server");
 
             long playerID = package.ReadLong();
             Player player = Player.GetPlayer(playerID);
+            if (!player) {
+                ConsoleLog.Print($"Couldn't find a player with id '{playerID}'. Cancelling level up vfx.",
+                    LogType.Error);
+                yield break;
+            }
 
             ZPackage newPackage = new ZPackage();
             newPackage.Write(playerID);

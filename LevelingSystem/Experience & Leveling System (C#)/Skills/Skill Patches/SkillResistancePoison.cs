@@ -17,24 +17,18 @@ namespace Cozyheim.LevelingSystem
         private class PatchClass
         {
             [HarmonyPrefix]
-            [HarmonyPatch(typeof(Character), "ApplyDamage")]
-            private static void Character_ElementalResistance_Prefix(Character __instance, ref HitData hit)
+            [HarmonyPatch(typeof(Character), nameof(Character.AddPoisonDamage))]
+            private static void Character_ElementalResistance_Prefix(Character __instance, ref float damage)
             {
-                if (Instance == null)
-                {
+                if (Instance == null || damage <= 0.0f) {
                     return;
                 }
 
-                if (hit.HaveAttacker())
-                {
-                    if (__instance.m_faction == Character.Faction.Players)
-                    {
-                        float multiplier = 1 - ((Instance.level * Instance.bonusPerLevel) / 100);
-                        hit.m_damage.m_poison *= multiplier;
-                    }
+                if (__instance.m_faction == Character.Faction.Players) {
+                    float multiplier = 1 - ((Instance.level * Instance.bonusPerLevel) / 100);
+                    damage *= multiplier;
                 }
             }
         }
-
     }
 }

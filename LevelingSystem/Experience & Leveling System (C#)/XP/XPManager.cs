@@ -153,13 +153,16 @@ internal class XPManager : MonoBehaviour
 		var baseXpSpreadMin = Mathf.Min(1 - Main.baseXpSpreadMin.Value / 100f, 1f);
 		var baseXpSpreadMax = Mathf.Max(1 + Main.baseXpSpreadMax.Value / 100f, 1f);
 		var xpMultiplier = Mathf.Max(0f, Main.allXPMultiplier.Value / 100f);
+		var restedMultiplier = Mathf.Max(0f, Main.restedXPMultiplier.Value / 100f);
 
 		var xp = (int)(xpAmount * xpMultiplier * Random.Range(baseXpSpreadMin, baseXpSpreadMax));
+		var restedBonusXp = (int)(xp * restedMultiplier);
 
 		newPackage.Write(playerID);
 		newPackage.Write(xp);
 		newPackage.Write(itemType);
-
+		newPackage.Write(restedBonusXp);
+		
 		ConsoleLog.Print("Server: Sending XP to Player (XP: " + xp);
 
 		UIManager.rpc_AddExperience.SendPackage(ZRoutedRpc.Everybody, newPackage);
@@ -293,16 +296,48 @@ internal class XPManager : MonoBehaviour
 		return response;
 	}
 
-	public void SetPlayerLevel(int level) { Player.m_localPlayer.m_customData[saveLevelString] = level.ToString(); }
+	public void SetPlayerLevel(int level)
+	{
+		if (!Player.m_localPlayer || Player.m_localPlayer.m_customData == null) {
+			return;
+		}
 
-	public void SavePlayerLevel() { Player.m_localPlayer.m_customData[saveLevelString] = UIManager.Instance.playerLevel.ToString(); }
+		Player.m_localPlayer.m_customData[saveLevelString] = level.ToString();
+	}
 
-	public void SetPlayerXP(int xp) { Player.m_localPlayer.m_customData[saveXpString] = xp.ToString(); }
+	public void SavePlayerLevel()
+	{
+		if (!Player.m_localPlayer || Player.m_localPlayer.m_customData == null || !UIManager.Instance) {
+			return;
+		}
 
-	public void SavePlayerXP() { Player.m_localPlayer.m_customData[saveXpString] = UIManager.Instance.playerXP.ToString(); }
+		Player.m_localPlayer.m_customData[saveLevelString] = UIManager.Instance.playerLevel.ToString();
+	}
+
+	public void SetPlayerXP(int xp)
+	{
+		if (!Player.m_localPlayer || Player.m_localPlayer.m_customData == null) {
+			return;
+		}
+
+		Player.m_localPlayer.m_customData[saveXpString] = xp.ToString();
+	}
+
+	public void SavePlayerXP()
+	{
+		if (!Player.m_localPlayer || Player.m_localPlayer.m_customData == null || !UIManager.Instance) {
+			return;
+		}
+
+		Player.m_localPlayer.m_customData[saveXpString] = UIManager.Instance.playerXP.ToString();
+	}
 
 	public int GetPlayerLevel()
 	{
+		if (!Player.m_localPlayer || Player.m_localPlayer.m_customData == null) {
+			return 1;
+		}
+		
 		var value = 1;
 		if (Player.m_localPlayer.m_customData.ContainsKey(saveLevelString)) {
 			var savedString = Player.m_localPlayer.m_customData[saveLevelString];
@@ -314,6 +349,10 @@ internal class XPManager : MonoBehaviour
 
 	public int GetPlayerXP()
 	{
+		if (!Player.m_localPlayer || Player.m_localPlayer.m_customData == null) {
+			return 0;
+		}
+		
 		var value = 0;
 		if (Player.m_localPlayer.m_customData.ContainsKey(saveXpString)) {
 			var savedString = Player.m_localPlayer.m_customData[saveXpString];

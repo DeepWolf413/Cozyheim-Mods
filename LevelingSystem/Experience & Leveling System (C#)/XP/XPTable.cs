@@ -336,7 +336,23 @@ namespace Cozyheim.LevelingSystem
             {"DvergerMageIce", 2586},     // Difficulty: 7  - Faction: Dverger
             {"SeekerBrute", 6001},        // Difficulty: 11
             {"Gjall", 18002},             // Difficulty: 11
-            {"SeekerQueen", 72008}        // The Queen      
+            { "SeekerQueen", 72008 }, // The Queen
+
+            // Tier 7 Mobs: Ashlands
+            { "FallenValkyrie", 7500 },
+            { "Charred_Melee", 1750 },
+            { "Charred_Archer", 1250 },
+            { "Charred_Mage", 1500 },
+            { "Charred_Twitcher", 650 },
+            { "Charred_Melee_Fader", 1250 },
+            { "Morgen", 8000 },
+            { "BonemawSerpent", 5500 },
+            { "Asksvin", 2500 },
+            { "Volture", 1250 },
+            { "BlobLava", 2500 },
+            { "DvergerAshlands", 1750 },
+            { "Charred_Melee_Dyrnwyn", 27450 },
+            { "Fader", 100000 } // Fader
         };
 
         public static int[] playerXPTable;

@@ -35,15 +35,40 @@ namespace Cozyheim.LevelingSystem
                     if (__instance.m_faction == Character.Faction.Players)
                     {
                         float multiplier = 1 - ((Instance.level * Instance.bonusPerLevel) / 100);
-                        hit.m_damage.m_fire *= multiplier;
                         hit.m_damage.m_lightning *= multiplier;
                         hit.m_damage.m_frost *= multiplier;
-                        hit.m_damage.m_poison *= multiplier;
                         hit.m_damage.m_spirit *= multiplier;
                     }
                 }
             }
-        }
+            
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(Character), nameof(Character.AddFireDamage))]
+            private static void Character_FireResistance_Prefix(Character __instance, ref float damage)
+            {
+                if (Instance == null || damage <= 0.0f) {
+                    return;
+                }
 
+                if (__instance.m_faction == Character.Faction.Players) {
+                    float multiplier = 1 - ((Instance.level * Instance.bonusPerLevel) / 100);
+                    damage *= multiplier;
+                }
+            }
+            
+            [HarmonyPrefix]
+            [HarmonyPatch(typeof(Character), nameof(Character.AddPoisonDamage))]
+            private static void Character_PoisonResistance_Prefix(Character __instance, ref float damage)
+            {
+                if (Instance == null || damage <= 0.0f) {
+                    return;
+                }
+
+                if (__instance.m_faction == Character.Faction.Players) {
+                    float multiplier = 1 - ((Instance.level * Instance.bonusPerLevel) / 100);
+                    damage *= multiplier;
+                }
+            }
+        }
     }
 }

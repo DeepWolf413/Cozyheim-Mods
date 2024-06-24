@@ -384,21 +384,29 @@ namespace Cozyheim.LevelingSystem
 			var playerID = package.ReadLong();
 			var awardedXP = package.ReadInt();
 			var itemType = package.ReadString();
+			var restedBonusXP = package.ReadInt();
 
 			if (Player.m_localPlayer != null)
 				if (playerID == Player.m_localPlayer.GetPlayerID()) {
 					ConsoleLog.Print("Received Experience");
+					var totalXpAward = awardedXP;
 					Instance.AddExperience(awardedXP);
+
+					var restedStatusEffect = Player.m_localPlayer.GetSEMan().GetStatusEffect(s_statusEffectRested);
+					if (restedStatusEffect != null) {
+						Instance.AddExperience(restedBonusXP, XPType.Rested);
+						totalXpAward += restedBonusXP;
+					}
 
 					switch (itemType) {
 						case "Woodcutting":
-							if (Main.displayWoodcuttingXPText.Value) SpawnFloatingXPText(awardedXP);
+							if (Main.displayWoodcuttingXPText.Value) SpawnFloatingXPText(totalXpAward);
 							break;
 						case "Mining":
-							if (Main.displayMiningXPText.Value) SpawnFloatingXPText(awardedXP);
+							if (Main.displayMiningXPText.Value) SpawnFloatingXPText(totalXpAward);
 							break;
 						case "Pickable":
-							if (Main.displayPickupXPText.Value) SpawnFloatingXPText(awardedXP);
+							if (Main.displayPickupXPText.Value) SpawnFloatingXPText(totalXpAward);
 							break;
 						default:
 							yield break;

@@ -28,10 +28,15 @@ internal class PatchXP_Pickable : MonoBehaviour
 		}
 
 		[HarmonyPrefix]
-		[HarmonyPatch(typeof(Pickable), "RPC_SetPicked")]
+		[HarmonyPatch(typeof(Pickable), nameof(Pickable.RPC_SetPicked))]
 		private static void Pickable_RPCSetPicked_Prefix(Pickable __instance, long sender, bool picked, bool ___m_picked)
 		{
-			if (__instance == null || Player.m_localPlayer.GetZDOID().UserID != sender) {
+			var player = Player.m_localPlayer;
+			if (player == null) {
+				return;
+			}
+			
+			if (__instance == null || player.GetZDOID().UserID != sender) {
 				ConsoleLog.Print($"Sender id ({sender}) doesn't match with nview uid ({Player.m_localPlayer.GetZDOID().UserID})", LogType.Error);
 				return;
 			}
@@ -39,12 +44,6 @@ internal class PatchXP_Pickable : MonoBehaviour
 			// Ignore if already picked.
 			if (picked == ___m_picked || !picked) {
 				ConsoleLog.Print("Already picked!", LogType.Error);
-				return;
-			}
-
-			var player = Player.m_localPlayer;
-			if (player == null) {
-				ConsoleLog.Print("Failed to get local player from Pickable_RPCSetPicked", LogType.Error);
 				return;
 			}
 
