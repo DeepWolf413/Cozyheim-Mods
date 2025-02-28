@@ -3,11 +3,11 @@
     <PropertyGroup>
         <!-- Valheim install folder. This is usually found automatically, uncomment to overwrite.
              Needs to be your path to the base Valheim folder. -->
-        <VALHEIM_INSTALL>F:\Steam\steamapps\common\Valheim</VALHEIM_INSTALL>
+        <VALHEIM_INSTALL>D:\Games\steamapps\common\Valheim</VALHEIM_INSTALL>
 
         <!-- BepInEx install folder. This is usually found automatically, uncomment to overwrite.
              Note the default value $(VALHEIM_INSTALL)\BepInEx requires the VALHEIM_INSTALL property to be set. -->
-        <BEPINEX_PATH>$(APPDATA)\r2modmanPlus-local\Valheim\profiles\DeepWolf_LevelingModDevelopment\BepInEx</BEPINEX_PATH>
+        <BEPINEX_PATH>$(APPDATA)\r2modmanPlus-local\Valheim\profiles\ModTestEnvironment\BepInEx</BEPINEX_PATH>
 
         <!-- This is the folder where your build gets copied to when using the post-build automations.
              Note the default value $(VALHEIM_INSTALL)\BepInEx\plugins requires the VALHEIM_INSTALL property to be set. -->

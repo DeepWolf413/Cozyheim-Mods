@@ -14,7 +14,6 @@ internal class XPManager : MonoBehaviour
 	// Network communication RPC
 	public static CustomRPC rpc_AddMonsterDamage;
 	public static CustomRPC rpc_RewardXPMonster;
-	public static CustomRPC rpc_RewardXP;
 	public static CustomRPC rpc_GetXP;
 
 	private static XPManager _instance;
@@ -35,7 +34,6 @@ internal class XPManager : MonoBehaviour
 		// Register RPC Methods
 		rpc_AddMonsterDamage = NetworkManager.Instance.AddRPC("AddMonsterDamage", RPC_AddMonsterDamage, RPC_AddMonsterDamage);
 		rpc_RewardXPMonster = NetworkManager.Instance.AddRPC("RewardXPMonster", RPC_RewardXPMonsters, RPC_RewardXPMonsters);
-		rpc_RewardXP = NetworkManager.Instance.AddRPC("RewardXP", RPC_RewardXP, RPC_RewardXP);
 		rpc_GetXP = NetworkManager.Instance.AddRPC("GetXP", RPC_GetXPFromServer, RPC_GetXPFromServer);
 
 		XPTable.UpdateMiningXPTable();
@@ -47,7 +45,11 @@ internal class XPManager : MonoBehaviour
 
 	private static IEnumerator RPC_AddMonsterDamage(long sender, ZPackage package)
 	{
-		if (!ZNet.instance.IsServer()) yield break;
+		if (!ZNet.instance.IsServer())
+		{
+			ConsoleLog.Print("Expected server instance but got a non-server instance. Rejecting RPC", LogType.Error);
+			yield break;
+		}
 
 		var monsterID = package.ReadUInt();
 		var playerID = package.ReadLong();
@@ -81,7 +83,7 @@ internal class XPManager : MonoBehaviour
 		newPackage.Write(playerName);
 
 		ConsoleLog.Print("Sending damage to server RPC");
-		rpc_AddMonsterDamage.SendPackage(ZRoutedRpc.Everybody, newPackage);
+		rpc_AddMonsterDamage.SendPackage(ZRoutedRpc.instance.GetServerPeerID(), newPackage);
 	}
 
 	private MonsterXP CreateNewMonsterXP(uint monsterID)
@@ -100,12 +102,16 @@ internal class XPManager : MonoBehaviour
 		newPackage.Write(itemName);
 		newPackage.Write(itemType);
 		newPackage.Write(xpMultiplier);
-		rpc_GetXP.SendPackage(ZRoutedRpc.Everybody, newPackage);
+		rpc_GetXP.SendPackage(ZRoutedRpc.instance.GetServerPeerID(), newPackage);
 	}
 
 	private static IEnumerator RPC_GetXPFromServer(long sender, ZPackage package)
 	{
-		if (!ZNet.instance.IsServer()) yield break;
+		if (!ZNet.instance.IsServer())
+		{
+			ConsoleLog.Print("Expected server instance but got a non-server instance. Rejecting RPC", LogType.Error);
+			yield break;
+		}
 
 		var playerID = package.ReadLong();
 		var itemName = package.ReadString();
@@ -129,26 +135,20 @@ internal class XPManager : MonoBehaviour
 				yield break;
 		}
 
-		if (xp <= 0) yield break;
+		if (xp <= 0) {
+			yield break;
+		}
 
 		ConsoleLog.Print("Server: Found XP = " + xp);
-
-		var newPackage = new ZPackage();
-		newPackage.Write(playerID);
-		newPackage.Write(xp * xpMultiplier);
-		newPackage.Write(itemType);
-
-		rpc_RewardXP.SendPackage(ZRoutedRpc.Everybody, newPackage);
+		//var playerPeerId = ZNet.instance.GetPeer(playerID).m_uid;
+		RewardXP(sender, playerID, xp * xpMultiplier, itemType);
 	}
 
-	private static IEnumerator RPC_RewardXP(long sender, ZPackage package)
+	private static void RewardXP(long playerPeerId, long playerId, int xpAmount, string itemType)
 	{
-		if (!ZNet.instance.IsServer()) yield break;
-
-		var newPackage = new ZPackage();
-		var playerID = package.ReadLong();
-		var xpAmount = package.ReadInt();
-		var itemType = package.ReadString();
+		if (!ZNet.instance.IsServer()) {
+			return;
+		}
 
 		var baseXpSpreadMin = Mathf.Min(1 - Main.baseXpSpreadMin.Value / 100f, 1f);
 		var baseXpSpreadMax = Mathf.Max(1 + Main.baseXpSpreadMax.Value / 100f, 1f);
@@ -158,14 +158,14 @@ internal class XPManager : MonoBehaviour
 		var xp = (int)(xpAmount * xpMultiplier * Random.Range(baseXpSpreadMin, baseXpSpreadMax));
 		var restedBonusXp = (int)(xp * restedMultiplier);
 
-		newPackage.Write(playerID);
+		var newPackage = new ZPackage();
+		newPackage.Write(playerId);
 		newPackage.Write(xp);
 		newPackage.Write(itemType);
 		newPackage.Write(restedBonusXp);
 		
 		ConsoleLog.Print("Server: Sending XP to Player (XP: " + xp);
-
-		UIManager.rpc_AddExperience.SendPackage(ZRoutedRpc.Everybody, newPackage);
+		UIManager.rpc_AddExperience.SendPackage(playerPeerId, newPackage);
 	}
 
 	private static IEnumerator RPC_RewardXPMonsters(long sender, ZPackage package)
@@ -259,24 +259,12 @@ internal class XPManager : MonoBehaviour
 
 				ConsoleLog.Print("Sending " + (xpPercentage * 100f).ToString("N1") + "% xp to " + damage.playerName + ". (Awarded: " + (int)awardedXP + ", Level bonus: " + (int)monsterLevelBonusXp + ", Rested bonus: " + (int)restedBonusXp + ")");
 
-				UIManager.rpc_AddExperienceMonster.SendPackage(ZRoutedRpc.Everybody, newPackage);
+				//var playerPeerId = ZNet.instance.GetPeer(sender);
+				UIManager.rpc_AddExperienceMonster.SendPackage(sender, newPackage);
 			}
 
 			Instance.xpObjects.Remove(monsterObj);
 		}
-	}
-
-	public void RewardXP(Character monster)
-	{
-		ConsoleLog.Print("Monster died (Client)");
-
-		var newPackage = new ZPackage();
-
-		newPackage.Write(monster.GetInstanceID());
-		newPackage.Write(monster.GetLevel());
-		newPackage.Write(monster.name);
-
-		rpc_RewardXPMonster.SendPackage(ZRoutedRpc.Everybody, newPackage);
 	}
 
 	private MonsterXP GetMonsterXP(uint monsterID)

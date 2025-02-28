@@ -106,7 +106,7 @@ internal class PatchXP_Monster : MonoBehaviour
 					newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.StarMultiplier));
 				}
 
-				XPManager.rpc_RewardXPMonster.SendPackage(ZRoutedRpc.Everybody, newPackage);
+				XPManager.rpc_RewardXPMonster.SendPackage(ZRoutedRpc.instance.GetServerPeerID(), newPackage);
 			}
 		}
 

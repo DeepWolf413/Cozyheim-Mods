@@ -1,6 +1,4 @@
-﻿using BepInEx.Configuration;
-using HarmonyLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Cozyheim.LevelingSystem
 {
