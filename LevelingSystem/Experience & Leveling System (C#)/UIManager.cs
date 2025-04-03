@@ -424,9 +424,9 @@ namespace Cozyheim.LevelingSystem
 			var playerID = package.ReadLong();
 			var monsterName = package.ReadString();
 
-			if (Player.m_localPlayer != null)
+			if (Player.m_localPlayer != null) {
 				if (playerID == Player.m_localPlayer.GetPlayerID()) {
-					ConsoleLog.Print("Received Expereience from " + monsterName);
+					ConsoleLog.Print("Received Experience from " + monsterName);
 
 					var totalXpGained = 0;
 
@@ -449,7 +449,7 @@ namespace Cozyheim.LevelingSystem
 
 					if (Main.displayMonsterXPText.Value) SpawnFloatingXPText(totalXpGained);
 				}
-
+			}
 			yield return null;
 		}
 

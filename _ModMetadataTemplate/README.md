@@ -12,16 +12,9 @@
   - Configs to adjust xp scaling per difficulty multiplier.
 
 ## Bug Reporting & Feedback
-If you have any feedback or issues you need fixed, you can join the original creator's Discord server, or DM me on Discord: **deepwolf**
+If you have any feedback or bugs, you can join the original creator's Discord server and tag me **deepwolf**, or create an issue on my [GitHub Repository](https://github.com/DeepWolf413/Cozyheim-Mods)
 
 [Cozyheim Discord Server](https://discord.gg/KjuQHJqqXe)
 
 ## Credits
 The original mod was made by **Thrakal** (aka Cozyheim).
-This version of the mod is fixed/updated by DeepWolf413 (me).
-
-&nbsp;
---
-
-| Learn more about the original author and his mods at www.cozyheim.dk |
---

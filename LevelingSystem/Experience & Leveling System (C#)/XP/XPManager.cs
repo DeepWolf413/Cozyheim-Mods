@@ -50,7 +50,7 @@ internal class XPManager : MonoBehaviour
 			ConsoleLog.Print("Expected server instance but got a non-server instance. Rejecting RPC", LogType.Error);
 			yield break;
 		}
-
+		
 		var monsterID = package.ReadUInt();
 		var playerID = package.ReadLong();
 		var damage = package.ReadSingle();
@@ -75,7 +75,7 @@ internal class XPManager : MonoBehaviour
 		var monsterID = monster.GetZDOID().ID;
 		var playerID = player.GetComponent<Player>().GetPlayerID();
 		var playerName = player.GetComponent<Player>().GetPlayerName();
-
+		
 		var newPackage = new ZPackage();
 		newPackage.Write(monsterID);
 		newPackage.Write(playerID);
@@ -138,7 +138,7 @@ internal class XPManager : MonoBehaviour
 		if (xp <= 0) {
 			yield break;
 		}
-
+		
 		ConsoleLog.Print("Server: Found XP = " + xp);
 		//var playerPeerId = ZNet.instance.GetPeer(playerID).m_uid;
 		RewardXP(sender, playerID, xp * xpMultiplier, itemType);
@@ -257,10 +257,15 @@ internal class XPManager : MonoBehaviour
 				newPackage.Write(monsterName);
 
 
+				var player = Player.GetPlayer(damage.playerID);
+				if (player == null)
+				{
+					ConsoleLog.Print($"Failed to find player with id {damage.playerID}", LogType.Error);
+					continue;
+				}
+				
 				ConsoleLog.Print("Sending " + (xpPercentage * 100f).ToString("N1") + "% xp to " + damage.playerName + ". (Awarded: " + (int)awardedXP + ", Level bonus: " + (int)monsterLevelBonusXp + ", Rested bonus: " + (int)restedBonusXp + ")");
-
-				//var playerPeerId = ZNet.instance.GetPeer(sender);
-				UIManager.rpc_AddExperienceMonster.SendPackage(sender, newPackage);
+				UIManager.rpc_AddExperienceMonster.SendPackage(player.GetZDOID().UserID, newPackage);
 			}
 
 			Instance.xpObjects.Remove(monsterObj);
