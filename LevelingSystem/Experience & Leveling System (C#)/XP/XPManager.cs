@@ -73,7 +73,7 @@ internal class XPManager : MonoBehaviour
 	public void AddMonsterDamage(Character monster, Character player, float damage)
 	{
 		var monsterID = monster.GetZDOID().ID;
-		var playerID = player.GetComponent<Player>().GetPlayerID();
+		var playerID = player.GetZDOID().UserID;
 		var playerName = player.GetComponent<Player>().GetPlayerName();
 		
 		var newPackage = new ZPackage();
@@ -140,7 +140,6 @@ internal class XPManager : MonoBehaviour
 		}
 		
 		ConsoleLog.Print("Server: Found XP = " + xp);
-		//var playerPeerId = ZNet.instance.GetPeer(playerID).m_uid;
 		RewardXP(sender, playerID, xp * xpMultiplier, itemType);
 	}
 
@@ -255,17 +254,9 @@ internal class XPManager : MonoBehaviour
 				newPackage.Write((int)restedBonusXp);
 				newPackage.Write(damage.playerID);
 				newPackage.Write(monsterName);
-
-
-				var player = Player.GetPlayer(damage.playerID);
-				if (player == null)
-				{
-					ConsoleLog.Print($"Failed to find player with id {damage.playerID}", LogType.Error);
-					continue;
-				}
 				
 				ConsoleLog.Print("Sending " + (xpPercentage * 100f).ToString("N1") + "% xp to " + damage.playerName + ". (Awarded: " + (int)awardedXP + ", Level bonus: " + (int)monsterLevelBonusXp + ", Rested bonus: " + (int)restedBonusXp + ")");
-				UIManager.rpc_AddExperienceMonster.SendPackage(player.GetZDOID().UserID, newPackage);
+				UIManager.rpc_AddExperienceMonster.SendPackage(damage.playerID, newPackage);
 			}
 
 			Instance.xpObjects.Remove(monsterObj);
