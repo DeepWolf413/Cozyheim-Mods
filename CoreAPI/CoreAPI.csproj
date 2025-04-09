@@ -47,6 +47,7 @@
     <ItemGroup>
       <Reference Include="Jotunn, Version=2.23.2.0, Culture=neutral, processorArchitecture=MSIL">
         <HintPath>..\packages\JotunnLib.2.23.2\lib\net462\Jotunn.dll</HintPath>
+        <Private>False</Private>
       </Reference>
       <Reference Include="Microsoft.CSharp" />
       <Reference Include="System" />

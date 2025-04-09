@@ -31,25 +31,25 @@ internal class PatchXP_Pickable : MonoBehaviour
 		[HarmonyPatch(typeof(Pickable), nameof(Pickable.RPC_SetPicked))]
 		private static void Pickable_RPCSetPicked_Prefix(Pickable __instance, long sender, bool picked, bool ___m_picked)
 		{
-			var player = Player.m_localPlayer;
-			if (player == null) {
+			var localPlayer = Player.m_localPlayer;
+			if (localPlayer == null || __instance == null) {
 				return;
 			}
 			
-			if (__instance == null || player.GetZDOID().UserID != sender) {
-				ConsoleLog.Print($"Sender id ({sender}) doesn't match with nview uid ({Player.m_localPlayer.GetZDOID().UserID})", LogType.Error);
+			// Making sure only the player picking up the pickable is given xp
+			if (localPlayer.GetZDOID().UserID != sender)
+			{
+				return;
+			}
+			
+			// Ignore if already picked
+			if (picked == ___m_picked || !picked)
+			{
 				return;
 			}
 
-			// Ignore if already picked.
-			if (picked == ___m_picked || !picked) {
-				ConsoleLog.Print("Already picked!", LogType.Error);
-				return;
-			}
-
-			// Get xp from server and send it to the player
-			var playerID = player.GetPlayerID();
-			XPManager.Instance.GetXPFromServer(playerID, __instance.name, "Pickable");
+			var localPlayerId = localPlayer.GetPlayerID();
+			XPManager.Instance.GetXPFromServer(localPlayerId, __instance.name, "Pickable");
 		}
 	}
 }

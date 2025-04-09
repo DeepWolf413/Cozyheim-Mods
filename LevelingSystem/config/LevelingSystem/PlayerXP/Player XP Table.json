@@ -1,9 +1,4 @@
 {
-/*
-*   There can only be loaded a single player xp table.
-*   If you have more .json files in this folder, only the first in the list will be loaded in.
-*/
-
     "Lv1": 80,
     "Lv2": 167,
     "Lv3": 255,

@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Jotunn.Entities;
-using Jotunn.Managers;
+﻿using System.Collections.Generic;
+using Cozyheim.LevelingSystem.Constants;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Cozyheim.LevelingSystem;
 
@@ -10,11 +9,6 @@ internal class XPManager : MonoBehaviour
 {
 	private static readonly string saveLevelString = "CozyLevel";
 	private static readonly string saveXpString = "CozyXP";
-
-	// Network communication RPC
-	public static CustomRPC rpc_AddMonsterDamage;
-	public static CustomRPC rpc_RewardXPMonster;
-	public static CustomRPC rpc_GetXP;
 
 	private static XPManager _instance;
 
@@ -32,9 +26,10 @@ internal class XPManager : MonoBehaviour
 	public static void Init()
 	{
 		// Register RPC Methods
-		rpc_AddMonsterDamage = NetworkManager.Instance.AddRPC("AddMonsterDamage", RPC_AddMonsterDamage, RPC_AddMonsterDamage);
-		rpc_RewardXPMonster = NetworkManager.Instance.AddRPC("RewardXPMonster", RPC_RewardXPMonsters, RPC_RewardXPMonsters);
-		rpc_GetXP = NetworkManager.Instance.AddRPC("GetXP", RPC_GetXPFromServer, RPC_GetXPFromServer);
+		ModRpcRegistry.Instance.AddRpc(RpcConstants.ServerSetLevel, ModRpcRegistry.RegistryEntry.RpcType.ServerOnly, RPC_ServerSetLevel);
+		ModRpcRegistry.Instance.AddRpc(RpcConstants.ServerAddMonsterDamage, ModRpcRegistry.RegistryEntry.RpcType.ServerOnly, RPC_AddMonsterDamage);
+		ModRpcRegistry.Instance.AddRpc(RpcConstants.ServerRewardXpMonster, ModRpcRegistry.RegistryEntry.RpcType.ServerOnly, RPC_RewardXPMonsters);
+		ModRpcRegistry.Instance.AddRpc(RpcConstants.ServerGetXp, ModRpcRegistry.RegistryEntry.RpcType.ServerOnly, RPC_GetXPFromServer);
 
 		XPTable.UpdateMiningXPTable();
 		XPTable.UpdateMonsterXPTable();
@@ -43,14 +38,13 @@ internal class XPManager : MonoBehaviour
 		XPTable.UpdateWoodcuttingXPTable();
 	}
 
-	private static IEnumerator RPC_AddMonsterDamage(long sender, ZPackage package)
+	private static void RPC_ServerSetLevel(long senderId, ZPackage package)
 	{
-		if (!ZNet.instance.IsServer())
-		{
-			ConsoleLog.Print("Expected server instance but got a non-server instance. Rejecting RPC", LogType.Error);
-			yield break;
-		}
 		
+	}
+
+	private static void RPC_AddMonsterDamage(long sender, ZPackage package)
+	{
 		var monsterID = package.ReadUInt();
 		var playerID = package.ReadLong();
 		var damage = package.ReadSingle();
@@ -58,16 +52,14 @@ internal class XPManager : MonoBehaviour
 
 		var obj = Instance.GetMonsterXP(monsterID);
 		if (obj != null) {
-			ConsoleLog.Print("Updated monster damage (Server)");
 			obj.AddDamage(playerID, damage, playerName);
+			Jotunn.Logger.LogDebug($"Added {damage} damage inflicted by player '{playerName}'");
 		}
 		else {
-			ConsoleLog.Print("Created new monster damage (Server)");
 			var newObj = Instance.CreateNewMonsterXP(monsterID);
 			newObj.AddDamage(playerID, damage, playerName);
+			Jotunn.Logger.LogDebug($"Added {damage} initial damage inflicted by player '{playerName}'");
 		}
-
-		yield return null;
 	}
 
 	public void AddMonsterDamage(Character monster, Character player, float damage)
@@ -81,9 +73,9 @@ internal class XPManager : MonoBehaviour
 		newPackage.Write(playerID);
 		newPackage.Write(damage);
 		newPackage.Write(playerName);
-
-		ConsoleLog.Print("Sending damage to server RPC");
-		rpc_AddMonsterDamage.SendPackage(ZRoutedRpc.instance.GetServerPeerID(), newPackage);
+		
+		Jotunn.Logger.LogDebug("Sending package to server");
+		ModRpcRegistry.Instance.SendServerRpc(RpcConstants.ServerAddMonsterDamage, newPackage);
 	}
 
 	private MonsterXP CreateNewMonsterXP(uint monsterID)
@@ -96,29 +88,24 @@ internal class XPManager : MonoBehaviour
 
 	public void GetXPFromServer(long playerID, string itemName, string itemType, int xpMultiplier = 1)
 	{
-		ConsoleLog.Print("Trying to get XP from server (" + itemName + " - " + itemType + " - " + xpMultiplier + ")");
+		Jotunn.Logger.LogDebug($"Attempting to get xp reward from server. [ItemName: {itemName}, ItemType: {itemType}, XpMultiplier: {xpMultiplier}]");
 		var newPackage = new ZPackage();
 		newPackage.Write(playerID);
 		newPackage.Write(itemName);
 		newPackage.Write(itemType);
 		newPackage.Write(xpMultiplier);
-		rpc_GetXP.SendPackage(ZRoutedRpc.instance.GetServerPeerID(), newPackage);
+		Jotunn.Logger.LogDebug("Sending package to server");
+		ModRpcRegistry.Instance.SendServerRpc(RpcConstants.ServerGetXp, newPackage);
 	}
 
-	private static IEnumerator RPC_GetXPFromServer(long sender, ZPackage package)
+	private static void RPC_GetXPFromServer(long sender, ZPackage package)
 	{
-		if (!ZNet.instance.IsServer())
-		{
-			ConsoleLog.Print("Expected server instance but got a non-server instance. Rejecting RPC", LogType.Error);
-			yield break;
-		}
-
 		var playerID = package.ReadLong();
 		var itemName = package.ReadString();
 		var itemType = package.ReadString();
 		var xpMultiplier = package.ReadInt();
 
-		ConsoleLog.Print("Server: Recieved GetXP Call (" + itemName + " - " + itemType + " - " + xpMultiplier + ")");
+		Jotunn.Logger.LogDebug("Received xp reward request from client");
 
 		int xp;
 		switch (itemType) {
@@ -132,14 +119,14 @@ internal class XPManager : MonoBehaviour
 				xp = XPTable.GetPickableXP(itemName);
 				break;
 			default:
-				yield break;
+				return;
 		}
 
-		if (xp <= 0) {
-			yield break;
+		if (xp <= 0)
+		{
+			return;
 		}
 		
-		ConsoleLog.Print("Server: Found XP = " + xp);
 		RewardXP(sender, playerID, xp * xpMultiplier, itemType);
 	}
 
@@ -163,19 +150,15 @@ internal class XPManager : MonoBehaviour
 		newPackage.Write(itemType);
 		newPackage.Write(restedBonusXp);
 		
-		ConsoleLog.Print("Server: Sending XP to Player (XP: " + xp);
-		UIManager.rpc_AddExperience.SendPackage(playerPeerId, newPackage);
+		Jotunn.Logger.LogDebug($"Rewarding player with {xp:N0} xp");
+		ModRpcRegistry.Instance.SendTargetRpc(RpcConstants.ClientAddExperience, newPackage, playerPeerId);
 	}
 
-	private static IEnumerator RPC_RewardXPMonsters(long sender, ZPackage package)
+	private static void RPC_RewardXPMonsters(long sender, ZPackage package)
 	{
-		if (!ZNet.instance.IsServer()) yield break;
-
 		var monsterID = package.ReadUInt();
 		var monsterLevel = package.ReadUInt();
 		var monsterName = package.ReadString();
-
-		ConsoleLog.Print("Monster died (Server) - " + monsterName);
 
 		var monsterObj = Instance.GetMonsterXP(monsterID);
 		if (monsterObj != null) {
@@ -227,7 +210,7 @@ internal class XPManager : MonoBehaviour
 
 						var totalBonusMultiplier = 0f;
 
-						ConsoleLog.Print("XP before scaling: " + awardedXP);
+						Jotunn.Logger.LogDebug($"XP before scaling: {awardedXP}");
 
 						if (Main.difficultyScalerOverallHealth.Value) totalBonusMultiplier += dsHealthBonus;
 
@@ -242,8 +225,7 @@ internal class XPManager : MonoBehaviour
 						if (Main.difficultyScalerStar.Value) totalBonusMultiplier += dsStarBonus;
 
 						awardedXP *= totalBonusMultiplier + 1f;
-
-						ConsoleLog.Print($"XP scaled with {(totalBonusMultiplier * 100f).ToString("N0")}%: " + awardedXP);
+						Jotunn.Logger.LogDebug($"XP scaled with {(totalBonusMultiplier * 100f):N0}%: {awardedXP}");
 					}
 
 				var monsterLevelBonusXp = (monsterLevel - 1) * monsterLvlMultiplier * awardedXP;
@@ -254,9 +236,9 @@ internal class XPManager : MonoBehaviour
 				newPackage.Write((int)restedBonusXp);
 				newPackage.Write(damage.playerID);
 				newPackage.Write(monsterName);
-				
-				ConsoleLog.Print("Sending " + (xpPercentage * 100f).ToString("N1") + "% xp to " + damage.playerName + ". (Awarded: " + (int)awardedXP + ", Level bonus: " + (int)monsterLevelBonusXp + ", Rested bonus: " + (int)restedBonusXp + ")");
-				UIManager.rpc_AddExperienceMonster.SendPackage(damage.playerID, newPackage);
+
+				Jotunn.Logger.LogDebug($"Rewarding player '{damage.playerName}' with {awardedXP:N0} xp. Calculation: {(xpPercentage * 100f):N1}% xp = [Awarded XP: {awardedXP:N0}, Level bonus: {monsterLevelBonusXp:N0}, Rested bonus: {restedBonusXp:N0}]");
+				ModRpcRegistry.Instance.SendTargetRpc(RpcConstants.ClientAddExperienceMonster, newPackage, damage.playerID);
 			}
 
 			Instance.xpObjects.Remove(monsterObj);

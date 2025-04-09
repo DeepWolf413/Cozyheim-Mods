@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Configuration;
+using Cozyheim.LevelingSystem.Commands;
 using HarmonyLib;
+using Jotunn.Configs;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
-using ServerSync;
 using UnityEngine;
 
 namespace Cozyheim.LevelingSystem;
@@ -30,13 +27,11 @@ internal class Main : BaseUnityPlugin
 
     // Mod information
     internal const string modName = "LevelingSystem";
-    internal const string version = "0.5.18";
+    internal const string version = "0.5.19";
     internal const string GUID = "dk.thrakal." + modName;
 
-    internal static ConfigSync configSync = new(GUID)
-        { DisplayName = modName, CurrentVersion = version, MinimumRequiredVersion = version };
-
     internal static ConfigFile configFile;
+    private readonly Harmony harmony = new (GUID);
 
     // Asset bundles
     internal static string assetsPath = "Assets/_Leveling System/";
@@ -48,12 +43,6 @@ internal class Main : BaseUnityPlugin
 
     // Config entries
     // -----------
-
-    // General
-    internal static ConfigEntry<bool> modEnabled;
-    internal static ConfigEntry<bool> debugEnabled;
-    internal static ConfigEntry<bool> debugMonsterInternalName;
-
     // XP Bar
     internal static ConfigEntry<bool> showLevel;
     internal static ConfigEntry<bool> showXp;
@@ -119,31 +108,20 @@ internal class Main : BaseUnityPlugin
     internal static ConfigEntry<bool> difficultyScalerStar;
     internal static ConfigEntry<float> difficultyScalerStarRatio;
 
-    // Core objects that is required to patch and configure the mod
-    private readonly Harmony harmony = new(GUID);
-
     private void Awake()
     {
-        AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-
         modDifficultyScalerLoaded = CheckIfModIsLoaded("dk.thrakal.DifficultyScaler");
         modJewelcraftingLoaded = CheckIfModIsLoaded("org.bepinex.plugins.jewelcrafting");
-        harmony.PatchAll();
-        configFile = Config; /*new ConfigFile(Config.ConfigFilePath, true, Info.Metadata)
-            { SaveOnConfigSet = true };*/
+        configFile = Config;
         configFile.SaveOnConfigSet = true;
 
+        harmony.PatchAll(Assembly.GetExecutingAssembly());
+
         // Asset Bundle loaded
-        assetBundle = GetAssetBundleFromResources("leveling_system");
+        assetBundle = AssetUtils.LoadAssetBundleFromResources("leveling_system");
         PrefabManager.OnVanillaPrefabsAvailable += LoadAssets;
-
+        
         // Assigning config entries
-        modEnabled = CreateConfigEntry("General", "modEnabled", true, "[ServerSync] Enable this mod", true, true);
-        debugEnabled = CreateConfigEntry("General", "debugEnabled", false, "Display debug messages in the console",
-            false);
-        debugMonsterInternalName = CreateConfigEntry("General", "debugMonsterInternalName", false,
-            "Display the internal ID (prefab name) of monsters in the console, when you hit them", false);
-
         // XP Bar
         showLevel = CreateConfigEntry("XP Bar", "showLevel", true, "Display Level text", false);
         showXp = CreateConfigEntry("XP Bar", "showXp", true, "Display XP text", false);
@@ -161,7 +139,7 @@ internal class Main : BaseUnityPlugin
 
         // Levels
         pointsPerLevel = CreateConfigEntry("Levels", "pointsPerLevel", 1f,
-            "[ServerSync] The amount of skill points gained per level", true, true);
+            "[ServerSync] The amount of skill points gained per level", true);
 
         // Skills Menu
         showScrollbar = CreateConfigEntry("Skills Menu", "showScrollbar", true,
@@ -202,167 +180,95 @@ internal class Main : BaseUnityPlugin
         // XP Multipliers
         allXPMultiplier = CreateConfigEntry("XP Multipliers", "XPMultipliers", 100f,
             "[ServerSync] XP gained (in percentage) compared to the Monster XP Table. (100 = Same as XP table, 150 = +50%, 70 = -30%)",
-            true, true);
+            true);
         monsterLvlXPMultiplier = CreateConfigEntry("XP Multipliers", "monsterLvlXPMultiplier", 50f,
-            "[ServerSync] Bonus XP gained per monster level. (0 = No Bonus, 50 = +50% per level)", true, true);
+            "[ServerSync] Bonus XP gained per monster level. (0 = No Bonus, 50 = +50% per level)", true);
         restedXPMultiplier = CreateConfigEntry("XP Multipliers", "restedXPMultiplier", 30f,
-            "[ServerSync] Bonus XP gained while rested. (0 = No Bonus, 30 = +30%)", true, true);
+            "[ServerSync] Bonus XP gained while rested. (0 = No Bonus, 30 = +30%)", true);
         baseXpSpreadMin = CreateConfigEntry("XP Multipliers", "baseXpSpreadMin", 5f,
             "[ServerSync] Base XP spread, Minimum. (0 = Same as XP table, 5 = -5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.",
-            true, true);
+            true);
         baseXpSpreadMax = CreateConfigEntry("XP Multipliers", "baseXpSpreadMax", 5f,
             "[ServerSync] Base XP spread, Maximum. (0 = Same as XP table, 5 = +5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.",
-            true, true);
+            true);
 
         // Difficulty Scaler integration
         if (modDifficultyScalerLoaded) {
             enableDifficultyScalerXP = CreateConfigEntry("Difficulty Scaler", "enableDifficultyScalerXP", false,
                 "[ServerSync] Enable Difficulty Scaler XP integration (Requires the Difficulty Scaler mod is installed)",
-                true, true);
+                true);
 
             difficultyScalerOverallHealth = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallHealth",
-                true, "[ServerSync] Use Difficulty Scaler's overall health difficulty multiplier", true, true);
+                true, "[ServerSync] Use Difficulty Scaler's overall health difficulty multiplier", true);
             difficultyScalerOverallHealthRatio = CreateConfigEntry("Difficulty Scaler",
                 "difficultyScalerOverallHealthRatio", 0.5f,
                 "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                true, true);
+                true);
 
             difficultyScalerOverallDamage = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallDamage",
-                true, "[ServerSync] Use Difficulty Scaler's overall damage difficulty multiplier", true, true);
+                true, "[ServerSync] Use Difficulty Scaler's overall damage difficulty multiplier", true);
             difficultyScalerOverallDamageRatio = CreateConfigEntry("Difficulty Scaler",
                 "difficultyScalerOverallDamageRatio", 0.5f,
                 "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                true, true);
+                true);
 
             difficultyScalerBiome = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBiome", true,
-                "[ServerSync] Use Difficulty Scaler's biome difficulty multiplier", true, true);
+                "[ServerSync] Use Difficulty Scaler's biome difficulty multiplier", true);
             difficultyScalerBiomeRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBiomeRatio", 1f,
                 "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                true, true);
+                true);
 
             difficultyScalerBoss = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBoss", true,
-                "[ServerSync] Use Difficulty Scaler's boss difficulty multiplier", true, true);
+                "[ServerSync] Use Difficulty Scaler's boss difficulty multiplier", true);
             difficultyScalerBossRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBossRatio", 1f,
                 "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                true, true);
+                true);
 
             difficultyScalerNight = CreateConfigEntry("Difficulty Scaler", "difficultyScalerNight", true,
-                "[ServerSync] Use Difficulty Scaler' night difficulty multiplier", true, true);
+                "[ServerSync] Use Difficulty Scaler' night difficulty multiplier", true);
             difficultyScalerNightRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerNightRatio", 1f,
                 "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                true, true);
+                true);
 
             difficultyScalerStar = CreateConfigEntry("Difficulty Scaler", "difficultyScalerStar", true,
-                "[ServerSync] Use Difficulty Scaler's star difficulty multiplier", true, true);
+                "[ServerSync] Use Difficulty Scaler's star difficulty multiplier", true);
             difficultyScalerStarRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerStarRatio", 1f,
                 "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                true, true);
+                true);
         }
 
         SkillConfig.Init();
 
         // Generate config entries for XP Tables
-
-        // Player
-        playerXpTable = CreateConfigEntry("XP Table", "playerXpTable", "",
-            "(Obsolete! - Change the JSON file in the config folder instead) The xp needed for each level. To reach a higher max level, simply add more values to the table. (Changes requires to reload the config file, which can be done in two ways. 1. Restart the server.  -  2. Admins can open the console in-game and type LevelingSystem ReloadConfig)");
-
-        // Monsters
-        monsterXpTable = CreateConfigEntry("XP Table", "monsterXpTable", "",
-            "(Obsolete! - Change the JSON file in the config folder instead) The base xp of monsters. (Changes requires to realod the config file)");
-
         // Pickables
         pickableXpEnabled = CreateConfigEntry("XP Table", "pickableXpEnabled", true,
-            "[ServerSync] Gain XP when interacting with Pickables", true, true);
-        pickableXpTable = CreateConfigEntry("XP Table", "pickableXpTable", "",
-            "(Obsolete! - Change the JSON file in the config folder instead) The base xp of pickables. (Changes requires to reload the config file)");
+            "[ServerSync] Gain XP when interacting with Pickables", true);
 
         // Mining
         miningXpEnabled = CreateConfigEntry("XP Table", "miningXpEnabled", true, "[ServerSync] Gain XP when mining",
-            true, true);
-        miningXpTable = CreateConfigEntry("XP Table", "miningXpTable", "",
-            "(Obsolete! - Change the JSON file in the config folder instead) The base xp for mining. (Changes requires to reload the config file)");
+            true);
 
         // Woodcutting
         woodcuttingXpEnabled = CreateConfigEntry("XP Table", "woodcuttingXpEnabled", true,
-            "[ServerSync] Gain XP when chopping trees", true, true);
-        woodcuttingXpTable = CreateConfigEntry("XP Table", "woodcuttingXpTable", "",
-            "(Obsolete! - Change the JSON file in the config folder instead) The base xp for woodcutting. (Changes requires to reload the config file)");
+            "[ServerSync] Gain XP when chopping trees", true);
 
-
-        CommandManager.Instance.AddConsoleCommand(new ConsoleLog());
-        ConsoleLog.Init();
-
-        NetworkHandler.Init();
+        InitializeCommands();
+        
         UIManager.Init();
         XPManager.Init();
     }
-
+    
+    
     private void OnDestroy()
     {
         harmony.UnpatchSelf();
     }
 
-    private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+    private void InitializeCommands()
     {
-        var baseResourceName = Assembly.GetExecutingAssembly().GetName().Name + "." + new AssemblyName(args.Name).Name;
-        byte[] assemblyData = null;
-        byte[] symbolsData = null;
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(baseResourceName + ".dll")) {
-            if (stream == null)
-                return null;
-
-            assemblyData = new byte[stream.Length];
-            stream.Read(assemblyData, 0, assemblyData.Length);
-        }
-
-        using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(baseResourceName + ".pdb")) {
-            if (stream != null) {
-                symbolsData = new byte[stream.Length];
-                stream.Read(symbolsData, 0, symbolsData.Length);
-            }
-        }
-
-        var assembly = Assembly.Load(assemblyData, symbolsData);
-        ConsoleLog.Print("Assembly loaded: " + (assembly == null));
-
-        return assembly;
+        CommandManager.Instance.AddConsoleCommand(new SetLevelCommand());
+        CommandManager.Instance.AddConsoleCommand(new LevelUpCommand());
     }
-
-    private string AddNewEntriesToXPTable(Dictionary<string, int> xpTable, string configEntry)
-    {
-        var configXPTable = new Dictionary<string, int>();
-
-        var entries = configEntry.Split(',');
-        foreach (var entry in entries) {
-            var entryData = entry.Split(':');
-            if (entryData.Length == 2) {
-                var key = entryData[0].Trim();
-                var value = 0;
-                if (int.TryParse(entryData[1].Trim(), out value)) configXPTable.Add(key, value);
-            }
-        }
-
-        foreach (var kvp in xpTable)
-            if (!configXPTable.ContainsKey(kvp.Key))
-                configXPTable.Add(kvp.Key, kvp.Value);
-
-        return GenerateXPTableString(configXPTable);
-    }
-
-    private string GenerateXPTableString(Dictionary<string, int> xpTable)
-    {
-        var counter = 0;
-        var returnValue = "";
-        foreach (var kvp in xpTable) {
-            returnValue += counter != 0 ? ", " : "";
-            returnValue += kvp.Key + ":" + kvp.Value;
-            counter++;
-        }
-
-        return returnValue;
-    }
-
 
     private bool CheckIfModIsLoaded(string modGUID)
     {
@@ -400,65 +306,23 @@ internal class Main : BaseUnityPlugin
         PrefabManager.Instance.AddPrefab(skillUI);
 
         var trainingDummy = assetBundle.LoadAsset<GameObject>(assetsPath + "Prefabs/LevelingDummy.prefab");
-        PieceManager.Instance.AddPiece(new CustomPiece(trainingDummy, "Hammer", false));
+        PieceManager.Instance.AddPiece(new CustomPiece(trainingDummy, PieceTables.Hammer, false));
 
         var trainingDummyStrawman =
             assetBundle.LoadAsset<GameObject>(assetsPath + "Prefabs/LevelingDummyStrawman.prefab");
-        PieceManager.Instance.AddPiece(new CustomPiece(trainingDummyStrawman, "Hammer", false));
-
+        PieceManager.Instance.AddPiece(new CustomPiece(trainingDummyStrawman, PieceTables.Hammer, false));
         PrefabManager.OnVanillaPrefabsAvailable -= LoadAssets;
     }
 
-    public static AssetBundle GetAssetBundleFromResources(string fileName)
-    {
-        var execAssembly = Assembly.GetExecutingAssembly();
-
-        var resourceName = execAssembly.GetManifestResourceNames().Single(str => str.EndsWith(fileName));
-
-        using (var stream = execAssembly.GetManifestResourceStream(resourceName)) {
-            return AssetBundle.LoadFromStream(stream);
-        }
-    }
-
-    public static Sprite GetSpriteFromResources(string filePath)
-    {
-        Texture2D texture = null;
-        byte[] data;
-
-        data = File.ReadAllBytes(filePath);
-        texture = new Texture2D(2, 2);
-        texture.SetPixelData(data, 0);
-
-        texture.LoadImage(data);
-
-        var newSprite = Sprite.Create(texture, new Rect(0.5f, 0.5f, texture.width, texture.height),
-            new Vector2(0.5f, 0.5f), 100f);
-
-        return newSprite;
-    }
-
-
     #region CreateConfigEntry Wrapper
 
-    public static ConfigEntry<T> CreateConfigEntry<T>(string group, string name, T value, ConfigDescription description,
-        bool synchronizedSetting = true)
-    {
-        var configEntry = configFile.Bind(group, name, value, description);
-
-        var syncedConfigEntry = configSync.AddConfigEntry(configEntry);
-        syncedConfigEntry.SynchronizedConfig = synchronizedSetting;
-
-        return configEntry;
-    }
-
-    public static ConfigEntry<T> CreateConfigEntry<T>(string group, string name, T value, string description,
-        bool synchronizedSetting = true, bool requiresAdminToChange = false)
+    public static ConfigEntry<T> CreateConfigEntry<T>(string group, string name, T value, string description, bool requiresAdminToChange = false)
     {
         var configAttributes = new ConfigurationManagerAttributes
             { IsAdminOnly = requiresAdminToChange };
 
-        return CreateConfigEntry(group, name, value, new ConfigDescription(description, null, configAttributes),
-            synchronizedSetting);
+        var configEntry = configFile.Bind(group, name, value, new ConfigDescription(description, null, configAttributes));
+        return configEntry;
     }
 
     #endregion

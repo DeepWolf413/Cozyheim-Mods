@@ -147,7 +147,7 @@ namespace Cozyheim.LevelingSystem
                 return;
             }
             
-            ConsoleLog.Print("Set skill " + skillType.ToString() + " to level " + level.ToString());
+            Jotunn.Logger.LogDebug($"Setting skill '{skillType}' to level {level}");
             skill.SetLevel(level);
             UpdateUnspendPoints();
         }

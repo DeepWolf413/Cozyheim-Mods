@@ -39,11 +39,13 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
+        <Compile Include="Commands\LevelUpCommand.cs" />
+        <Compile Include="Commands\SetLevelCommand.cs" />
+        <Compile Include="Constants\RpcConstants.cs" />
         <Compile Include="Custom Effect Scripts\CritTextAnim.cs" />
         <Compile Include="LevelingDummy_Patch.cs" />
-        <Compile Include="Networking\RPC_LevelUpVFX.cs" />
-        <Compile Include="Networking\NetworkHandler.cs" />
-        <Compile Include="Resources\ConfigSync.cs" />
+        <Compile Include="Networking\RpcInitializer.cs" />
+        <Compile Include="Networking\ModRpcRegistry.cs" />
         <Compile Include="Skills\Skill Patches\SkillCriticalHitDamage.cs" />
         <Compile Include="Skills\Skill Patches\SkillResistanceSpirit.cs" />
         <Compile Include="Skills\Skill Patches\SkillResistancePoison.cs" />
@@ -79,7 +81,6 @@
         <Compile Include="XP\PatchXP_Pickable.cs" />
         <Compile Include="XP\XPBarFade_Patch.cs" />
         <Compile Include="Custom Effect Scripts\XPText.cs" />
-        <Compile Include="Resources\ChatCommands.cs" />
         <Compile Include="XP\XPTable.cs" />
         <Compile Include="XP\MonsterXP.cs" />
         <Compile Include="XP\XPManager.cs" />
@@ -87,8 +88,6 @@
         <Compile Include="XP\PatchXP_Monster.cs" />
         <Compile Include="Main.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Resources\SimpleJSON.cs" />
-        <Compile Include="Resources\ConsoleLog.cs" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="Resources\leveling_system" />
@@ -164,6 +163,7 @@
     <ItemGroup>
       <Reference Include="Jotunn, Version=2.23.2.0, Culture=neutral, processorArchitecture=MSIL">
         <HintPath>..\..\packages\JotunnLib.2.23.2\lib\net462\Jotunn.dll</HintPath>
+        <Private>False</Private>
       </Reference>
       <Reference Include="Microsoft.CSharp" />
       <Reference Include="System" />

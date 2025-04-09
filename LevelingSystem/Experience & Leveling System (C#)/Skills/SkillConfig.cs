@@ -215,7 +215,6 @@ namespace Cozyheim.LevelingSystem
 				skillType.ToString(),
 				settingsString,
 				"Settings for " + skillType + ". Must follow the following format 'bool:int:float:float' (enabled:maxLevel:bonusValue:baseValue)",
-				true,
 				true
 			);
 		}

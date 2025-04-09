@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cozyheim.LevelingSystem.Constants;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using UnityEngine;
@@ -15,12 +16,7 @@ namespace Cozyheim.LevelingSystem
 		private static GameObject xpTextFloating;
 		private static GameObject levelUpEffect;
 		private static Vector3 lastXPTextSpawnPosition = Vector3.zero;
-
-		public static CustomRPC rpc_AddExperienceMonster;
-		public static CustomRPC rpc_AddExperience;
-		public static CustomRPC rpc_ReloadConfig;
-		public static CustomRPC rpc_LevelUpEffect;
-
+		
 		public static UIManager Instance;
 
 		public int playerXP;
@@ -137,10 +133,9 @@ namespace Cozyheim.LevelingSystem
 
 		public static void Init()
 		{
-			rpc_AddExperienceMonster = NetworkManager.Instance.AddRPC("AddExperienceMonster", RPC_AddExperienceMonster, RPC_AddExperienceMonster);
-			rpc_AddExperience = NetworkManager.Instance.AddRPC("AddExperience", RPC_AddExperience, RPC_AddExperience);
-			rpc_ReloadConfig = NetworkManager.Instance.AddRPC("ReloadConfig", RPC_ReloadConfig, RPC_ReloadConfig);
-			rpc_LevelUpEffect = NetworkManager.Instance.AddRPC("LevelUpEffect", RPC_LevelUpEffect, RPC_LevelUpEffect);
+			ModRpcRegistry.Instance.AddRpc(RpcConstants.ClientAddExperience, ModRpcRegistry.RegistryEntry.RpcType.ClientOnly, RPC_AddExperience);
+			ModRpcRegistry.Instance.AddRpc(RpcConstants.ClientAddExperienceMonster, ModRpcRegistry.RegistryEntry.RpcType.ClientOnly, RPC_AddExperienceMonster);
+			ModRpcRegistry.Instance.AddRpc(RpcConstants.ClientLevelUpEffect, ModRpcRegistry.RegistryEntry.RpcType.ClientOnly, RPC_LevelUpEffect);
 		}
 
 		private void SetupAllUISkillButtons()
@@ -253,7 +248,8 @@ namespace Cozyheim.LevelingSystem
 			GUIManager.BlockInput(value);
 
 			if (value) {
-				rpc_ReloadConfig.SendPackage(ZRoutedRpc.Everybody, new ZPackage());
+				// TODO: Figure out an alternative to reload config or whatever this is.
+				//rpc_ReloadConfig.SendPackage(ZRoutedRpc.Everybody, new ZPackage());
 				CreateSkillUI();
 			}
 		}
@@ -281,7 +277,6 @@ namespace Cozyheim.LevelingSystem
 		private IEnumerator XPBarFadeIn(float fadeTime)
 		{
 			xpBarVisible = true;
-			ConsoleLog.Print("Showing xp bar!");
 			xpBarGroup.alpha = 0f;
 
 			for (var f = 0f; f < fadeTime; f += Time.deltaTime) {
@@ -301,8 +296,6 @@ namespace Cozyheim.LevelingSystem
 		private IEnumerator XPBarFadeOut(float fadeTime)
 		{
 			xpBarVisible = false;
-
-			ConsoleLog.Print("Removing xp bar!");
 			xpBarGroup.alpha = 1f;
 
 			for (var f = 0f; f < fadeTime; f += Time.deltaTime) {
@@ -314,38 +307,30 @@ namespace Cozyheim.LevelingSystem
 			xpBarGroup.alpha = 0f;
 		}
 
-		private static IEnumerator RPC_LevelUpEffect(long sender, ZPackage package)
+		private static void RPC_LevelUpEffect(long sender, ZPackage package)
 		{
-			ConsoleLog.Print("Level up VFX: " + Main.levelUpVFX.Value);
-
-			if (Main.levelUpVFX.Value) {
-				ConsoleLog.Print("A");
-				if (Player.m_localPlayer != null) {
-					ConsoleLog.Print("B");
-					var playerID = package.ReadLong();
-
-					var colls = Physics.OverlapSphere(Player.m_localPlayer.transform.position, 40f);
-					foreach (var coll in colls) {
-						var player = coll.GetComponent<Player>();
-						if (player == null) continue;
-
-						if (player.GetPlayerID() != playerID) continue;
-
-						ConsoleLog.Print("C");
-						var newEffect = Instantiate(levelUpEffect, player.GetCenterPoint(), Quaternion.identity, player.transform);
-						Destroy(newEffect, 6f);
-						break;
-					}
-				}
+			if (!Main.levelUpVFX.Value)
+			{
+				return;
 			}
+			
+			var playerID = package.ReadLong();
 
-			yield return null;
+			var colls = Physics.OverlapSphere(Player.m_localPlayer.transform.position, 40f);
+			foreach (var coll in colls) {
+				var player = coll.GetComponent<Player>();
+				if (player == null) continue;
+
+				if (player.GetPlayerID() != playerID) continue;
+
+				var newEffect = Instantiate(levelUpEffect, player.GetCenterPoint(), Quaternion.identity, player.transform);
+				Destroy(newEffect, 6f);
+				break;
+			}
 		}
 
 		private IEnumerator LevelUpFadeIn()
 		{
-			NetworkHandler.LevelUpVFX();
-
 			levelUpGroup.alpha = 0f;
 			levelUpText.text = "Level " + playerLevel;
 			levelUpTextShadow.text = levelUpText.text;
@@ -371,52 +356,40 @@ namespace Cozyheim.LevelingSystem
 
 			levelUpGroup.alpha = 0f;
 		}
-
-		private static IEnumerator RPC_ReloadConfig(long sender, ZPackage package)
-		{
-			if (ZNet.instance.IsServer()) ConsoleLog.ReloadConfig();
-
-			yield return null;
-		}
-
-		private static IEnumerator RPC_AddExperience(long sender, ZPackage package)
+		
+		private static void RPC_AddExperience(long sender, ZPackage package)
 		{
 			var playerID = package.ReadLong();
 			var awardedXP = package.ReadInt();
 			var itemType = package.ReadString();
 			var restedBonusXP = package.ReadInt();
 
-			if (Player.m_localPlayer != null)
-				if (playerID == Player.m_localPlayer.GetPlayerID()) {
-					ConsoleLog.Print("Received Experience");
-					var totalXpAward = awardedXP;
-					Instance.AddExperience(awardedXP);
+			Jotunn.Logger.LogDebug("Received Experience");
+			var totalXpAward = awardedXP;
+			Instance.AddExperience(awardedXP);
 
-					var restedStatusEffect = Player.m_localPlayer.GetSEMan().GetStatusEffect(s_statusEffectRested);
-					if (restedStatusEffect != null) {
-						Instance.AddExperience(restedBonusXP, XPType.Rested);
-						totalXpAward += restedBonusXP;
-					}
+			var restedStatusEffect = Player.m_localPlayer.GetSEMan().GetStatusEffect(s_statusEffectRested);
+			if (restedStatusEffect != null) {
+				Instance.AddExperience(restedBonusXP, XPType.Rested);
+				totalXpAward += restedBonusXP;
+			}
 
-					switch (itemType) {
-						case "Woodcutting":
-							if (Main.displayWoodcuttingXPText.Value) SpawnFloatingXPText(totalXpAward);
-							break;
-						case "Mining":
-							if (Main.displayMiningXPText.Value) SpawnFloatingXPText(totalXpAward);
-							break;
-						case "Pickable":
-							if (Main.displayPickupXPText.Value) SpawnFloatingXPText(totalXpAward);
-							break;
-						default:
-							yield break;
-					}
-				}
-
-			yield return null;
+			switch (itemType) {
+				case "Woodcutting":
+					if (Main.displayWoodcuttingXPText.Value) SpawnFloatingXPText(totalXpAward);
+					break;
+				case "Mining":
+					if (Main.displayMiningXPText.Value) SpawnFloatingXPText(totalXpAward);
+					break;
+				case "Pickable":
+					if (Main.displayPickupXPText.Value) SpawnFloatingXPText(totalXpAward);
+					break;
+				default:
+					return;
+			}
 		}
 
-		private static IEnumerator RPC_AddExperienceMonster(long sender, ZPackage package)
+		private static void RPC_AddExperienceMonster(long sender, ZPackage package)
 		{
 			var awardedXP = package.ReadInt();
 			var monsterLevelBonusXp = package.ReadInt();
@@ -426,10 +399,9 @@ namespace Cozyheim.LevelingSystem
 
 			if (Player.m_localPlayer != null) {
 				if (playerID == Player.m_localPlayer.GetZDOID().UserID) {
-					ConsoleLog.Print("Received Experience from " + monsterName);
-
+					Jotunn.Logger.LogDebug($"Received Experience from {monsterName}");
+					
 					var totalXpGained = 0;
-
 					var SERested = Player.m_localPlayer.GetSEMan().GetStatusEffect(s_statusEffectRested);
 
 					if (awardedXP > 0) {
@@ -450,7 +422,6 @@ namespace Cozyheim.LevelingSystem
 					if (Main.displayMonsterXPText.Value) SpawnFloatingXPText(totalXpGained);
 				}
 			}
-			yield return null;
 		}
 
 

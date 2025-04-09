@@ -1,7 +1,8 @@
-﻿using SimpleJSON;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using UnityEngine;
 
 namespace Cozyheim.LevelingSystem
 {
@@ -390,119 +391,84 @@ namespace Cozyheim.LevelingSystem
 
         public static void UpdatePickableXPTable()
         {
-            ConsoleLog.Print("Level System: Creating Pickable XP Table", LogType.Message);
-
+            Jotunn.Logger.LogDebug("Loading pickable xp table");
+            
             string folderName = "PickableXP";
-            CheckSavedJsonConfigExists(folderName, XPTableType.Pickable);
-
             string[] jsonFiles = Directory.GetFiles(BepInEx.Paths.ConfigPath + "/LevelingSystem/" + folderName + "/", "*.json");
-            Array.Sort(jsonFiles);
-
             CreateListsFromJSON(jsonFiles, XPTableType.Pickable);
         }
 
         public static void UpdateWoodcuttingXPTable()
         {
-            ConsoleLog.Print("Level System: Creating Woodcutting XP Table", LogType.Message);
-
+            Jotunn.Logger.LogDebug("Loading woodcutting xp table");
+            
             string folderName = "WoodcuttingXP";
-            CheckSavedJsonConfigExists(folderName, XPTableType.Woodcutting);
-
             string[] jsonFiles = Directory.GetFiles(BepInEx.Paths.ConfigPath + "/LevelingSystem/" + folderName + "/", "*.json");
-            Array.Sort(jsonFiles);
-
             CreateListsFromJSON(jsonFiles, XPTableType.Woodcutting);
         }
 
         public static void UpdateMiningXPTable()
         {
-            ConsoleLog.Print("Level System: Creating Mining XP Table", LogType.Message);
+            Jotunn.Logger.LogDebug("Loading mining xp table");
 
             string folderName = "MiningXP";
-            CheckSavedJsonConfigExists(folderName, XPTableType.Mining);
-
             string[] jsonFiles = Directory.GetFiles(BepInEx.Paths.ConfigPath + "/LevelingSystem/" + folderName + "/", "*.json");
-            Array.Sort(jsonFiles);
-
             CreateListsFromJSON(jsonFiles, XPTableType.Mining);
         }
 
         public static void UpdateMonsterXPTable()
         {
-            ConsoleLog.Print("Level System: Creating Monster XP Table", LogType.Message);
+            Jotunn.Logger.LogDebug("Loading monster xp table");
 
             string folderName = "MonsterXP";
-            CheckSavedJsonConfigExists(folderName, XPTableType.Monster);
-
             string[] jsonFiles = Directory.GetFiles(BepInEx.Paths.ConfigPath + "/LevelingSystem/" + folderName + "/", "*.json");
-            Array.Sort(jsonFiles);
-
             CreateListsFromJSON(jsonFiles, XPTableType.Monster);
         }
 
         public static void UpdatePlayerXPTable()
         {
-            ConsoleLog.Print("Level System: Creating Player XP Table", LogType.Message);
+            Jotunn.Logger.LogDebug("Updating player xp table");
 
             string folderName = "PlayerXP";
-            bool savedConfig = CheckSavedJsonConfigExists(folderName, XPTableType.Player);
-            
             string[] jsonFiles = Directory.GetFiles(BepInEx.Paths.ConfigPath + "/LevelingSystem/" + folderName + "/", "*.json");
-            Array.Sort(jsonFiles);
-
-            List<int> playerLevels = new List<int>();
-
-            foreach(string file in jsonFiles) {
-                string json = File.ReadAllText(file);
-                JSONNode xpTable = JSON.Parse(json);
-
-                ConsoleLog.Print("Reading file: " + Path.GetFileName(file) + " (" + xpTable.Count  + " values)", LogType.Message);
-
-                if(xpTable.Tag == JSONNodeType.Object) {
-                    foreach(KeyValuePair<string, JSONNode> kvp in (JSONObject)xpTable) {
-                        if(int.TryParse(kvp.Value.ToString(), out int value)) {
-                            string key = kvp.Key;
-                            playerLevels.Add(value);
-                            ConsoleLog.Print("-> " + key + ": " + value + "xp");
-                        } else {
-                            ConsoleLog.Print("-> " + kvp.Key + ": " + kvp.Value + " - Value is not a valid number", LogType.Warning);
-                        }
-                    }
-                } else {
-                    ConsoleLog.Print("File not formatted correctly", LogType.Error);
-                }
-
-                if(savedConfig) {
-                    ConsoleLog.Print("Saved config found, skipping other Player XP tables", LogType.Message);
-                    break;
-                }
+            if (jsonFiles.Length == 0)
+            {
+                Jotunn.Logger.LogError("No valid player xp table file found");
+                return;
             }
-
-            playerXPTable = playerLevels.ToArray();
+            
+            var xpTableJsonFilePath = jsonFiles[0];
+            string json = File.ReadAllText(xpTableJsonFilePath);
+            var xpTable = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, int>>(json);
+            if (xpTable.Count == 0)
+            {
+                Jotunn.Logger.LogError("No xp entries was found in the json file");
+                return;
+            }
+            
+            playerXPTable = xpTable.Values.ToArray();
         }
 
         public static int GetMonsterXP(string name)
         {
             name = name.Replace("(Clone)", "");
-            ConsoleLog.Print("Monster XP Table -> Looking for " + name + " -> Found: " + monsterXPTable.ContainsKey(name));
-            return monsterXPTable.ContainsKey(name) ? monsterXPTable[name] : 0;
+            Jotunn.Logger.LogDebug($"Monster xp table lookup for {name}. Found: {monsterXPTable.ContainsKey(name)}");
+            return monsterXPTable.TryGetValue(name, out var xpValue) ? xpValue : 0;
         }
 
         public static int GetPickableXP(string name)
         {
             name = name.Replace("(Clone)", "");
-            return pickableXPTable.ContainsKey(name) ? pickableXPTable[name] : 0;
+            Jotunn.Logger.LogDebug($"Pickable xp table lookup for {name}. Found: {pickableXPTable.ContainsKey(name)}");
+            return pickableXPTable.TryGetValue(name, out var xpValue) ? xpValue : 0;
         }
 
         public static int GetMiningXP(string name)
         {
             name = name.Replace("(Clone)", "");
-            string material = miningXPMappingTable.ContainsKey(name) ? miningXPMappingTable[name] : "";
-            if (string.IsNullOrEmpty(material)) {
-                return miningXPTable.ContainsKey(name) ? miningXPTable[name] : 0;
-            }
-            
-            return miningXPTable.ContainsKey(material) ? miningXPTable[material] : 0;
+            string material = miningXPMappingTable.TryGetValue(name, out var mappedMaterialString) ? mappedMaterialString : "";
+            string materialLookupName = string.IsNullOrEmpty(material) ? name : material;
+            return miningXPTable.TryGetValue(materialLookupName, out var xpValue) ? xpValue : 0;
         }
 
         public static int GetWoodcuttingXP(string name)
@@ -534,10 +500,6 @@ namespace Cozyheim.LevelingSystem
             // Read json from file using SimpleJSON
             foreach(string file in jsonFiles) {
                 string json = File.ReadAllText(file);
-
-                JSONNode xpTable = JSON.Parse(json);
-
-                ConsoleLog.Print("Reading file: " + Path.GetFileName(file) + " (" + xpTable.Count + " values)", LogType.Message);
                 Dictionary<string, int> xpTableDictionary;
 
                 // Set xpTableDictionary based on xpTable using switch case
@@ -558,84 +520,25 @@ namespace Cozyheim.LevelingSystem
                         xpTableDictionary = new Dictionary<string, int>();
                         break;
                 }
+                
+                var loadedXpTable = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, int>>(json);
+                if (loadedXpTable.Count == 0)
+                {
+                    Jotunn.Logger.LogDebug($"No entries was found in '{Path.GetFileName(file)}'");
+                    continue;
+                }
 
-                if(xpTable.Tag == JSONNodeType.Object) {
-                    foreach(KeyValuePair<string, JSONNode> kvp in (JSONObject)xpTable) {
-                        if(int.TryParse(kvp.Value.ToString(), out int value)) {
-                            string key = kvp.Key;
-                            if(!xpTableDictionary.ContainsKey(key)) {
-                                xpTableDictionary[key] = value;
-                                ConsoleLog.Print("-> " + key + ": " + value + "xp");
-                            } else {
-                                ConsoleLog.Print("-> " + key + ": " + value + "xp - Key already exists in table", LogType.Warning);
-                            }
-                        } else {
-                            ConsoleLog.Print("-> " + kvp.Key + ": " + kvp.Value + " - Value is not a valid number", LogType.Warning);
-                        }
+                foreach (var xpTableEntry in loadedXpTable)
+                {
+                    // Skip existing entry with the same key - to avoid unwanted updates to the value
+                    if (xpTableDictionary.ContainsKey(xpTableEntry.Key))
+                    {
+                        continue;
                     }
-                } else {
-                    ConsoleLog.Print("File not formatted correctly", LogType.Error);
+                    
+                    xpTableDictionary[xpTableEntry.Key] = xpTableEntry.Value;
                 }
             }
-        }
-
-        private static bool CheckSavedJsonConfigExists(string folderName, XPTableType xpTable) {
-            Directory.CreateDirectory(BepInEx.Paths.ConfigPath + "/LevelingSystem/" + folderName);
-
-            string fileName = BepInEx.Paths.ConfigPath + "/LevelingSystem/" + folderName + "/_savedConfigData.json";
-
-            if(File.Exists(fileName)) {
-                return true;
-            }
-
-            if(!File.Exists(fileName)) {
-
-                JSONNode json = new JSONObject();
-
-                string[] xpTableToUse;
-                switch(xpTable) {
-                    case XPTableType.Monster:
-                        xpTableToUse = Main.monsterXpTable.Value.Split(',');
-                        break;
-                    case XPTableType.Pickable:
-                        xpTableToUse = Main.pickableXpTable.Value.Split(',');
-                        break;
-                    case XPTableType.Mining:
-                        xpTableToUse = Main.miningXpTable.Value.Split(',');
-                        break;
-                    case XPTableType.Woodcutting:
-                        xpTableToUse = Main.woodcuttingXpTable.Value.Split(',');
-                        break;
-                    case XPTableType.Player:
-                        xpTableToUse = Main.playerXpTable.Value.Split(',');
-                        break;
-                    default:
-                        xpTableToUse = new string[0];
-                        break;
-                }
-
-                if(xpTableToUse.Length == 0) {
-                    ConsoleLog.Print("Create JSON from config: XP Table from config file is empty, skipping");
-                    return false;
-                }
-
-                if(xpTableToUse.Length == 1 && xpTableToUse[0] == "") {
-                    ConsoleLog.Print("Create JSON from config: XP Table from config file is empty, skipping");
-                    return false;
-                }
-
-                foreach(string s in xpTableToUse) {
-                    string[] data = s.Split(':');
-                    string key = data[0].Replace("\n", "").Replace(" ", "");
-                    if(int.TryParse(data[1], out int value)) {
-                        json[key] = value;
-                    }
-                }
-
-                File.WriteAllText(fileName, json.ToString());
-            }
-
-            return false;
         }
 
         public enum XPTableType {
