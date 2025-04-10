@@ -25,7 +25,7 @@ namespace Cozyheim.LevelingSystem
 
         IEnumerator Start()
         {
-            transform.localScale *= Main.xpFontSize.Value / 100f;
+            transform.localScale *= Main.ModConfig.XpFontSize.Value / 100f;
 
             CanvasGroup canvasGroup = GetComponentInChildren<CanvasGroup>();
             float startSize = transform.localScale.x;

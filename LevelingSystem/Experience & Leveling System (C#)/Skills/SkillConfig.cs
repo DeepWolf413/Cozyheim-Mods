@@ -209,7 +209,7 @@ namespace Cozyheim.LevelingSystem
 		public void CreateConfigEntries()
 		{
 			var settingsString = enabled + ":" + defaultMaxLevel + ":" + defaultBonusValue + ":" + defaultBaseValue;
-			configSettings = Main.CreateConfigEntry
+			configSettings = Main.ModConfig.CreateConfigEntry
 			(
 				"Skills",
 				skillType.ToString(),

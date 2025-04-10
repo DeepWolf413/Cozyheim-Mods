@@ -84,7 +84,7 @@ internal class SkillOption : MonoBehaviour
 
 		maxLevelText.text = skillInfo.GetMaxLevel().ToString();
 
-		iconImage.sprite = Main.assetBundle.LoadAsset<Sprite>(Main.assetsPath + "Sprites/Skill Icons/" + skillInfo.iconName + ".png");
+		iconImage.sprite = Main.AssetBundle.LoadAsset<Sprite>(Main.AssetsPath + "Sprites/Skill Icons/" + skillInfo.iconName + ".png");
 
 		description.text = "+" + skillInfo.bonusPerLevel + skillInfo.bonusUnit + " / Level";
 

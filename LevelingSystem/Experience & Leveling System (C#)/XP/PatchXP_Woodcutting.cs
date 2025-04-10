@@ -77,7 +77,7 @@ namespace Cozyheim.LevelingSystem
             private static void WoodcuttingXP(string name, HitData hit)
             {
                 // Check if the XP system is enabled
-                if (!Main.woodcuttingXpEnabled.Value)
+                if (!Main.ModConfig.WoodcuttingXpEnabled.Value)
                 {
                     return;
                 }

@@ -29,7 +29,7 @@ internal class SkillHP : SkillBase
 		[HarmonyPatch(typeof(Player), "GetTotalFoodValue")]
 		public static void Player_GetTotalFoodValue_Postfix(ref float hp)
 		{
-			if (Instance == null || Main.modJewelcraftingLoaded) return;
+			if (Instance == null || Main.IsJewelcraftingModLoaded) return;
 
 			hp += Instance.level * Instance.bonusPerLevel;
 		}

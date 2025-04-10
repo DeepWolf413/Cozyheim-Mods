@@ -207,22 +207,22 @@ namespace Cozyheim.LevelingSystem
 		private void RepositionXPBar()
 		{
 			var tempSize = xpBarRect.sizeDelta;
-			tempSize.x *= Main.xpBarSize.Value / 100f;
+			tempSize.x *= Main.ModConfig.XpBarSize.Value / 100f;
 			xpBarRect.sizeDelta = tempSize;
 
-			if (Main.xpBarLevelTextPosition.Value == Main.Position.Below) {
+			if (Main.ModConfig.XpBarLevelTextPosition.Value == Main.Position.Below) {
 				var tempPos = levelTextRect.anchoredPosition;
 				tempPos.y *= -1f;
 				levelTextRect.anchoredPosition = tempPos;
 			}
 
-			xpBarContainerRect.anchoredPosition = Main.xpBarPosition.Value;
+			xpBarContainerRect.anchoredPosition = Main.ModConfig.XpBarPosition.Value;
 		}
 
 		private void CreateSkillUI()
 		{
-			skillsScrollRect.verticalScrollbar = Main.showScrollbar.Value ? skillsScrollbar : null;
-			skillsScrollbar.gameObject.SetActive(Main.showScrollbar.Value);
+			skillsScrollRect.verticalScrollbar = Main.ModConfig.ShowScrollbar.Value ? skillsScrollbar : null;
+			skillsScrollbar.gameObject.SetActive(Main.ModConfig.ShowScrollbar.Value);
 
 			closeButton.onClick.RemoveAllListeners();
 			resetPointsButton.onClick.RemoveAllListeners();
@@ -309,7 +309,7 @@ namespace Cozyheim.LevelingSystem
 
 		private static void RPC_LevelUpEffect(long sender, ZPackage package)
 		{
-			if (!Main.levelUpVFX.Value)
+			if (!Main.ModConfig.LevelUpVFX.Value)
 			{
 				return;
 			}
@@ -376,13 +376,13 @@ namespace Cozyheim.LevelingSystem
 
 			switch (itemType) {
 				case "Woodcutting":
-					if (Main.displayWoodcuttingXPText.Value) SpawnFloatingXPText(totalXpAward);
+					if (Main.ModConfig.DisplayWoodcuttingXpText.Value) SpawnFloatingXPText(totalXpAward);
 					break;
 				case "Mining":
-					if (Main.displayMiningXPText.Value) SpawnFloatingXPText(totalXpAward);
+					if (Main.ModConfig.DisplayMiningXpText.Value) SpawnFloatingXPText(totalXpAward);
 					break;
 				case "Pickable":
-					if (Main.displayPickupXPText.Value) SpawnFloatingXPText(totalXpAward);
+					if (Main.ModConfig.DisplayPickupXpText.Value) SpawnFloatingXPText(totalXpAward);
 					break;
 				default:
 					return;
@@ -419,7 +419,7 @@ namespace Cozyheim.LevelingSystem
 						totalXpGained += restedBonusXp;
 					}
 
-					if (Main.displayMonsterXPText.Value) SpawnFloatingXPText(totalXpGained);
+					if (Main.ModConfig.DisplayMonsterXpText.Value) SpawnFloatingXPText(totalXpGained);
 				}
 			}
 		}
@@ -427,7 +427,7 @@ namespace Cozyheim.LevelingSystem
 
 		private static void SpawnFloatingXPText(int totalXpGained)
 		{
-			if (totalXpGained > 0 && Main.displayXPFloatingText.Value) {
+			if (totalXpGained > 0 && Main.ModConfig.DisplayXpFloatingText.Value) {
 				var spread = 0.35f;
 				Vector3 spawnSpread;
 
@@ -449,7 +449,7 @@ namespace Cozyheim.LevelingSystem
 		public void AddExperience(int xp, XPType type = XPType.Regular)
 		{
 			if (!IsPlayerMaxLevel() && xp > 0) {
-				if (Main.displayXPInCorner.Value)
+				if (Main.ModConfig.DisplayXpInCorner.Value)
 					switch (type) {
 						case XPType.Regular:
 							Player.m_localPlayer.Message(MessageHud.MessageType.TopLeft, "You gained +" + xp + "xp");
@@ -504,13 +504,13 @@ namespace Cozyheim.LevelingSystem
 
 			var xpString = "";
 
-			xpString += Main.showXp.Value ? playerXP.ToString() : "";
-			if (Main.showXp.Value) {
-				xpString += Main.showRequiredXp.Value ? " / " + xpToNextLevel : "";
-				xpString += Main.showPercentageXP.Value ? " (" + (xpPercentage * 100).ToString("N0") + "%)" : "";
+			xpString += Main.ModConfig.ShowXp.Value ? playerXP.ToString() : "";
+			if (Main.ModConfig.ShowXp.Value) {
+				xpString += Main.ModConfig.ShowRequiredXp.Value ? " / " + xpToNextLevel : "";
+				xpString += Main.ModConfig.ShowPercentageXp.Value ? " (" + (xpPercentage * 100).ToString("N0") + "%)" : "";
 			}
 			else {
-				xpString += Main.showPercentageXP.Value ? (xpPercentage * 100).ToString("N0") + "%" : "";
+				xpString += Main.ModConfig.ShowPercentageXp.Value ? (xpPercentage * 100).ToString("N0") + "%" : "";
 			}
 
 			if (instantUpdate) xpFill.fillAmount = xpFillTarget;
@@ -527,7 +527,7 @@ namespace Cozyheim.LevelingSystem
 
 		public void UpdateLevelText()
 		{
-			levelText.text = Main.showLevel.Value ? "Level " + playerLevel : "";
+			levelText.text = Main.ModConfig.ShowLevel.Value ? "Level " + playerLevel : "";
 			levelTextShadow.text = levelText.text;
 		}
 

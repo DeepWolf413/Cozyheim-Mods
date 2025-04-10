@@ -112,14 +112,14 @@ namespace Cozyheim.LevelingSystem
         
         public void SpawnCriticalHitVFX(Vector3 position, float damage)
         {
-            if (!Main.criticalHitVFX.Value)
+            if (!Main.ModConfig.CriticalHitVFX.Value)
             {
                 return;
             }
 
-            if(Main.criticalHitShake.Value)
+            if(Main.ModConfig.CriticalHitShake.Value)
             {
-                GameCamera.instance.AddShake(Player.m_localPlayer.transform.position, 10f, Main.criticalHitShakeIntensity.Value, false);
+                GameCamera.instance.AddShake(Player.m_localPlayer.transform.position, 10f, Main.ModConfig.CriticalHitShakeIntensity.Value, false);
             }
 
             Vector3 dirToCamera = (GameCamera.instance.transform.position - position).normalized;
@@ -186,11 +186,11 @@ namespace Cozyheim.LevelingSystem
 
             int pointsToSpend = 1;
 
-            if(Input.GetKey(Main.addMultiplePointsKey.Value)) {
-                pointsToSpend = Mathf.Min(Main.addMultiplePointsAmount.Value, unspendPoints);
+            if(Input.GetKey(Main.ModConfig.AddMultiplePointsKey.Value)) {
+                pointsToSpend = Mathf.Min(Main.ModConfig.AddMultiplePointsAmount.Value, unspendPoints);
             }
 
-            if(Input.GetKey(Main.addMaxPointsKey.Value)) {
+            if(Input.GetKey(Main.ModConfig.AddMaxPointsKey.Value)) {
                 pointsToSpend = unspendPoints;
             }
 
@@ -211,11 +211,11 @@ namespace Cozyheim.LevelingSystem
             
             int pointsToRemove = 1;
 
-            if(Input.GetKey(Main.addMultiplePointsKey.Value)) {
-                pointsToRemove = Main.addMultiplePointsAmount.Value;
+            if(Input.GetKey(Main.ModConfig.AddMultiplePointsKey.Value)) {
+                pointsToRemove = Main.ModConfig.AddMultiplePointsAmount.Value;
             }
 
-            if(Input.GetKey(Main.addMaxPointsKey.Value)) {
+            if(Input.GetKey(Main.ModConfig.AddMaxPointsKey.Value)) {
                 SkillReset(skillType);
                 return;
             }
@@ -312,7 +312,7 @@ namespace Cozyheim.LevelingSystem
         }
 
         public void RecalculateUnspendPoints() {
-            int points = Mathf.FloorToInt((float)XPManager.Instance.GetPlayerLevel() * Main.pointsPerLevel.Value);
+            int points = Mathf.FloorToInt((float)XPManager.Instance.GetPlayerLevel() * Main.ModConfig.PointsPerLevel.Value);
             foreach(KeyValuePair<SkillType, SkillBase> kvp in skills) {
                 points -= kvp.Value.GetLevel();
             }
@@ -323,7 +323,7 @@ namespace Cozyheim.LevelingSystem
         {
             foreach(KeyValuePair<SkillType, SkillBase> kvp in skills)
             {
-                string skillName = Main.modName + "_" + kvp.Key.ToString();
+                string skillName = Main.ModName + "_" + kvp.Key.ToString();
                 if (Player.m_localPlayer.m_customData.ContainsKey(skillName))
                 {
                     int value;
@@ -342,7 +342,7 @@ namespace Cozyheim.LevelingSystem
         {
             foreach (KeyValuePair<SkillType, SkillBase> kvp in skills)
             {
-                string skillName = Main.modName + "_" + kvp.Key.ToString();
+                string skillName = Main.ModName + "_" + kvp.Key.ToString();
                 Player.m_localPlayer.m_customData[skillName] = kvp.Value.GetLevel().ToString();                
             }
         }

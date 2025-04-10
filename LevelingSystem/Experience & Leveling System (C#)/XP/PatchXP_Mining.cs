@@ -71,7 +71,7 @@ internal class PatchXP_Mining : MonoBehaviour
         private static void MiningXP(string name, HitData hit)
         {
             // Check if the XP system is enabled
-            if (!Main.miningXpEnabled.Value) return;
+            if (!Main.ModConfig.MiningXpEnabled.Value) return;
 
             if (hit.m_damage.m_pickaxe <= 0) return;
 

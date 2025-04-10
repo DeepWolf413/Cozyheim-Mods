@@ -14,7 +14,7 @@ internal class PatchXP_Pickable : MonoBehaviour
 		{
 			if (__instance == null || character == null || ___m_nview == null) return;
 
-			if (!Main.pickableXpEnabled.Value) return;
+			if (!Main.ModConfig.PickableXpEnabled.Value) return;
 
 			var honeyLevel = ___m_nview.GetZDO().GetInt("level");
 			if (honeyLevel <= 0) return;

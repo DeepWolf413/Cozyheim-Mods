@@ -41,6 +41,7 @@
     <ItemGroup>
         <Compile Include="Commands\LevelUpCommand.cs" />
         <Compile Include="Commands\SetLevelCommand.cs" />
+        <Compile Include="ModConfig.cs" />
         <Compile Include="Constants\RpcConstants.cs" />
         <Compile Include="Custom Effect Scripts\CritTextAnim.cs" />
         <Compile Include="LevelingDummy_Patch.cs" />
