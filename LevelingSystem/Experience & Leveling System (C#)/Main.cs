@@ -10,7 +10,6 @@ using HarmonyLib;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
-using ServerSync;
 using UnityEngine;
 
 namespace Cozyheim.LevelingSystem;
@@ -32,9 +31,6 @@ internal class Main : BaseUnityPlugin
     internal const string modName = "LevelingSystem";
     internal const string version = "0.5.18";
     internal const string GUID = "dk.thrakal." + modName;
-
-    internal static ConfigSync configSync = new(GUID)
-        { DisplayName = modName, CurrentVersion = version, MinimumRequiredVersion = version };
 
     internal static ConfigFile configFile;
 
@@ -439,26 +435,14 @@ internal class Main : BaseUnityPlugin
 
 
     #region CreateConfigEntry Wrapper
-
-    public static ConfigEntry<T> CreateConfigEntry<T>(string group, string name, T value, ConfigDescription description,
-        bool synchronizedSetting = true)
-    {
-        var configEntry = configFile.Bind(group, name, value, description);
-
-        var syncedConfigEntry = configSync.AddConfigEntry(configEntry);
-        syncedConfigEntry.SynchronizedConfig = synchronizedSetting;
-
-        return configEntry;
-    }
-
+    
     public static ConfigEntry<T> CreateConfigEntry<T>(string group, string name, T value, string description,
         bool synchronizedSetting = true, bool requiresAdminToChange = false)
     {
         var configAttributes = new ConfigurationManagerAttributes
             { IsAdminOnly = requiresAdminToChange };
 
-        return CreateConfigEntry(group, name, value, new ConfigDescription(description, null, configAttributes),
-            synchronizedSetting);
+        return configFile.Bind(group, name, value, new ConfigDescription(description, null, configAttributes));
     }
 
     #endregion

@@ -43,7 +43,6 @@
         <Compile Include="LevelingDummy_Patch.cs" />
         <Compile Include="Networking\RPC_LevelUpVFX.cs" />
         <Compile Include="Networking\NetworkHandler.cs" />
-        <Compile Include="Resources\ConfigSync.cs" />
         <Compile Include="Skills\Skill Patches\SkillCriticalHitDamage.cs" />
         <Compile Include="Skills\Skill Patches\SkillResistanceSpirit.cs" />
         <Compile Include="Skills\Skill Patches\SkillResistancePoison.cs" />
@@ -87,7 +86,6 @@
         <Compile Include="XP\PatchXP_Monster.cs" />
         <Compile Include="Main.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Resources\SimpleJSON.cs" />
         <Compile Include="Resources\ConsoleLog.cs" />
     </ItemGroup>
     <ItemGroup>
