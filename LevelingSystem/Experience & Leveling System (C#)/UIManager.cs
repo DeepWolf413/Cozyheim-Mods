@@ -26,6 +26,8 @@ namespace Cozyheim.LevelingSystem
 		public int playerXP;
 		public int playerLevel = 1;
 
+		public Canvas uiCanvas;
+		
 		// Skills UI
 		public CanvasGroup skillsUI;
 		public Text remainingPoints;
@@ -63,6 +65,8 @@ namespace Cozyheim.LevelingSystem
 		{
 			Instance = this;
 
+			uiCanvas = GetComponent<Canvas>();
+			
 			levelText = transform.Find("XP Bar/LevelText").GetComponent<Text>();
 			levelTextShadow = transform.Find("XP Bar/LevelText/Shadow").GetComponent<Text>();
 			xpText = transform.Find("XP Bar/XP Bar/XPText").GetComponent<Text>();
@@ -242,6 +246,7 @@ namespace Cozyheim.LevelingSystem
 
 		public void ToggleSkillsUI(bool value)
 		{
+			uiCanvas.sortingOrder = value ? 500 : 100;
 			skillsUI.alpha = value ? 1f : 0f;
 			skillsUI.interactable = value;
 			skillsUI.blocksRaycasts = value;
