@@ -1,5 +1,4 @@
-﻿using Cozyheim.DifficultyScaler;
-using Cozyheim.LevelingSystem.Constants;
+﻿using Cozyheim.LevelingSystem.Constants;
 using HarmonyLib;
 using Jotunn.Managers;
 using UnityEngine;
@@ -82,19 +81,6 @@ internal class PatchXP_Monster : MonoBehaviour
 				newPackage.Write(__instance.GetZDOID().ID);
 				newPackage.Write(__instance.GetLevel());
 				newPackage.Write(__instance.name);
-
-				var comp = __instance.gameObject.GetComponent<DifficultyScalerBase>();
-				var dsFound = comp != null;
-				newPackage.Write(dsFound);
-				if (comp != null) {
-					Jotunn.Logger.LogDebug("Scaling based on difficulty.");
-					newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.HealthMultiplier));
-					newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.DamageMultiplier));
-					newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.BiomeMultiplier));
-					newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.NightMultiplier));
-					newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.BossKillMultiplier));
-					newPackage.Write(comp.GetMultiplier(DifficultyScalerMultiplier.StarMultiplier));
-				}
 
 				ModRpcRegistry.Instance.SendServerRpc(RpcConstants.ServerRewardXpMonster, newPackage);
 			}

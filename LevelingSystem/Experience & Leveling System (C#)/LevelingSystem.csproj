@@ -136,12 +136,6 @@
         <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\CoreAPI\CoreAPI.csproj">
-            <Project>{82567395-190e-4d2e-b63a-e651911c76e4}</Project>
-            <Name>CoreAPI</Name>
-        </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
       <Reference Include="Jotunn, Version=2.23.2.0, Culture=neutral, processorArchitecture=MSIL">
         <HintPath>..\..\packages\JotunnLib.2.23.2\lib\net462\Jotunn.dll</HintPath>
         <Private>False</Private>
