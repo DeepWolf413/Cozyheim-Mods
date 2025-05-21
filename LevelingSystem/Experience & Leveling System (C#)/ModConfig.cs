@@ -1,10 +1,22 @@
-﻿using BepInEx.Configuration;
+﻿using System.IO;
+using BepInEx.Configuration;
 using UnityEngine;
 
 namespace Cozyheim.LevelingSystem;
 
 public sealed class ModConfig
 {
+    private const string CustomFolder = "custom";
+    private const string CategoriesFolderName = "categories";
+    public static string CustomMiningDirectory => Path.Combine(CustomFolder, "mining");
+    public static string CustomMiningCategoriesDirectory => Path.Combine(CustomFolder, "mining", CategoriesFolderName);
+    public static string CustomWoodcuttingDirectory => Path.Combine(CustomFolder, "woodcutting");
+    public static string CustomWoodcuttingCategoriesDirectory => Path.Combine(CustomFolder, "woodcutting", CategoriesFolderName);
+    public static string CustomCreaturesDirectory => Path.Combine(CustomFolder, "creatures");
+    public static string CustomPickablesDirectory => Path.Combine(CustomFolder, "pickables");
+    public static string CustomPickablesCategoriesDirectory => Path.Combine(CustomFolder, "pickables", CategoriesFolderName);
+    public static string CustomPlayerDirectory => Path.Combine(CustomFolder, "player");
+    
     private readonly ConfigFile _configFile;
     
     public ModConfig(ConfigFile modConfigFile)
@@ -208,7 +220,7 @@ public sealed class ModConfig
     public ConfigEntry<int> AddMultiplePointsAmount { get; }
 
     #endregion
-
+    
     public ConfigEntry<T> CreateConfigEntry<T>(string group, string name, T value, string description, bool requiresAdminToChange = false)
     {
         var configAttributes = new ConfigurationManagerAttributes

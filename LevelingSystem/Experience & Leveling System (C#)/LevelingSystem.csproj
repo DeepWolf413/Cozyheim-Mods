@@ -77,12 +77,13 @@
         <Compile Include="Skills\Skill Patches\SkillCarryWeight.cs" />
         <Compile Include="Skills\SkillBase.cs" />
         <Compile Include="Skills\SkillManager.cs" />
+        <Compile Include="XP\LevelXpTable.cs" />
         <Compile Include="XP\PatchXP_Woodcutting.cs" />
         <Compile Include="XP\PatchXP_Mining.cs" />
         <Compile Include="XP\PatchXP_Pickable.cs" />
         <Compile Include="XP\XPBarFade_Patch.cs" />
         <Compile Include="Custom Effect Scripts\XPText.cs" />
-        <Compile Include="XP\XPTable.cs" />
+        <Compile Include="XP\XpTable.cs" />
         <Compile Include="XP\MonsterXP.cs" />
         <Compile Include="XP\XPManager.cs" />
         <Compile Include="UIManager.cs" />
@@ -91,6 +92,12 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
+        <EmbeddedResource Include="Resources\default_configs\creatures\xp_tables\vanilla_bosses.json" />
+        <EmbeddedResource Include="Resources\default_configs\creatures\xp_tables\vanilla_non-bosses.json" />
+        <EmbeddedResource Include="Resources\default_configs\mining\xp_tables\vanilla.json" />
+        <EmbeddedResource Include="Resources\default_configs\pickables\xp_tables\vanilla.json" />
+        <EmbeddedResource Include="Resources\default_configs\player\xp_tables\default.json" />
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\xp_tables\vanilla.json" />
         <EmbeddedResource Include="Resources\leveling_system" />
     </ItemGroup>
     <ItemGroup>
@@ -110,46 +117,19 @@
             <Link>..\README.md</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <Content Include="..\config\LevelingSystem\MiningXP\Custom.json">
-            <Link>..\config\LevelingSystem\MiningXP\Custom.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\MiningXP\Jewelcrafting Mining.json">
-            <Link>..\config\LevelingSystem\MiningXP\Jewelcrafting Mining.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\MiningXP\Vanilla Mining.json">
-            <Link>..\config\LevelingSystem\MiningXP\Vanilla Mining.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\MonsterXP\Custom.json">
-            <Link>..\config\LevelingSystem\MonsterXP\Custom.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\MonsterXP\Vanilla Monsters.json">
-            <Link>..\config\LevelingSystem\MonsterXP\Vanilla Monsters.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\PickableXP\Custom.json">
-            <Link>..\config\LevelingSystem\PickableXP\Custom.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\PickableXP\Vanilla Pickables.json">
-            <Link>..\config\LevelingSystem\PickableXP\Vanilla Pickables.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\PlayerXP\Player XP Table.json">
-            <Link>..\config\LevelingSystem\PlayerXP\Player XP Table.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\WoodcuttingXP\Custom.json">
-            <Link>..\config\LevelingSystem\WoodcuttingXP\Custom.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-        <Content Include="..\config\LevelingSystem\WoodcuttingXP\Vanilla Woodcutting.json">
-            <Link>..\config\LevelingSystem\WoodcuttingXP\Vanilla Woodcutting.json</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\blackmarble-softtissue.json" />
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\copper-tin.json" />
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\iron.json" />
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\obsidian-chitin.json" />
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\silver-flametal.json" />
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\stone.json" />
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\ancient_tree.json" />
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\beech_tree.json" />
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\birch_tree.json" />
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\fir_tree.json" />
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\oak_tree.json" />
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\pine_tree.json" />
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\yggdrasil_tree.json" />
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />

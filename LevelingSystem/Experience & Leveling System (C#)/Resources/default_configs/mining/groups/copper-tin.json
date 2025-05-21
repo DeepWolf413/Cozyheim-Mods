@@ -1,0 +1,10 @@
+﻿{
+  "Copper": [
+    "MineRock_Copper",
+    "rock4_copper",
+    "rock4_copper_frac"
+  ],
+  "Tin": [
+    "MineRock_Tin"
+  ]
+}

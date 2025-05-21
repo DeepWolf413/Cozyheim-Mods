@@ -1,0 +1,12 @@
+﻿{
+  "BlackMarble": [
+    "giant_ribs",
+    "giant_ribs_frac",
+    "giant_skull",
+    "giant_skull_frac"
+  ],
+  "SoftTissue": [
+    "giant_brain",
+    "giant_brain_frac"
+  ]
+}

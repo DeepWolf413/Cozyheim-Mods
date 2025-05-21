@@ -1,6 +1,6 @@
 ﻿{
     "name": "LevelingSystem_Fixed",
-    "version_number": "0.5.17",
+    "version_number": "0.6.0",
     "website_url": "https://github.com/DeepWolf413/Cozyheim-Mods",
     "description": "A full experience and leveling system for Valheim. Allows you to gain experience for killing monsters, bosses & gathering resources",
     "dependencies": [

@@ -95,13 +95,7 @@ namespace Cozyheim.LevelingSystem
 
 			playerLevel = XPManager.Instance.GetPlayerLevel();
 			playerXP = XPManager.Instance.GetPlayerXP();
-
-			XPTable.UpdateMonsterXPTable();
-			XPTable.UpdatePlayerXPTable();
-			XPTable.UpdatePickableXPTable();
-			XPTable.UpdateMiningXPTable();
-			XPTable.UpdateWoodcuttingXPTable();
-
+			
 			levelUpGroup.alpha = 0f;
 
 			xpTextFloating = PrefabManager.Instance.GetPrefab("XPText");
@@ -464,9 +458,9 @@ namespace Cozyheim.LevelingSystem
 
 				playerXP += xp;
 
-				while (playerXP >= XPTable.playerXPTable[playerLevel - 1]) {
+				while (playerXP >= XPManager.PlayerXpTable.GetMaxXpAtLevel(playerLevel)) {
 					gainedNewLevel = true;
-					playerXP -= XPTable.playerXPTable[playerLevel - 1];
+					playerXP -= XPManager.PlayerXpTable.GetMaxXpAtLevel(playerLevel);
 					playerLevel++;
 
 					XPManager.Instance.SetPlayerLevel(playerLevel);
@@ -497,7 +491,7 @@ namespace Cozyheim.LevelingSystem
 				return;
 			}
 
-			float xpToNextLevel = XPTable.playerXPTable[playerLevel - 1];
+			float xpToNextLevel = XPManager.PlayerXpTable.GetMaxXpAtLevel(playerLevel);
 			var xpPercentage = playerXP / xpToNextLevel;
 
 			xpFillTarget = xpPercentage;
@@ -531,7 +525,7 @@ namespace Cozyheim.LevelingSystem
 			levelTextShadow.text = levelText.text;
 		}
 
-		public bool IsPlayerMaxLevel() { return playerLevel > XPTable.playerXPTable.Length; }
+		public bool IsPlayerMaxLevel() { return playerLevel > XPManager.PlayerXpTable.MaxLevel; }
 
 		public void DestroySelf()
 		{

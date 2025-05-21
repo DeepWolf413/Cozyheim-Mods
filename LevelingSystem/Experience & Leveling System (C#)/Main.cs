@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using BepInEx;
 using BepInEx.Bootstrap;
 using Cozyheim.LevelingSystem.Commands;
@@ -29,21 +30,22 @@ public class Main : BaseUnityPlugin
     public const string Version = "0.5.19";
     public const string Guid = "dk.thrakal." + ModName;
     public const string AssetsPath = "Assets/_Leveling System/";
-
+    public const string ConfigFolder = "xp_tables";
+    
     private readonly Harmony _harmony = new (Guid);
     
     public static AssetBundle AssetBundle { get; private set; }
     public static bool IsDifficultyScalerModLoaded { get; private set; }
     public static bool IsJewelcraftingModLoaded { get; private set; }
-
+    
     internal static ModConfig ModConfig { get; private set; }
 
     private void Awake()
     {
         IsDifficultyScalerModLoaded = CheckIfModIsLoaded("dk.thrakal.DifficultyScaler");
         IsJewelcraftingModLoaded = CheckIfModIsLoaded("org.bepinex.plugins.jewelcrafting");
-        ModConfig = new(Config);
-
+        ModConfig = new ModConfig(Config);
+        
         _harmony.PatchAll(Assembly.GetExecutingAssembly());
 
         // Asset Bundle loaded
@@ -54,8 +56,8 @@ public class Main : BaseUnityPlugin
 
         InitializeCommands();
         
+        XPManager.Instance.Init();
         UIManager.Init();
-        XPManager.Init();
     }
     
     
@@ -111,6 +113,7 @@ public class Main : BaseUnityPlugin
         var trainingDummyStrawman =
             AssetBundle.LoadAsset<GameObject>(AssetsPath + "Prefabs/LevelingDummyStrawman.prefab");
         PieceManager.Instance.AddPiece(new CustomPiece(trainingDummyStrawman, PieceTables.Hammer, false));
+        
         PrefabManager.OnVanillaPrefabsAvailable -= LoadAssets;
     }
 }

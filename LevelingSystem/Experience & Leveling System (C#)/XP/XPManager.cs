@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Cozyheim.LevelingSystem.Constants;
+using Jotunn.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +14,11 @@ internal class XPManager : MonoBehaviour
 	private static readonly string saveXpString = "CozyXP";
 
 	private static XPManager _instance;
+	public static XpTable MiningXpTable { get; private set; }
+	public static XpTable WoodcuttingXpTable { get; private set; }
+	public static XpTable PickablesXpTable { get; private set; }
+	public static XpTable CreaturesXpTable { get; private set; }
+	public static LevelXpTable PlayerXpTable { get; private set; }
 
 	private readonly List<MonsterXP> xpObjects = new();
 
@@ -23,19 +31,23 @@ internal class XPManager : MonoBehaviour
 		}
 	}
 
-	public static void Init()
+	private void Awake()
+	{
+		var resourceAssembly = ReflectionHelper.GetCallingAssembly();
+		MiningXpTable = new XpTable(resourceAssembly, Path.Combine(Main.ConfigFolder, "mining"), true);
+		WoodcuttingXpTable = new XpTable(resourceAssembly, Path.Combine(Main.ConfigFolder, "woodcutting"), true);
+		PickablesXpTable = new XpTable(resourceAssembly, Path.Combine(Main.ConfigFolder, "pickables"), true);
+		CreaturesXpTable = new XpTable(resourceAssembly, Path.Combine(Main.ConfigFolder, "creatures"), false);
+		PlayerXpTable = new LevelXpTable(Path.Combine(Main.ConfigFolder, "player"), "LevelingSystem.Resources.default_configs.player.xp_tables.default.json");
+	}
+
+	public void Init()
 	{
 		// Register RPC Methods
 		ModRpcRegistry.Instance.AddRpc(RpcConstants.ServerSetLevel, ModRpcRegistry.RegistryEntry.RpcType.ServerOnly, RPC_ServerSetLevel);
 		ModRpcRegistry.Instance.AddRpc(RpcConstants.ServerAddMonsterDamage, ModRpcRegistry.RegistryEntry.RpcType.ServerOnly, RPC_AddMonsterDamage);
 		ModRpcRegistry.Instance.AddRpc(RpcConstants.ServerRewardXpMonster, ModRpcRegistry.RegistryEntry.RpcType.ServerOnly, RPC_RewardXPMonsters);
 		ModRpcRegistry.Instance.AddRpc(RpcConstants.ServerGetXp, ModRpcRegistry.RegistryEntry.RpcType.ServerOnly, RPC_GetXPFromServer);
-
-		XPTable.UpdateMiningXPTable();
-		XPTable.UpdateMonsterXPTable();
-		XPTable.UpdatePickableXPTable();
-		XPTable.UpdatePlayerXPTable();
-		XPTable.UpdateWoodcuttingXPTable();
 	}
 
 	private static void RPC_ServerSetLevel(long senderId, ZPackage package)
@@ -110,13 +122,13 @@ internal class XPManager : MonoBehaviour
 		int xp;
 		switch (itemType) {
 			case "Woodcutting":
-				xp = XPTable.GetWoodcuttingXP(itemName);
+				xp = WoodcuttingXpTable.GetXp(itemName);
 				break;
 			case "Mining":
-				xp = XPTable.GetMiningXP(itemName);
+				xp = MiningXpTable.GetXp(itemName);
 				break;
 			case "Pickable":
-				xp = XPTable.GetPickableXP(itemName);
+				xp = PickablesXpTable.GetXp(itemName);
 				break;
 			default:
 				return;
@@ -124,6 +136,7 @@ internal class XPManager : MonoBehaviour
 
 		if (xp <= 0)
 		{
+			Jotunn.Logger.LogDebug($"Failed to find a valid xp reward for client. Player Id: {playerID} | xpMul: {xpMultiplier} | iType: {itemType} | iName: {itemName}");
 			return;
 		}
 		
@@ -196,7 +209,7 @@ internal class XPManager : MonoBehaviour
 				var xpMultiplier = Mathf.Max(0f, Main.ModConfig.AllXpMultiplier.Value / 100f);
 				var restedMultiplier = Mathf.Max(0f, Main.ModConfig.RestedXpMultiplier.Value / 100f);
 
-				var awardedXP = XPTable.GetMonsterXP(monsterName) * xpPercentage * Random.Range(baseXpSpreadMin, baseXpSpreadMax) * xpMultiplier;
+				var awardedXP = CreaturesXpTable.GetXp(monsterName) * xpPercentage * Random.Range(baseXpSpreadMin, baseXpSpreadMax) * xpMultiplier;
 
 				// Apply difficulty scaler xp
 				if (dsFound && Main.IsDifficultyScalerModLoaded)
