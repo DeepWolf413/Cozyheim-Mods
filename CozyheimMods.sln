@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelingSystem", "LevelingSystem\Experience & Leveling System (C#)\LevelingSystem.csproj", "{4D2A4A69-CBCF-4527-B504-7C1D1D3B3696}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DifficultyScaler", "DifficultyScaler\Difficulty Scaler (C#)\DifficultyScaler.csproj", "{BDDE30D3-F108-465F-9A6F-5AFBC030CAEB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AugaTextFix", "AugaTextFix\AugaTextFix.csproj", "{288CB725-9070-4E85-8312-405C0B70B6B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiningAOE", "MiningAOE\MiningAOE.csproj", "{8A28E7CE-62C3-4339-BF7A-67C33D5CCE2F}"
@@ -23,10 +21,6 @@ Global
 		{4D2A4A69-CBCF-4527-B504-7C1D1D3B3696}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D2A4A69-CBCF-4527-B504-7C1D1D3B3696}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D2A4A69-CBCF-4527-B504-7C1D1D3B3696}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDDE30D3-F108-465F-9A6F-5AFBC030CAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDDE30D3-F108-465F-9A6F-5AFBC030CAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDDE30D3-F108-465F-9A6F-5AFBC030CAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDDE30D3-F108-465F-9A6F-5AFBC030CAEB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{288CB725-9070-4E85-8312-405C0B70B6B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{288CB725-9070-4E85-8312-405C0B70B6B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{288CB725-9070-4E85-8312-405C0B70B6B6}.Release|Any CPU.ActiveCfg = Debug|Any CPU

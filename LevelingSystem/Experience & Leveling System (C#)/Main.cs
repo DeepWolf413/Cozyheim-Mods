@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using BepInEx;
 using BepInEx.Bootstrap;
 using Cozyheim.LevelingSystem.Commands;
@@ -14,7 +13,6 @@ namespace Cozyheim.LevelingSystem;
 
 [BepInPlugin(Guid, ModName, Version)]
 [BepInDependency(Jotunn.Main.ModGuid)]
-[BepInDependency("dk.thrakal.DifficultyScaler", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("org.bepinex.plugins.jewelcrafting", BepInDependency.DependencyFlags.SoftDependency)]
 [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
 public class Main : BaseUnityPlugin
@@ -28,21 +26,19 @@ public class Main : BaseUnityPlugin
     // Mod information
     public const string ModName = "LevelingSystem";
     public const string Version = "0.5.19";
-    public const string Guid = "dk.thrakal." + ModName;
+    public const string Guid = "node.deepwolf." + ModName;
     public const string AssetsPath = "Assets/_Leveling System/";
     public const string ConfigFolder = "xp_tables";
     
     private readonly Harmony _harmony = new (Guid);
     
     public static AssetBundle AssetBundle { get; private set; }
-    public static bool IsDifficultyScalerModLoaded { get; private set; }
     public static bool IsJewelcraftingModLoaded { get; private set; }
     
     internal static ModConfig ModConfig { get; private set; }
 
     private void Awake()
     {
-        IsDifficultyScalerModLoaded = CheckIfModIsLoaded("dk.thrakal.DifficultyScaler");
         IsJewelcraftingModLoaded = CheckIfModIsLoaded("org.bepinex.plugins.jewelcrafting");
         ModConfig = new ModConfig(Config);
         

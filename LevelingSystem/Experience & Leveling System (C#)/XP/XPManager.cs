@@ -210,37 +210,6 @@ internal class XPManager : MonoBehaviour
 				var restedMultiplier = Mathf.Max(0f, Main.ModConfig.RestedXpMultiplier.Value / 100f);
 
 				var awardedXP = CreaturesXpTable.GetXp(monsterName) * xpPercentage * Random.Range(baseXpSpreadMin, baseXpSpreadMax) * xpMultiplier;
-
-				// Apply difficulty scaler xp
-				if (dsFound && Main.IsDifficultyScalerModLoaded)
-					if (Main.ModConfig.EnableDifficultyScalerXp.Value) {
-						var dsHealthBonus = dsHealthMultiplier * Main.ModConfig.DifficultyScalerOverallHealthRatio.Value;
-						var dsDamageBonus = dsDamageMultiplier * Main.ModConfig.DifficultyScalerOverallDamageRatio.Value;
-						var dsBiomeBonus = dsBiomeMultiplier * Main.ModConfig.DifficultyScalerBiomeRatio.Value;
-						var dsNightBonus = dsNightMultiplier * Main.ModConfig.DifficultyScalerBossRatio.Value;
-						var dsBossBonus = dsBossKillMultiplier * Main.ModConfig.DifficultyScalerBossRatio.Value;
-						var dsStarBonus = dsStarMultiplier * Main.ModConfig.DifficultyScalerStarRatio.Value;
-
-						var totalBonusMultiplier = 0f;
-
-						Jotunn.Logger.LogDebug($"XP before scaling: {awardedXP}");
-
-						if (Main.ModConfig.DifficultyScalerOverallHealth.Value) totalBonusMultiplier += dsHealthBonus;
-
-						if (Main.ModConfig.DifficultyScalerOverallDamage.Value) totalBonusMultiplier += dsDamageBonus;
-
-						if (Main.ModConfig.DifficultyScalerBiome.Value) totalBonusMultiplier += dsBiomeBonus;
-
-						if (Main.ModConfig.DifficultyScalerNight.Value) totalBonusMultiplier += dsNightBonus;
-
-						if (Main.ModConfig.DifficultyScalerBoss.Value) totalBonusMultiplier += dsBossBonus;
-
-						if (Main.ModConfig.DifficultyScalerStar.Value) totalBonusMultiplier += dsStarBonus;
-
-						awardedXP *= totalBonusMultiplier + 1f;
-						Jotunn.Logger.LogDebug($"XP scaled with {(totalBonusMultiplier * 100f):N0}%: {awardedXP}");
-					}
-
 				var monsterLevelBonusXp = (monsterLevel - 1) * monsterLvlMultiplier * awardedXP;
 				var restedBonusXp = awardedXP * restedMultiplier;
 

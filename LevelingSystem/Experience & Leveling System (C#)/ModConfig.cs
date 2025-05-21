@@ -93,51 +93,6 @@ public sealed class ModConfig
                                             "[ServerSync] Base XP spread, Maximum. (0 = Same as XP table, 5 = +5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.",
                                             true);
 
-        // Difficulty Scaler integration
-        if (Main.IsDifficultyScalerModLoaded) {
-            EnableDifficultyScalerXp = CreateConfigEntry("Difficulty Scaler", "enableDifficultyScalerXP", false,
-                                                         "[ServerSync] Enable Difficulty Scaler XP integration (Requires the Difficulty Scaler mod is installed)",
-                                                         true);
-
-            DifficultyScalerOverallHealth = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallHealth",
-                                                              true, "[ServerSync] Use Difficulty Scaler's overall health difficulty multiplier", true);
-            DifficultyScalerOverallHealthRatio = CreateConfigEntry("Difficulty Scaler",
-                                                                   "difficultyScalerOverallHealthRatio", 0.5f,
-                                                                   "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                                                                   true);
-
-            DifficultyScalerOverallDamage = CreateConfigEntry("Difficulty Scaler", "difficultyScalerOverallDamage",
-                                                              true, "[ServerSync] Use Difficulty Scaler's overall damage difficulty multiplier", true);
-            DifficultyScalerOverallDamageRatio = CreateConfigEntry("Difficulty Scaler",
-                                                                   "difficultyScalerOverallDamageRatio", 0.5f,
-                                                                   "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                                                                   true);
-
-            DifficultyScalerBiome = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBiome", true,
-                                                      "[ServerSync] Use Difficulty Scaler's biome difficulty multiplier", true);
-            DifficultyScalerBiomeRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBiomeRatio", 1f,
-                                                           "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                                                           true);
-
-            DifficultyScalerBoss = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBoss", true,
-                                                     "[ServerSync] Use Difficulty Scaler's boss difficulty multiplier", true);
-            DifficultyScalerBossRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerBossRatio", 1f,
-                                                          "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                                                          true);
-
-            DifficultyScalerNight = CreateConfigEntry("Difficulty Scaler", "difficultyScalerNight", true,
-                                                      "[ServerSync] Use Difficulty Scaler' night difficulty multiplier", true);
-            DifficultyScalerNightRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerNightRatio", 1f,
-                                                           "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                                                           true);
-
-            DifficultyScalerStar = CreateConfigEntry("Difficulty Scaler", "difficultyScalerStar", true,
-                                                     "[ServerSync] Use Difficulty Scaler's star difficulty multiplier", true);
-            DifficultyScalerStarRatio = CreateConfigEntry("Difficulty Scaler", "difficultyScalerStarRatio", 1f,
-                                                          "[ServerSync] The ratio of the scaling multiplier that is applied as XP. (1 = the same as difficulty scaler, 0.5 = 50% of the scaling, 2 = 200% of the scaling",
-                                                          true);
-        }
-
         // Generate config entries for XP Tables
         // Pickables
         PickableXpEnabled = CreateConfigEntry("XP Table", "pickableXpEnabled", true,
