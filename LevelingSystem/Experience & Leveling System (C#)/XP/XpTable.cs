@@ -7,6 +7,7 @@ using HarmonyLib;
 using Jotunn;
 using Jotunn.Utils;
 using MonoMod.Utils;
+using Newtonsoft.Json;
 using ReflectionHelper = Jotunn.Utils.ReflectionHelper;
 
 namespace Cozyheim.LevelingSystem;
@@ -84,7 +85,7 @@ public sealed class XpTable
             if (isFileXpTable)
             {
                 string json = AssetUtils.LoadTextFromResources(embeddedResourceName, resourceAssembly);
-                var entriesFromJson = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, int>>(json);
+                var entriesFromJson = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
                 if (entriesFromJson.Count == 0)
                 {
                     Jotunn.Logger.LogError($"Skipped loading embedded {NameId} xp table file at '{embeddedResourceName}' - no entries found. Please report this to the mod author.");
@@ -105,7 +106,7 @@ public sealed class XpTable
             if (isFileGroup)
             {
                 string json = AssetUtils.LoadTextFromResources(embeddedResourceName, resourceAssembly);
-                var groupsFromJson = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, string[]>>(json);
+                var groupsFromJson = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(json);
                 if (groupsFromJson.Count == 0)
                 {
                     Jotunn.Logger.LogError($"Skipped loading embedded {NameId} group file at '{embeddedResourceName}' - no entries found. Please report this to the mod author.");
@@ -142,7 +143,7 @@ public sealed class XpTable
         foreach (var jsonFilePath in jsonFilePaths)
         {
             var json = File.ReadAllText(jsonFilePath);
-            var loadedXpTable = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, int>>(json);
+            var loadedXpTable = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
             if (loadedXpTable.Count == 0)
             {
                 Logger.LogWarning($"Skipped loading custom {NameId} xp table file at '{jsonFilePath}' - no entries found.");
@@ -170,7 +171,7 @@ public sealed class XpTable
         foreach (var jsonFilePath in jsonFilePaths)
         {
             var json = File.ReadAllText(jsonFilePath);
-            var groups = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, string[]>>(json);
+            var groups = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(json);
             if (groups.Count == 0)
             {
                 Logger.LogWarning($"Skipped loading custom {NameId} group file at '{jsonFilePath}' - no entries found.");

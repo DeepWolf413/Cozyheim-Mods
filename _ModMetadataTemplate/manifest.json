@@ -5,6 +5,7 @@
     "description": "A full experience and leveling system for Valheim. Allows you to gain experience for killing monsters, bosses & gathering resources",
     "dependencies": [
         "denikson-BepInExPack_Valheim-5.4.2202",
-        "ValheimModding-Jotunn-2.23.2"
+        "ValheimModding-Jotunn-2.25.0",
+        "ValheimModding-JsonDotNET-13.0.3"
     ]
 }
