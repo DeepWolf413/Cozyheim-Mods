@@ -177,24 +177,6 @@ internal class XPManager : MonoBehaviour
 		if (monsterObj != null) {
 			var totalDamage = monsterObj.GetTotalDamageDealt();
 
-			var dsHealthMultiplier = 0f;
-			var dsDamageMultiplier = 0f;
-			var dsBiomeMultiplier = 0f;
-			var dsNightMultiplier = 0f;
-			var dsBossKillMultiplier = 0f;
-			var dsStarMultiplier = 0f;
-
-			var dsFound = package.ReadBool();
-
-			if (dsFound) {
-				dsHealthMultiplier = package.ReadSingle();
-				dsDamageMultiplier = package.ReadSingle();
-				dsBiomeMultiplier = package.ReadSingle();
-				dsNightMultiplier = package.ReadSingle();
-				dsBossKillMultiplier = package.ReadSingle();
-				dsStarMultiplier = package.ReadSingle();
-			}
-
 			// Find the correct monster in the list
 			foreach (var damage in monsterObj.playerDamages) {
 				var newPackage = new ZPackage();
