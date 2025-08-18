@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using UnityEngine;
 
 namespace Cozyheim.LevelingSystem
 {
@@ -13,15 +12,12 @@ namespace Cozyheim.LevelingSystem
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(CraftingStation), "Interact")]
-        static bool CraftingStation_Interact_Prefix(CraftingStation __instance)
+        private static bool CraftingStation_Interact_Prefix(CraftingStation __instance)
         {
-            Transform parent = __instance.transform.parent;
-            if (parent != null)
-            {
-                if (__instance.transform.parent.name.StartsWith("LevelingDummy"))
-                {
-                    if (!UIManager.Instance.skillsUIVisible)
-                    {
+            var parent = __instance.transform.parent;
+            if (parent != null) {
+                if (__instance.transform.parent.name.StartsWith("LevelingDummy")) {
+                    if (!UIManager.Instance.skillsUIVisible) {
                         UIManager.Instance.ToggleSkillsUI(true);
                         return false;
                     }

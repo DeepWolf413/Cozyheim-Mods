@@ -1,48 +1,55 @@
 ﻿using HarmonyLib;
 
-namespace Cozyheim.LevelingSystem;
-
-internal class SkillMovementSpeed : SkillBase
+namespace Cozyheim.LevelingSystem
 {
-    public static SkillMovementSpeed Instance;
-
-    public SkillMovementSpeed(int maxLevel, float bonusPerLevel, string iconName, string displayName, string unit = "",
-        float baseBonus = 0f) : base(maxLevel, bonusPerLevel, iconName, displayName, unit, baseBonus)
+    internal class SkillMovementSpeed : SkillBase
     {
-        skillType = SkillType.MovementSpeed;
-        Instance = this;
-    }
+        public static SkillMovementSpeed Instance;
 
-
-    [HarmonyPatch]
-    private class PatchClass
-    {
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(Player), "GetJogSpeedFactor")]
-        private static void Player_GetJogSpeedFactor_Postfix(Player __instance, ref float __result)
+        public SkillMovementSpeed(int maxLevel, float bonusPerLevel, string iconName, string displayName,
+                                  string unit = "",
+                                  float baseBonus = 0f) : base(maxLevel, bonusPerLevel, iconName, displayName, unit,
+                                                               baseBonus)
         {
-            if (Instance == null) return;
-
-            if (__instance == Player.m_localPlayer) {
-                var bonusValue = Instance.level * Instance.bonusPerLevel / 100f;
-                __result += bonusValue;
-            }
+            skillType = SkillType.MovementSpeed;
+            Instance = this;
         }
 
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(Player), "GetRunSpeedFactor")]
-        private static void Player_GetRunSpeedFactor_Postfix(Player __instance, ref float __result)
+
+        [HarmonyPatch]
+        private class PatchClass
         {
-            if (Instance == null) return;
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(Player), "GetJogSpeedFactor")]
+            private static void Player_GetJogSpeedFactor_Postfix(Player __instance, ref float __result)
+            {
+                if (Instance == null) {
+                    return;
+                }
 
-            if (__instance == Player.m_localPlayer) {
-                var bonusValue = Instance.level * Instance.bonusPerLevel / 100f;
-                var threshold = bonusValue * 0.25f;
+                if (__instance == Player.m_localPlayer) {
+                    var bonusValue = Instance.level * Instance.bonusPerLevel / 100f;
+                    __result += bonusValue;
+                }
+            }
 
-                var runValue = __result + bonusValue * 0.25f;
-                var jogValue = 1f + __instance.GetEquipmentMovementModifier() + bonusValue;
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(Player), "GetRunSpeedFactor")]
+            private static void Player_GetRunSpeedFactor_Postfix(Player __instance, ref float __result)
+            {
+                if (Instance == null) {
+                    return;
+                }
 
-                __result = runValue > jogValue + threshold ? runValue : runValue + threshold;
+                if (__instance == Player.m_localPlayer) {
+                    var bonusValue = Instance.level * Instance.bonusPerLevel / 100f;
+                    var threshold = bonusValue * 0.25f;
+
+                    var runValue = __result + bonusValue * 0.25f;
+                    var jogValue = 1f + __instance.GetEquipmentMovementModifier() + bonusValue;
+
+                    __result = runValue > jogValue + threshold ? runValue : runValue + threshold;
+                }
             }
         }
     }

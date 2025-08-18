@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="..\..\packages\JotunnLib.2.25.0\build\JotunnLib.props" Condition="Exists('..\..\packages\JotunnLib.2.25.0\build\JotunnLib.props')" />
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <Import Project="$(SolutionDir)\BuildTasksRelease.props" />
+    <Import Project="..\..\packages\JotunnLib.2.26.0\build\JotunnLib.props" Condition="Exists('..\..\packages\JotunnLib.2.26.0\build\JotunnLib.props')"/>
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+    <Import Project="$(SolutionDir)\BuildTasksRelease.props"/>
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -40,66 +40,74 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="Commands\LevelUpCommand.cs" />
-        <Compile Include="Commands\SetLevelCommand.cs" />
-        <Compile Include="ModConfig.cs" />
-        <Compile Include="Constants\RpcConstants.cs" />
-        <Compile Include="Custom Effect Scripts\CritTextAnim.cs" />
-        <Compile Include="LevelingDummy_Patch.cs" />
-        <Compile Include="Networking\RpcInitializer.cs" />
-        <Compile Include="Networking\ModRpcRegistry.cs" />
-        <Compile Include="Skills\Skill Patches\SkillCriticalHitDamage.cs" />
-        <Compile Include="Skills\Skill Patches\SkillResistanceSpirit.cs" />
-        <Compile Include="Skills\Skill Patches\SkillResistancePoison.cs" />
-        <Compile Include="Skills\Skill Patches\SkillResistanceFrost.cs" />
-        <Compile Include="Skills\Skill Patches\SkillResistanceLightning.cs" />
-        <Compile Include="Skills\Skill Patches\SkillResistanceFire.cs" />
-        <Compile Include="Skills\Skill Patches\SkillResistancePierce.cs" />
-        <Compile Include="Skills\Skill Patches\SkillResistanceBlunt .cs" />
-        <Compile Include="Skills\Skill Patches\SkillResistanceSlash.cs" />
-        <Compile Include="Skills\SkillConfig.cs" />
-        <Compile Include="Skills\Skill Patches\SkillCriticalHitChance.cs" />
-        <Compile Include="Skills\Skill Patches\SkillEitrRegen.cs" />
-        <Compile Include="Skills\Skill Patches\SkillStaminaRegen.cs" />
-        <Compile Include="Skills\Skill Patches\SkillHPRegen.cs" />
-        <Compile Include="Skills\Skill Patches\SkillMovementSpeed.cs" />
-        <Compile Include="Skills\Skill Patches\SkillElementalResistance.cs" />
-        <Compile Include="Skills\Skill Patches\SkillElementalDamage.cs" />
-        <Compile Include="Skills\Skill Patches\SkillPhysicalResistance.cs" />
-        <Compile Include="Skills\Skill Patches\SkillPhysicalDamage.cs" />
-        <Compile Include="Skills\SkillOption.cs" />
-        <Compile Include="Skills\Skill Patches\SkillStamina.cs" />
-        <Compile Include="Skills\Skill Patches\SkillEitr.cs" />
-        <Compile Include="Skills\Skill Patches\SkillWoodcutting.cs" />
-        <Compile Include="Skills\Skill Patches\SkillHunting.cs" />
-        <Compile Include="Skills\Skill Patches\SkillFarming.cs" />
-        <Compile Include="Skills\Skill Patches\SkillMining.cs" />
-        <Compile Include="Skills\Skill Patches\SkillHP.cs" />
-        <Compile Include="Skills\Skill Patches\SkillCarryWeight.cs" />
-        <Compile Include="Skills\SkillBase.cs" />
-        <Compile Include="Skills\SkillManager.cs" />
-        <Compile Include="XP\LevelXpTable.cs" />
-        <Compile Include="XP\PatchXP_Woodcutting.cs" />
-        <Compile Include="XP\PatchXP_Mining.cs" />
-        <Compile Include="XP\PatchXP_Pickable.cs" />
-        <Compile Include="XP\XPBarFade_Patch.cs" />
-        <Compile Include="Custom Effect Scripts\XPText.cs" />
-        <Compile Include="XP\XpTable.cs" />
-        <Compile Include="XP\MonsterXP.cs" />
-        <Compile Include="XP\XPManager.cs" />
-        <Compile Include="UIManager.cs" />
-        <Compile Include="XP\PatchXP_Monster.cs" />
-        <Compile Include="Main.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Commands\LevelUpCommand.cs"/>
+        <Compile Include="Commands\SetLevelCommand.cs"/>
+        <Compile Include="Components\DamageRegistry.cs"/>
+        <Compile Include="Components\PlayerLeveling.cs"/>
+        <Compile Include="Components\RewardExpOnDeath.cs"/>
+        <Compile Include="ModConfig.cs"/>
+        <Compile Include="Custom Effect Scripts\CritTextAnim.cs"/>
+        <Compile Include="LevelingDummy_Patch.cs"/>
+        <Compile Include="Networking\RpcInitializer.cs"/>
+        <Compile Include="Patches\CharacterInitPatch.cs"/>
+        <Compile Include="Patches\DamageRecorderPatch.cs"/>
+        <Compile Include="Patches\PlayerInitPatch.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillCriticalHitDamage.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillResistanceSpirit.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillResistancePoison.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillResistanceFrost.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillResistanceLightning.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillResistanceFire.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillResistancePierce.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillResistanceBlunt .cs"/>
+        <Compile Include="Skills\Skill Patches\SkillResistanceSlash.cs"/>
+        <Compile Include="Skills\SkillConfig.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillCriticalHitChance.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillEitrRegen.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillStaminaRegen.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillHPRegen.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillMovementSpeed.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillElementalResistance.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillElementalDamage.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillPhysicalResistance.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillPhysicalDamage.cs"/>
+        <Compile Include="Skills\SkillOption.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillStamina.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillEitr.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillWoodcutting.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillHunting.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillFarming.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillMining.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillHP.cs"/>
+        <Compile Include="Skills\Skill Patches\SkillCarryWeight.cs"/>
+        <Compile Include="Skills\SkillBase.cs"/>
+        <Compile Include="Skills\SkillManager.cs"/>
+        <Compile Include="Utilities\RpcId.cs"/>
+        <Compile Include="Utilities\RpcInvoke.cs"/>
+        <Compile Include="XP\ExpReward.cs"/>
+        <Compile Include="XP\ExpSource.cs"/>
+        <Compile Include="XP\LevelXpTable.cs"/>
+        <Compile Include="XP\PatchXP_Woodcutting.cs"/>
+        <Compile Include="XP\PatchXP_Mining.cs"/>
+        <Compile Include="XP\PatchXP_Pickable.cs"/>
+        <Compile Include="XP\XPBarFade_Patch.cs"/>
+        <Compile Include="Custom Effect Scripts\XPText.cs"/>
+        <Compile Include="XP\XpTable.cs"/>
+        <Compile Include="XP\MonsterXP.cs"/>
+        <Compile Include="XP\XPManager.cs"/>
+        <Compile Include="UIManager.cs"/>
+        <Compile Include="XP\PatchXP_Monster.cs"/>
+        <Compile Include="Main.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Resources\default_configs\creatures\xp_tables\vanilla_bosses.json" />
-        <EmbeddedResource Include="Resources\default_configs\creatures\xp_tables\vanilla_non-bosses.json" />
-        <EmbeddedResource Include="Resources\default_configs\mining\xp_tables\vanilla.json" />
-        <EmbeddedResource Include="Resources\default_configs\pickables\xp_tables\vanilla.json" />
-        <EmbeddedResource Include="Resources\default_configs\player\xp_tables\default.json" />
-        <EmbeddedResource Include="Resources\default_configs\woodcutting\xp_tables\vanilla.json" />
-        <EmbeddedResource Include="Resources\leveling_system" />
+        <EmbeddedResource Include="Resources\default_configs\creatures\xp_tables\vanilla_bosses.json"/>
+        <EmbeddedResource Include="Resources\default_configs\creatures\xp_tables\vanilla_non-bosses.json"/>
+        <EmbeddedResource Include="Resources\default_configs\mining\xp_tables\vanilla.json"/>
+        <EmbeddedResource Include="Resources\default_configs\pickables\xp_tables\vanilla.json"/>
+        <EmbeddedResource Include="Resources\default_configs\player\xp_tables\default.json"/>
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\xp_tables\vanilla.json"/>
+        <EmbeddedResource Include="Resources\leveling_system"/>
     </ItemGroup>
     <ItemGroup>
         <Content Include="..\..\_ModMetadataTemplate\CHANGELOG.md">
@@ -118,46 +126,50 @@
             <Link>..\README.md</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
-        <EmbeddedResource Include="Resources\default_configs\mining\groups\blackmarble-softtissue.json" />
-        <EmbeddedResource Include="Resources\default_configs\mining\groups\copper-tin.json" />
-        <EmbeddedResource Include="Resources\default_configs\mining\groups\iron.json" />
-        <EmbeddedResource Include="Resources\default_configs\mining\groups\obsidian-chitin.json" />
-        <EmbeddedResource Include="Resources\default_configs\mining\groups\silver-flametal.json" />
-        <EmbeddedResource Include="Resources\default_configs\mining\groups\stone.json" />
-        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\ancient_tree.json" />
-        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\beech_tree.json" />
-        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\birch_tree.json" />
-        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\fir_tree.json" />
-        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\oak_tree.json" />
-        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\pine_tree.json" />
-        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\yggdrasil_tree.json" />
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\blackmarble-softtissue.json"/>
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\copper-tin.json"/>
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\iron.json"/>
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\obsidian-chitin.json"/>
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\silver-flametal.json"/>
+        <EmbeddedResource Include="Resources\default_configs\mining\groups\stone.json"/>
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\ancient_tree.json"/>
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\beech_tree.json"/>
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\birch_tree.json"/>
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\fir_tree.json"/>
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\oak_tree.json"/>
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\pine_tree.json"/>
+        <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\yggdrasil_tree.json"/>
     </ItemGroup>
     <ItemGroup>
-        <None Include="App.config" />
-        <None Include="packages.config" />
+        <None Include="App.config"/>
+        <None Include="packages.config"/>
     </ItemGroup>
     <ItemGroup>
-      <Reference Include="Jotunn, Version=2.25.0.0, Culture=neutral, processorArchitecture=MSIL">
-        <HintPath>..\..\packages\JotunnLib.2.25.0\lib\net462\Jotunn.dll</HintPath>
-        <Private>False</Private>
-      </Reference>
-      <Reference Include="Microsoft.CSharp" />
-      <Reference Include="Newtonsoft.Json">
-        <HintPath>..\..\Libs\Newtonsoft.Json.dll</HintPath>
-        <Private>False</Private>
-      </Reference>
-      <Reference Include="System" />
-      <Reference Include="System.Core" />
-      <Reference Include="System.Data" />
-      <Reference Include="System.Data.DataSetExtensions" />
-      <Reference Include="System.Xml" />
-      <Reference Include="System.Xml.Linq" />
+        <Reference Include="Jotunn, Version=2.26.0.0, Culture=neutral, processorArchitecture=MSIL">
+            <HintPath>..\..\packages\JotunnLib.2.26.0\lib\net462\Jotunn.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.CSharp"/>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>..\..\Libs\Newtonsoft.Json.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="System"/>
+        <Reference Include="System.Core"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Data.DataSetExtensions"/>
+        <Reference Include="System.Xml"/>
+        <Reference Include="System.Xml.Linq"/>
     </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <ItemGroup>
+        <Folder Include="Constants\"/>
+        <Folder Include="Extensions\"/>
+        <Folder Include="Player\"/>
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-      <PropertyGroup>
-        <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
-      </PropertyGroup>
-      <Error Condition="!Exists('..\..\packages\JotunnLib.2.25.0\build\JotunnLib.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JotunnLib.2.25.0\build\JotunnLib.props'))" />
+        <PropertyGroup>
+            <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+        </PropertyGroup>
+        <Error Condition="!Exists('..\..\packages\JotunnLib.2.26.0\build\JotunnLib.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\JotunnLib.2.26.0\build\JotunnLib.props'))"/>
     </Target>
 </Project>

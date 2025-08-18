@@ -9,11 +9,7 @@ namespace Cozyheim.LevelingSystem
         [HarmonyPatch(typeof(Game), nameof(Game.Start))]
         private static void GameStart()
         {
-            var rpcRegistries = ModRpcRegistry.Instance.GetAllRegistries();
-            foreach (var rpcRegistry in rpcRegistries)
-            {
-                rpcRegistry.PushToGame();
-            }
+            //ZRoutedRpc.instance.Register(rpcEntry.Value.RPCId, rpcEntry.Value.TargetFunction);
         }
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-
-namespace Cozyheim.LevelingSystem
+﻿namespace Cozyheim.LevelingSystem
 {
     internal enum SkillType
     {
@@ -38,32 +31,22 @@ namespace Cozyheim.LevelingSystem
         EndOfEnum
     }
 
-
     internal class SkillBase
     {
-        private int _level;
-
-        protected SkillOption uiSettings;
-        protected SkillType skillType;
-        protected int maxLevel;
-        public string displayName;
+        public float baseBonus;
         public float bonusPerLevel;
         public string bonusUnit;
+        public string displayName;
         public string iconName;
-        public float baseBonus;
+        protected int maxLevel;
+        protected SkillType skillType;
 
-        protected int level {
-            get {
-                return _level;
-            }
-            set {
-                _level = value;
-            }
-        }
+        protected SkillOption uiSettings;
 
-        public SkillBase(int maxLevel, float bonusPerLevel, string iconName, string displayName, string bonusUnit = "", float baseBonus = 0f)
+        public SkillBase(int maxLevel, float bonusPerLevel, string iconName, string displayName, string bonusUnit = "",
+                         float baseBonus = 0f)
         {
-            this.level = 0;
+            level = 0;
             this.maxLevel = maxLevel;
             this.bonusPerLevel = bonusPerLevel;
             this.bonusUnit = bonusUnit;
@@ -72,46 +55,40 @@ namespace Cozyheim.LevelingSystem
             this.baseBonus = baseBonus;
         }
 
+        protected int level { get; set; }
+
         public void SetSkillUI(SkillOption uiSettings)
         {
             uiSettings.addPointButton.onClick.RemoveAllListeners();
             uiSettings.removePointButton.onClick.RemoveAllListeners();
             uiSettings.resetPointButton.onClick.RemoveAllListeners();
 
-//            ConsoleLog.Print("Setting up skill");
+            //            ConsoleLog.Print("Setting up skill");
             this.uiSettings = uiSettings;
-            uiSettings.addPointButton.onClick.AddListener(delegate ()
-            {
-                SkillManager.Instance.SkillLevelUp(skillType);
-            });
+            uiSettings.addPointButton.onClick.AddListener(delegate { SkillManager.Instance.SkillLevelUp(skillType); });
 
-            uiSettings.removePointButton.onClick.AddListener(delegate ()
+            uiSettings.removePointButton.onClick.AddListener(delegate
             {
                 SkillManager.Instance.SkillLevelDown(skillType);
             });
 
-            uiSettings.resetPointButton.onClick.AddListener(delegate ()
-            {
-                SkillManager.Instance.SkillReset(skillType);
-            });
+            uiSettings.resetPointButton.onClick.AddListener(delegate { SkillManager.Instance.SkillReset(skillType); });
         }
 
         public int ResetLevel()
         {
-            int returnValue = level;
+            var returnValue = level;
             level = 0;
             return returnValue;
         }
 
         public void SetLevel(int level)
         {
-            if(level > GetMaxLevel())
-            {
+            if (level > GetMaxLevel()) {
                 level = GetMaxLevel();
             }
 
-            if(level < 0)
-            {
+            if (level < 0) {
                 level = 0;
             }
 
@@ -120,8 +97,7 @@ namespace Cozyheim.LevelingSystem
 
         public bool AddLevel()
         {
-            if(IsLevelMax())
-            {
+            if (IsLevelMax()) {
                 return false;
             }
 
@@ -131,8 +107,7 @@ namespace Cozyheim.LevelingSystem
 
         public bool RemoveLevel()
         {
-            if(level <= 0)
-            {
+            if (level <= 0) {
                 return false;
             }
 
@@ -152,10 +127,11 @@ namespace Cozyheim.LevelingSystem
 
         public float GetBonus()
         {
-            return (bonusPerLevel * level) + baseBonus;
+            return bonusPerLevel * level + baseBonus;
         }
 
-        public string GetName() {
+        public string GetName()
+        {
             return displayName;
         }
 
@@ -171,8 +147,7 @@ namespace Cozyheim.LevelingSystem
 
         public void UpdateSkillInformation()
         {
-            if (uiSettings != null)
-            {
+            if (uiSettings != null) {
                 uiSettings.UpdateAllButtonVisibility(this);
                 uiSettings.UpdateInformation(this);
             }

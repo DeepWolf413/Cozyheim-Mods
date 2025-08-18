@@ -1,5 +1,4 @@
-﻿using Cozyheim.LevelingSystem.Constants;
-using Jotunn.Entities;
+﻿using Jotunn.Entities;
 
 namespace Cozyheim.LevelingSystem.Commands
 {
@@ -12,24 +11,17 @@ namespace Cozyheim.LevelingSystem.Commands
 
         public override void Run(string[] args)
         {
-            if (args.Length < 2 || ZNet.instance.LocalPlayerIsAdminOrHost())
-            {
+            if (args.Length < 2 || ZNet.instance.LocalPlayerIsAdminOrHost()) {
                 return;
             }
-            
-            string targetPlayerName = args[0];
 
-            if (!int.TryParse(args[1], out int level) || level < 1)
-            {
+            var targetPlayerName = args[0];
+
+            if (!int.TryParse(args[1], out var level) || level < 1) {
                 Console.instance.Print($"invalid level number: {args[1]}");
-                return;
             }
 
             // TODO: Implement level-up command.
-            var newPackage = new ZPackage();
-            newPackage.Write(targetPlayerName);
-            newPackage.Write(level);
-            ModRpcRegistry.Instance.SendServerRpc(RpcConstants.ServerSetLevel, newPackage);
         }
     }
 }

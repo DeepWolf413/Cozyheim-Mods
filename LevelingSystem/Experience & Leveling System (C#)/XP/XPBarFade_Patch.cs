@@ -1,5 +1,4 @@
-﻿using BepInEx.Configuration;
-using HarmonyLib;
+﻿using HarmonyLib;
 
 namespace Cozyheim.LevelingSystem
 {
@@ -8,41 +7,36 @@ namespace Cozyheim.LevelingSystem
     {
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Hud), "UpdateBlackScreen")]
-        static void Player_SetSleeping_Prefix(Player player)
+        private static void Player_SetSleeping_Prefix(Player player)
         {
-            if(Player.m_localPlayer == null || ZNetScene.instance == null)
-            {
+            if (Player.m_localPlayer == null || ZNetScene.instance == null) {
                 return;
             }
 
-            float fadeTime = 1f;
-            if (player != null)
-            {
-                if (player.IsDead())
-                {
+            var fadeTime = 1f;
+            if (player != null) {
+                if (player.IsDead()) {
                     fadeTime = 9.5f;
                 }
-                if (player.IsSleeping())
-                {
+
+                if (player.IsSleeping()) {
                     fadeTime = 3f;
                 }
             }
 
-            if (player == null || player.IsDead() || player.IsTeleporting() || Game.instance.IsShuttingDown() || player.IsSleeping())
-            {
-                if (UIManager.Instance == null)
-                {
+            if (player == null || player.IsDead() || player.IsTeleporting() || Game.instance.IsShuttingDown() ||
+                player.IsSleeping()) {
+                if (UIManager.Instance == null) {
                     return;
                 }
-                
+
                 UIManager.Instance.FadeOutXPBar(fadeTime);
-            } else
-            {
-                if (UIManager.Instance == null)
-                {
+            }
+            else {
+                if (UIManager.Instance == null) {
                     return;
                 }
-                
+
                 UIManager.Instance.FadeInXPBar(fadeTime);
             }
         }

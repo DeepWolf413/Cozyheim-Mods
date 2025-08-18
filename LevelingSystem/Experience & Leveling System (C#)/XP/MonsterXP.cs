@@ -15,23 +15,21 @@ namespace Cozyheim.LevelingSystem
 
         public void AddDamage(long playerID, float damage, string playerName = "")
         {
-            foreach(PlayerDamage dmg in playerDamages)
-            {
-                if(dmg.playerID == playerID)
-                {
+            foreach (var dmg in playerDamages) {
+                if (dmg.playerID == playerID) {
                     dmg.playerTotalDamage += damage;
                     return;
                 }
             }
 
-            playerDamages.Add(new PlayerDamage() { playerID = playerID, playerTotalDamage = damage, playerName = playerName});
+            playerDamages.Add(new PlayerDamage
+                                  { playerID = playerID, playerTotalDamage = damage, playerName = playerName });
         }
 
         public float GetTotalDamageDealt()
         {
-            float totalDamage = 0f;
-            foreach (PlayerDamage dmg in playerDamages)
-            {
+            var totalDamage = 0f;
+            foreach (var dmg in playerDamages) {
                 totalDamage += dmg.playerTotalDamage;
             }
 
@@ -39,11 +37,10 @@ namespace Cozyheim.LevelingSystem
         }
     }
 
-
     internal class PlayerDamage
     {
-        public string playerName;
         public long playerID;
+        public string playerName;
         public float playerTotalDamage;
     }
 }

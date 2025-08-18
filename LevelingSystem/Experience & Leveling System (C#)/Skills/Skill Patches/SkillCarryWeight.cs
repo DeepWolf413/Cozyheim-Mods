@@ -1,10 +1,4 @@
 ﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Cozyheim.LevelingSystem
 {
@@ -12,7 +6,10 @@ namespace Cozyheim.LevelingSystem
     {
         public static SkillCarryWeight Instance;
 
-        public SkillCarryWeight(int maxLevel, float bonusPerLevel, string iconName, string displayName, string unit = "", float baseBonus = 0f) : base(maxLevel, bonusPerLevel, iconName, displayName, unit, baseBonus)
+        public SkillCarryWeight(int maxLevel, float bonusPerLevel, string iconName, string displayName,
+                                string unit = "",
+                                float baseBonus = 0f) : base(maxLevel, bonusPerLevel, iconName, displayName, unit,
+                                                             baseBonus)
         {
             skillType = SkillType.CarryWeight;
             Instance = this;
@@ -24,15 +21,14 @@ namespace Cozyheim.LevelingSystem
         {
             [HarmonyPostfix]
             [HarmonyPatch(typeof(SEMan), "ModifyMaxCarryWeight")]
-            static void Player_ModifyMaxCarryWeight_Postfix(SEMan __instance, Character ___m_character, ref float limit)
+            private static void Player_ModifyMaxCarryWeight_Postfix(SEMan __instance, Character ___m_character,
+                                                                    ref float limit)
             {
-                if (Instance == null)
-                {
+                if (Instance == null) {
                     return;
                 }
 
-                if (___m_character.IsPlayer())
-                {
+                if (___m_character.IsPlayer()) {
                     limit += Instance.level * Instance.bonusPerLevel;
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,42 +7,35 @@ namespace Cozyheim.LevelingSystem
 {
     public class CritTextAnim : MonoBehaviour
     {
+        private readonly float fullAnimTime = 3f;
+        private readonly float spread = 0.5f;
         private AnimationCurve animCurve;
-        private float fullAnimTime = 3f;
-        private float maxCritSize = 1f;
         private float damageSizeScale = 1f;
-        private float spread = 0.5f;
+        private float maxCritSize = 1f;
 
-        void Update()
+        private IEnumerator Start()
         {
-            transform.eulerAngles = Camera.main.transform.eulerAngles;
-        }
-
-        IEnumerator Start()
-        {
-            Vector3 spawnSpread = Vector3.zero;
+            var spawnSpread = Vector3.zero;
             spawnSpread += Random.Range(-spread, spread) * Camera.main.transform.right; // Randomize x
             spawnSpread += Random.Range(0f, spread) * Camera.main.transform.up; // Randomize y
 
             transform.position += spawnSpread;
 
 
-            Keyframe[] keyFrames = new Keyframe[]
-            {
-            new Keyframe(0f, 0f, 0f, 1f),
-            new Keyframe(0.08f, 1.2f, 0f, 2f),
-            new Keyframe(0.15f, 1f, -2f, 0f),
-            new Keyframe(0.75f, 1f, 0f, -0.5f),
-            new Keyframe(1f, 0f, 0f, 0f)
+            var keyFrames = new[] {
+                new Keyframe(0f, 0f, 0f, 1f),
+                new Keyframe(0.08f, 1.2f, 0f, 2f),
+                new Keyframe(0.15f, 1f, -2f, 0f),
+                new Keyframe(0.75f, 1f, 0f, -0.5f),
+                new Keyframe(1f, 0f, 0f, 0f)
             };
             animCurve = new AnimationCurve(keyFrames);
 
-            Vector3 startSize = transform.localScale;
+            var startSize = transform.localScale;
 
-            for (float f = 0f; f < fullAnimTime; f += Time.deltaTime)
-            {
+            for (var f = 0f; f < fullAnimTime; f += Time.deltaTime) {
                 // Movement
-                float perc = f / fullAnimTime;
+                var perc = f / fullAnimTime;
                 transform.localScale = startSize * damageSizeScale * animCurve.Evaluate(perc);
 
                 yield return null;
@@ -50,30 +44,34 @@ namespace Cozyheim.LevelingSystem
             Destroy(gameObject);
         }
 
+        private void Update()
+        {
+            transform.eulerAngles = Camera.main.transform.eulerAngles;
+        }
+
         private void SetColorAndScale(float damage)
         {
-            Text textComp = GetComponentInChildren<Text>();
-            Color color = new Color(0.8f, 0.6f, 0.15f, 1f);
+            var textComp = GetComponentInChildren<Text>();
+            var color = new Color(0.8f, 0.6f, 0.15f, 1f);
 
             // Fixed intervals of scale and color
-            if(damage < 30f)
-            {
+            if (damage < 30f) {
                 damageSizeScale = 1f;
                 color.g = 0.6f;
-            } else if(damage < 100f)
-            {
+            }
+            else if (damage < 100f) {
                 damageSizeScale = 1.2f;
                 color.g = 0.45f;
-            } else if (damage < 200f)
-            {
+            }
+            else if (damage < 200f) {
                 damageSizeScale = 1.4f;
                 color.g = 0.3f;
-            } else if (damage < 300f)
-            {
+            }
+            else if (damage < 300f) {
                 damageSizeScale = 1.6f;
                 color.g = 0.15f;
-            } else
-            {
+            }
+            else {
                 damageSizeScale = 1.8f;
                 color.g = 0f;
             }
@@ -91,15 +89,15 @@ namespace Cozyheim.LevelingSystem
             */
         }
 
-            public void SetText(string value)
+        public void SetText(string value)
         {
-            GetComponentInChildren<Text>().text = value.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+            GetComponentInChildren<Text>().text = value.ToString(CultureInfo.GetCultureInfo("en-US"));
         }
 
         public void SetText(float value, int decimals = 0)
         {
             decimals = Mathf.Max(0, decimals);
-            string decimalsFormat = "N" + decimals.ToString();
+            var decimalsFormat = "N" + decimals;
             SetText(value.ToString(decimalsFormat));
             SetColorAndScale(value);
         }

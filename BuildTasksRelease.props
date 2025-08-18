@@ -2,13 +2,13 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Target Name="PreparePublishPackage" AfterTargets="AfterBuild" Condition="'$(Configuration)' == 'Release'">
         <ItemGroup>
-            <Assemblies Include="$(OutDir)$(AssemblyName).dll" />
-            <PackageFiles Include="$(SolutionDir)_ModMetadataTemplate\README.md;$(SolutionDir)_ModMetadataTemplate\icon.png;$(SolutionDir)_ModMetadataTemplate\manifest.json;$(SolutionDir)_ModMetadataTemplate\CHANGELOG.md" />
-            <PackageVersion />
+            <Assemblies Include="$(OutDir)$(AssemblyName).dll"/>
+            <PackageFiles Include="$(SolutionDir)_ModMetadataTemplate\README.md;$(SolutionDir)_ModMetadataTemplate\icon.png;$(SolutionDir)_ModMetadataTemplate\manifest.json;$(SolutionDir)_ModMetadataTemplate\CHANGELOG.md"/>
+            <PackageVersion/>
         </ItemGroup>
-        
+
         <Copy SourceFiles="@(Assemblies)" DestinationFolder="$(SolutionDir)\_Builds\Publish\Package\plugins"/>
         <Copy SourceFiles="@(PackageFiles)" DestinationFolder="$(SolutionDir)\_Builds\Publish\Package"/>
-        <ZipDirectory SourceDirectory="$(SolutionDir)\_Builds\Publish\Package" DestinationFile="$(SolutionDir)\_Builds\Publish\DeepWolf-LevelingSystem-$(Version).zip" />
+        <ZipDirectory SourceDirectory="$(SolutionDir)\_Builds\Publish\Package" DestinationFile="$(SolutionDir)\_Builds\Publish\DeepWolf-LevelingSystem-$(Version).zip"/>
     </Target>
 </Project>

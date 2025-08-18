@@ -1,9 +1,4 @@
 ﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cozyheim.LevelingSystem
 {
@@ -11,7 +6,9 @@ namespace Cozyheim.LevelingSystem
     {
         public static SkillHPRegen Instance;
 
-        public SkillHPRegen(int maxLevel, float bonusPerLevel, string iconName, string displayName, string unit = "", float baseBonus = 0f) : base(maxLevel, bonusPerLevel, iconName, displayName, unit, baseBonus)
+        public SkillHPRegen(int maxLevel, float bonusPerLevel, string iconName, string displayName, string unit = "",
+                            float baseBonus = 0f) : base(maxLevel, bonusPerLevel, iconName, displayName, unit,
+                                                         baseBonus)
         {
             skillType = SkillType.HPRegen;
             Instance = this;
@@ -23,14 +20,13 @@ namespace Cozyheim.LevelingSystem
         {
             [HarmonyPostfix]
             [HarmonyPatch(typeof(SEMan), "ModifyHealthRegen")]
-            static void SEMan_ModifyHealthRegen_Postfix(ref float regenMultiplier)
+            private static void SEMan_ModifyHealthRegen_Postfix(ref float regenMultiplier)
             {
-                if (Instance == null)
-                {
+                if (Instance == null) {
                     return;
                 }
 
-                regenMultiplier += (Instance.level * Instance.bonusPerLevel) / 100f;
+                regenMultiplier += Instance.level * Instance.bonusPerLevel / 100f;
             }
         }
     }

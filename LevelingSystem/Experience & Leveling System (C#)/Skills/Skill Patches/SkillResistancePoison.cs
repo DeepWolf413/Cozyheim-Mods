@@ -6,7 +6,9 @@ namespace Cozyheim.LevelingSystem
     {
         public static SkillResistancePoison Instance;
 
-        public SkillResistancePoison(int maxLevel, float bonusPerLevel, string iconName, string displayName, string unit = "", float baseBonus = 0f) : base(maxLevel, bonusPerLevel, iconName, displayName, unit, baseBonus)
+        public SkillResistancePoison(int maxLevel, float bonusPerLevel, string iconName, string displayName,
+                                     string unit = "", float baseBonus = 0f) : base(
+            maxLevel, bonusPerLevel, iconName, displayName, unit, baseBonus)
         {
             skillType = SkillType.ResistancePoison;
             Instance = this;
@@ -25,7 +27,7 @@ namespace Cozyheim.LevelingSystem
                 }
 
                 if (__instance.m_faction == Character.Faction.Players) {
-                    float multiplier = 1 - ((Instance.level * Instance.bonusPerLevel) / 100);
+                    var multiplier = 1 - Instance.level * Instance.bonusPerLevel / 100;
                     damage *= multiplier;
                 }
             }
