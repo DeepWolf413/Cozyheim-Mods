@@ -9,7 +9,7 @@ namespace Cozyheim.LevelingSystem.Patches
         [HarmonyPatch(nameof(Player.Awake))]
         private static void PlayerAwake_Postfix(Player __instance)
         {
-            __instance.gameObject.AddComponent<PlayerLeveling>();
+            __instance.gameObject.AddComponent<PlayerExpPool>();
         }
     }
 }

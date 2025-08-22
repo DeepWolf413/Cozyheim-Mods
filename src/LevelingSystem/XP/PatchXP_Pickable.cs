@@ -25,11 +25,11 @@ namespace Cozyheim.LevelingSystem
                     return;
                 }
 
-                if (!character.TryGetComponent(out PlayerLeveling playerLeveling)) {
+                if (!character.TryGetComponent(out PlayerExpPool expPool)) {
                     return;
                 }
 
-                playerLeveling.CreateGenericExperienceReward(ExpSource.Pickable, __instance.name, honeyLevel);
+                expPool.CreateGenericExperienceReward(ExpSource.Pickable, __instance.name, honeyLevel);
             }
 
             [HarmonyPrefix]
@@ -50,11 +50,11 @@ namespace Cozyheim.LevelingSystem
                     return;
                 }
 
-                if (!localPlayer.TryGetComponent(out PlayerLeveling playerLeveling)) {
+                if (!localPlayer.TryGetComponent(out PlayerExpPool expPool)) {
                     return;
                 }
 
-                playerLeveling.CreateGenericExperienceReward(ExpSource.Pickable, __instance.name);
+                expPool.CreateGenericExperienceReward(ExpSource.Pickable, __instance.name);
             }
         }
     }

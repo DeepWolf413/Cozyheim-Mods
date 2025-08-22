@@ -368,7 +368,7 @@ namespace Cozyheim.LevelingSystem
 
         public void RecalculateUnspendPoints()
         {
-            var points = Mathf.FloorToInt(PlayerLeveling.Local.GetLevel() * Main.ModConfig.PointsPerLevel.Value);
+            var points = Mathf.FloorToInt(PlayerExpPool.Local.GetLevel() * Main.ModConfig.PointsPerLevel.Value);
             foreach (var kvp in skills) {
                 points -= kvp.Value.GetLevel();
             }

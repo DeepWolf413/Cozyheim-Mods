@@ -4,14 +4,14 @@ using Logger = Jotunn.Logger;
 
 namespace Cozyheim.LevelingSystem
 {
-    public sealed class PlayerLeveling : MonoBehaviour
+    public sealed class PlayerExpPool : MonoBehaviour
     {
         private const string LevelSaveKey = "Cozyheim.Level";
         private const string TotalExpSaveKey = "Cozyheim.TotalExperience";
 
         private Player _player;
 
-        public static PlayerLeveling Local { get; private set; }
+        public static PlayerExpPool Local { get; private set; }
         private string RpcAddExperience { get; } = RpcId.Create("AddExperience");
 
         private void Awake()

@@ -91,7 +91,7 @@
         <Compile Include="XP\PatchXP_Woodcutting.cs" />
         <Compile Include="XP\PatchXP_Mining.cs" />
         <Compile Include="XP\PatchXP_Pickable.cs" />
-        <Compile Include="XP\PlayerLeveling.cs" />
+        <Compile Include="XP\PlayerExpPool.cs" />
         <Compile Include="XP\XPBarFade_Patch.cs" />
         <Compile Include="Custom Effect Scripts\XPText.cs" />
         <Compile Include="XP\XpTable.cs" />

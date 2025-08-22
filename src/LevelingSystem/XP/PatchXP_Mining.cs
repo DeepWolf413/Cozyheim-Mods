@@ -119,11 +119,11 @@ namespace Cozyheim.LevelingSystem
                     return;
                 }
 
-                if (!player.gameObject.TryGetComponent(out PlayerLeveling playerLeveling)) {
+                if (!player.gameObject.TryGetComponent(out PlayerExpPool expPool)) {
                     return;
                 }
 
-                playerLeveling.CreateGenericExperienceReward(ExpSource.Mining, name);
+                expPool.CreateGenericExperienceReward(ExpSource.Mining, name);
             }
         }
     }

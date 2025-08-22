@@ -92,9 +92,9 @@ namespace Cozyheim.LevelingSystem
         {
             ToggleSkillsUI(false);
 
-            var localPlayerLeveling = PlayerLeveling.Local;
-            playerLevel = localPlayerLeveling.GetLevel();
-            playerXP = localPlayerLeveling
+            var localExpPool = PlayerExpPool.Local;
+            playerLevel = localExpPool.GetLevel();
+            playerXP = localExpPool
                 .GetTotalExperience(); // TODO: Get the amount of experience the player has relative to their current level.
 
             levelUpGroup.alpha = 0f;

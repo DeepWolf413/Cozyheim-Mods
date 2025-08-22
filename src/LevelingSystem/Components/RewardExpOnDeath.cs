@@ -36,11 +36,11 @@ namespace Cozyheim.LevelingSystem
                     continue;
                 }
 
-                if (!player.TryGetComponent(out PlayerLeveling playerLeveling)) {
+                if (!player.TryGetComponent(out PlayerExpPool expPool)) {
                     continue;
                 }
 
-                playerLeveling.CreateKillExperienceReward(_character);
+                expPool.CreateKillExperienceReward(_character);
             }
         }
     }
