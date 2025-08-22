@@ -45,11 +45,11 @@
         <Compile Include="Commands\LevelUpCommand.cs"/>
         <Compile Include="Commands\SetLevelCommand.cs"/>
         <Compile Include="Components\DamageRegistry.cs"/>
-        <Compile Include="Components\PlayerLeveling.cs"/>
         <Compile Include="Components\RewardExpOnDeath.cs"/>
-        <Compile Include="ModConfig.cs"/>
-        <Compile Include="Custom Effect Scripts\CritTextAnim.cs"/>
-        <Compile Include="LevelingDummy_Patch.cs"/>
+        <Compile Include="Core\Main.cs" />
+        <Compile Include="Core\ModConfig.cs" />
+        <Compile Include="Custom Effect Scripts\CritTextAnim.cs" />
+        <Compile Include="LevelingDummy_Patch.cs" />
         <Compile Include="Patches\CharacterInitPatch.cs" />
         <Compile Include="Patches\DamageRecorderPatch.cs" />
         <Compile Include="Patches\PlayerInitPatch.cs" />
@@ -91,6 +91,7 @@
         <Compile Include="XP\PatchXP_Woodcutting.cs" />
         <Compile Include="XP\PatchXP_Mining.cs" />
         <Compile Include="XP\PatchXP_Pickable.cs" />
+        <Compile Include="XP\PlayerLeveling.cs" />
         <Compile Include="XP\XPBarFade_Patch.cs" />
         <Compile Include="Custom Effect Scripts\XPText.cs" />
         <Compile Include="XP\XpTable.cs" />
@@ -98,7 +99,6 @@
         <Compile Include="XP\XPManager.cs" />
         <Compile Include="UIManager.cs" />
         <Compile Include="XP\PatchXP_Monster.cs" />
-        <Compile Include="Main.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
