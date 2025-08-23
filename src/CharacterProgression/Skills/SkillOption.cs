@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using CharacterProgressionMod.Core;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class SkillOption : MonoBehaviour
     {
@@ -87,8 +88,8 @@ namespace DeepWolf.CharacterProgressionMod
             maxLevelText.text = skillInfo.GetMaxLevel().ToString();
 
             iconImage.sprite =
-                Main.AssetBundle.LoadAsset<Sprite>(Main.AssetsPath + "Sprites/Skill Icons/" + skillInfo.iconName +
-                                                   ".png");
+                ModEntry.AssetBundle.LoadAsset<Sprite>(ModEntry.AssetsPath + "Sprites/Skill Icons/" + skillInfo.iconName +
+                                                       ".png");
 
             description.text = "+" + skillInfo.bonusPerLevel + skillInfo.bonusUnit + " / Level";
 

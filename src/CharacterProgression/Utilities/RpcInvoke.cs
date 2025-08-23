@@ -1,6 +1,6 @@
 ﻿using Jotunn;
 
-namespace DeepWolf.CharacterProgressionMod.Utilities
+namespace CharacterProgressionMod.Utilities
 {
     internal static class RpcInvoke
     {

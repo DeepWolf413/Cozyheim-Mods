@@ -1,6 +1,6 @@
 ﻿using Jotunn.Entities;
 
-namespace DeepWolf.CharacterProgressionMod.Commands
+namespace CharacterProgressionMod.Commands
 {
     public class SetLevelCommand : ConsoleCommand
     {

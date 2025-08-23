@@ -2,7 +2,7 @@
 using BepInEx.Configuration;
 using UnityEngine;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod.Core
 {
     public sealed class ModConfig
     {
@@ -29,8 +29,6 @@ namespace DeepWolf.CharacterProgressionMod
                                           "The width in percentage (%) of the default xp bar width. (100 = default size, 50 = half the size)");
             XpBarPosition = CreateConfigEntry("XP Bar", "xpBarPosition", new Vector2(0f, 0f),
                                               "The offset position in (x,y) coordinates, from its default position. (x: 0.0 = center of screen, y: 0.0 = bottom of screen, y: 950.0 = top of screen)");
-            XpBarLevelTextPosition = CreateConfigEntry("XP Bar", "xpBarLevelTextPosition", Main.Position.Above,
-                                                       "The position of the level text, relative to the xp bar.");
 
             // Levels
             PointsPerLevel = CreateConfigEntry("Levels", "pointsPerLevel", 1f,
@@ -189,7 +187,6 @@ namespace DeepWolf.CharacterProgressionMod
         public ConfigEntry<bool> ShowPercentageXp { get; }
         public ConfigEntry<float> XpBarSize { get; }
         public ConfigEntry<Vector2> XpBarPosition { get; }
-        public ConfigEntry<Main.Position> XpBarLevelTextPosition { get; }
 
         // Levels
         public ConfigEntry<float> PointsPerLevel { get; }

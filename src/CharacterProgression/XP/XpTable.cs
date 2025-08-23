@@ -10,7 +10,7 @@ using MonoMod.Utils;
 using Newtonsoft.Json;
 using ReflectionHelper = Jotunn.Utils.ReflectionHelper;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     public sealed class XpTable
     {

@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class SkillCriticalHitChance : SkillBase
     {

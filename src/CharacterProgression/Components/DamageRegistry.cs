@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     /// <summary>
     ///     Responsible for keeping track of damage dealt to the entity this component is attached to.

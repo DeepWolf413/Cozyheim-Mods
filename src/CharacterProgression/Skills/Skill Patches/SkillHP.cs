@@ -1,6 +1,7 @@
-﻿using HarmonyLib;
+﻿using CharacterProgressionMod.Core;
+using HarmonyLib;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class SkillHP : SkillBase
     {
@@ -32,7 +33,7 @@ namespace DeepWolf.CharacterProgressionMod
             [HarmonyPatch(typeof(Player), "GetTotalFoodValue")]
             public static void Player_GetTotalFoodValue_Postfix(ref float hp)
             {
-                if (Instance == null || Main.IsJewelcraftingModLoaded) {
+                if (Instance == null || ModEntry.IsJewelcraftingModLoaded) {
                     return;
                 }
 

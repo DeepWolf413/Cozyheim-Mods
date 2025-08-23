@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class SkillResistanceLightning : SkillBase
     {

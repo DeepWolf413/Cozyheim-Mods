@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using CharacterProgressionMod.Core;
 using Jotunn.Managers;
 using UnityEngine;
 using Logger = Jotunn.Logger;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class SkillManager : MonoBehaviour
     {
@@ -187,13 +188,13 @@ namespace DeepWolf.CharacterProgressionMod
 
         public void SpawnCriticalHitVFX(Vector3 position, float damage)
         {
-            if (!Main.ModConfig.CriticalHitVFX.Value) {
+            if (!ModEntry.ModConfig.CriticalHitVFX.Value) {
                 return;
             }
 
-            if (Main.ModConfig.CriticalHitShake.Value) {
+            if (ModEntry.ModConfig.CriticalHitShake.Value) {
                 GameCamera.instance.AddShake(Player.m_localPlayer.transform.position, 10f,
-                                             Main.ModConfig.CriticalHitShakeIntensity.Value, false);
+                                             ModEntry.ModConfig.CriticalHitShakeIntensity.Value, false);
             }
 
             var dirToCamera = (GameCamera.instance.transform.position - position).normalized;
@@ -257,11 +258,11 @@ namespace DeepWolf.CharacterProgressionMod
 
             var pointsToSpend = 1;
 
-            if (Input.GetKey(Main.ModConfig.AddMultiplePointsKey.Value)) {
-                pointsToSpend = Mathf.Min(Main.ModConfig.AddMultiplePointsAmount.Value, unspendPoints);
+            if (Input.GetKey(ModEntry.ModConfig.AddMultiplePointsKey.Value)) {
+                pointsToSpend = Mathf.Min(ModEntry.ModConfig.AddMultiplePointsAmount.Value, unspendPoints);
             }
 
-            if (Input.GetKey(Main.ModConfig.AddMaxPointsKey.Value)) {
+            if (Input.GetKey(ModEntry.ModConfig.AddMaxPointsKey.Value)) {
                 pointsToSpend = unspendPoints;
             }
 
@@ -283,11 +284,11 @@ namespace DeepWolf.CharacterProgressionMod
 
             var pointsToRemove = 1;
 
-            if (Input.GetKey(Main.ModConfig.AddMultiplePointsKey.Value)) {
-                pointsToRemove = Main.ModConfig.AddMultiplePointsAmount.Value;
+            if (Input.GetKey(ModEntry.ModConfig.AddMultiplePointsKey.Value)) {
+                pointsToRemove = ModEntry.ModConfig.AddMultiplePointsAmount.Value;
             }
 
-            if (Input.GetKey(Main.ModConfig.AddMaxPointsKey.Value)) {
+            if (Input.GetKey(ModEntry.ModConfig.AddMaxPointsKey.Value)) {
                 SkillReset(skillType);
                 return;
             }
@@ -368,7 +369,7 @@ namespace DeepWolf.CharacterProgressionMod
 
         public void RecalculateUnspendPoints()
         {
-            var points = Mathf.FloorToInt(PlayerExpPool.Local.GetLevel() * Main.ModConfig.PointsPerLevel.Value);
+            var points = Mathf.FloorToInt(PlayerExpPool.Local.GetLevel() * ModEntry.ModConfig.PointsPerLevel.Value);
             foreach (var kvp in skills) {
                 points -= kvp.Value.GetLevel();
             }
@@ -379,7 +380,7 @@ namespace DeepWolf.CharacterProgressionMod
         private void LoadSkills()
         {
             foreach (var kvp in skills) {
-                var skillName = Main.ModName + "_" + kvp.Key;
+                var skillName = ModInfo.ModName + "_" + kvp.Key;
                 if (Player.m_localPlayer.m_customData.ContainsKey(skillName)) {
                     int value;
                     var savedString = Player.m_localPlayer.m_customData[skillName];
@@ -395,7 +396,7 @@ namespace DeepWolf.CharacterProgressionMod
         private void SaveSkills()
         {
             foreach (var kvp in skills) {
-                var skillName = Main.ModName + "_" + kvp.Key;
+                var skillName = ModInfo.ModName + "_" + kvp.Key;
                 Player.m_localPlayer.m_customData[skillName] = kvp.Value.GetLevel().ToString();
             }
         }

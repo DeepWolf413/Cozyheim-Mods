@@ -1,7 +1,8 @@
-﻿using HarmonyLib;
+﻿using CharacterProgressionMod.Core;
+using HarmonyLib;
 using UnityEngine;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class PatchXP_Woodcutting : MonoBehaviour
     {
@@ -69,7 +70,7 @@ namespace DeepWolf.CharacterProgressionMod
             private static void WoodcuttingXP(string name, HitData hit)
             {
                 // Check if the XP system is enabled
-                if (!Main.ModConfig.WoodcuttingXpEnabled.Value) {
+                if (!ModEntry.ModConfig.WoodcuttingXpEnabled.Value) {
                     return;
                 }
 

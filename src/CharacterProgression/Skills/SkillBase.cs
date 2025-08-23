@@ -1,4 +1,4 @@
-﻿namespace DeepWolf.CharacterProgressionMod
+﻿namespace CharacterProgressionMod
 {
     internal enum SkillType
     {

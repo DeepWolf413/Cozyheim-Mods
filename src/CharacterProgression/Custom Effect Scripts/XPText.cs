@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using CharacterProgressionMod.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     public class XPText : MonoBehaviour
     {
@@ -15,7 +16,7 @@ namespace DeepWolf.CharacterProgressionMod
 
         private IEnumerator Start()
         {
-            transform.localScale *= Main.ModConfig.XpFontSize.Value / 100f;
+            transform.localScale *= ModEntry.ModConfig.XpFontSize.Value / 100f;
 
             var canvasGroup = GetComponentInChildren<CanvasGroup>();
             var startSize = transform.localScale.x;

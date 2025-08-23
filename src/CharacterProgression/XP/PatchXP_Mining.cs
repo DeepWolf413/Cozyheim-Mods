@@ -1,7 +1,8 @@
-﻿using HarmonyLib;
+﻿using CharacterProgressionMod.Core;
+using HarmonyLib;
 using UnityEngine;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class PatchXP_Mining : MonoBehaviour
     {
@@ -95,7 +96,7 @@ namespace DeepWolf.CharacterProgressionMod
             private static void MiningXP(string name, HitData hit)
             {
                 // Check if the XP system is enabled
-                if (!Main.ModConfig.MiningXpEnabled.Value) {
+                if (!ModEntry.ModConfig.MiningXpEnabled.Value) {
                     return;
                 }
 

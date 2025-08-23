@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     [HarmonyPatch]
     internal class XPBarFade_Patch

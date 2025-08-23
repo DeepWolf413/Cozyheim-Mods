@@ -2,7 +2,7 @@
 using Jotunn.Managers;
 using UnityEngine;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class PatchXP_Monster : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace DeepWolf.CharacterProgressionMod
+﻿namespace CharacterProgressionMod
 {
     public struct ExpReward : ISerializableParameter
     {

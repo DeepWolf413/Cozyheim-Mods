@@ -1,10 +1,12 @@
-﻿namespace DeepWolf.CharacterProgressionMod.Utilities
+﻿using CharacterProgressionMod.Core;
+
+namespace CharacterProgressionMod.Utilities
 {
     internal static class RpcId
     {
         public static string Create(string rpcName)
         {
-            return Main.Guid + "!" + rpcName;
+            return ModInfo.Guid + "!" + rpcName;
         }
     }
 }

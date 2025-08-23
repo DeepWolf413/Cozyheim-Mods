@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using BepInEx.Configuration;
+using CharacterProgressionMod.Core;
 using UnityEngine;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class SkillConfig
     {
@@ -239,7 +240,7 @@ namespace DeepWolf.CharacterProgressionMod
         public void CreateConfigEntries()
         {
             var settingsString = enabled + ":" + defaultMaxLevel + ":" + defaultBonusValue + ":" + defaultBaseValue;
-            configSettings = Main.ModConfig.CreateConfigEntry
+            configSettings = ModEntry.ModConfig.CreateConfigEntry
             (
                 "Skills",
                 skillType.ToString(),

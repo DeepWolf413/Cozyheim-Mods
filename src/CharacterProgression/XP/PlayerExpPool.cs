@@ -1,8 +1,9 @@
-﻿using DeepWolf.CharacterProgressionMod.Utilities;
+﻿using CharacterProgressionMod.Core;
+using CharacterProgressionMod.Utilities;
 using UnityEngine;
 using Logger = Jotunn.Logger;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     public sealed class PlayerExpPool : MonoBehaviour
     {
@@ -49,10 +50,10 @@ namespace DeepWolf.CharacterProgressionMod
                     return;
             }
 
-            var baseXpSpreadMin = Mathf.Min(1 - Main.ModConfig.BaseXpSpreadMin.Value / 100f, 1f);
-            var baseXpSpreadMax = Mathf.Max(1 + Main.ModConfig.BaseXpSpreadMax.Value / 100f, 1f);
-            var globalExpMultiplier = Mathf.Max(0f, Main.ModConfig.AllXpMultiplier.Value / 100f);
-            var restedMultiplier = Mathf.Max(0f, Main.ModConfig.RestedXpMultiplier.Value / 100f);
+            var baseXpSpreadMin = Mathf.Min(1 - ModEntry.ModConfig.BaseXpSpreadMin.Value / 100f, 1f);
+            var baseXpSpreadMax = Mathf.Max(1 + ModEntry.ModConfig.BaseXpSpreadMax.Value / 100f, 1f);
+            var globalExpMultiplier = Mathf.Max(0f, ModEntry.ModConfig.AllXpMultiplier.Value / 100f);
+            var restedMultiplier = Mathf.Max(0f, ModEntry.ModConfig.RestedXpMultiplier.Value / 100f);
 
             var experience = xpTable.GetXp(sourceName) * multiplier;
             if (experience <= 0) {
@@ -85,11 +86,11 @@ namespace DeepWolf.CharacterProgressionMod
             var creatureName = source.name;
             var creatureLevel = source.m_level;
 
-            var baseXpSpreadMin = Mathf.Min(1 - Main.ModConfig.BaseXpSpreadMin.Value / 100f, 1f);
-            var baseXpSpreadMax = Mathf.Max(1 + Main.ModConfig.BaseXpSpreadMax.Value / 100f, 1f);
-            var creatureLevelMultiplier = Mathf.Max(0f, Main.ModConfig.MonsterLvlXpMultiplier.Value / 100f);
-            var expMultiplier = Mathf.Max(0f, Main.ModConfig.AllXpMultiplier.Value / 100f);
-            var restedMultiplier = Mathf.Max(0f, Main.ModConfig.RestedXpMultiplier.Value / 100f);
+            var baseXpSpreadMin = Mathf.Min(1 - ModEntry.ModConfig.BaseXpSpreadMin.Value / 100f, 1f);
+            var baseXpSpreadMax = Mathf.Max(1 + ModEntry.ModConfig.BaseXpSpreadMax.Value / 100f, 1f);
+            var creatureLevelMultiplier = Mathf.Max(0f, ModEntry.ModConfig.MonsterLvlXpMultiplier.Value / 100f);
+            var expMultiplier = Mathf.Max(0f, ModEntry.ModConfig.AllXpMultiplier.Value / 100f);
+            var restedMultiplier = Mathf.Max(0f, ModEntry.ModConfig.RestedXpMultiplier.Value / 100f);
 
             var rndExpSpread = Random.Range(baseXpSpreadMin, baseXpSpreadMax);
             var expTable = XPManager.CreaturesXpTable;

@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod.Core.Patches
 {
     [HarmonyPatch(typeof(Character))]
     internal static class CharacterInitPatch

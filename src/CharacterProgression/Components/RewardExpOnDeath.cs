@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Logger = Jotunn.Logger;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     /// <summary>
     ///     Responsible for rewarding experience to damage dealers.

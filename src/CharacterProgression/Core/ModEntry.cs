@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using BepInEx;
 using BepInEx.Bootstrap;
-using DeepWolf.CharacterProgressionMod.Commands;
+using CharacterProgressionMod.Commands;
 using HarmonyLib;
 using Jotunn.Configs;
 using Jotunn.Entities;
@@ -9,28 +9,20 @@ using Jotunn.Managers;
 using Jotunn.Utils;
 using UnityEngine;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod.Core
 {
-    [BepInPlugin(Guid, ModName, Version)]
+    [BepInPlugin(ModInfo.Guid, ModInfo.ModName, ModInfo.Version)]
     [BepInDependency(Jotunn.Main.ModGuid)]
     [BepInDependency("org.bepinex.plugins.jewelcrafting", BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
-    public class Main : BaseUnityPlugin
+    internal class ModEntry : BaseUnityPlugin
     {
-        public enum Position
-        {
-            Above,
-            Below
-        }
-
         // Mod information
-        public const string ModName = "LevelingSystem";
-        public const string Version = "0.5.19";
-        public const string Guid = "node.deepwolf." + ModName;
         public const string AssetsPath = "Assets/_Leveling System/";
         public const string ConfigFolder = "xp_tables";
 
-        private readonly Harmony _harmony = new(Guid);
+        private readonly Harmony _harmony = new(ModInfo.Guid);
+        private Mod _mod = new Mod();
 
         public static AssetBundle AssetBundle { get; private set; }
         public static bool IsJewelcraftingModLoaded { get; private set; }

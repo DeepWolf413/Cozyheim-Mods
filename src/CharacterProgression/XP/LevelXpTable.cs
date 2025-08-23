@@ -4,7 +4,7 @@ using System.Linq;
 using Jotunn;
 using Jotunn.Utils;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     public sealed class LevelXpTable
     {

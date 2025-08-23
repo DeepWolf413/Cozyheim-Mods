@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CharacterProgressionMod.Core;
 using Jotunn.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using Logger = Jotunn.Logger;
 
-namespace DeepWolf.CharacterProgressionMod
+namespace CharacterProgressionMod
 {
     internal class UIManager : MonoBehaviour
     {
@@ -221,22 +222,22 @@ namespace DeepWolf.CharacterProgressionMod
         private void RepositionXPBar()
         {
             var tempSize = xpBarRect.sizeDelta;
-            tempSize.x *= Main.ModConfig.XpBarSize.Value / 100f;
+            tempSize.x *= ModEntry.ModConfig.XpBarSize.Value / 100f;
             xpBarRect.sizeDelta = tempSize;
 
-            if (Main.ModConfig.XpBarLevelTextPosition.Value == Main.Position.Below) {
+            /*if (Main.ModConfig.XpBarLevelTextPosition.Value == Main.Position.Below) {
                 var tempPos = levelTextRect.anchoredPosition;
                 tempPos.y *= -1f;
                 levelTextRect.anchoredPosition = tempPos;
-            }
+            }*/
 
-            xpBarContainerRect.anchoredPosition = Main.ModConfig.XpBarPosition.Value;
+            xpBarContainerRect.anchoredPosition = ModEntry.ModConfig.XpBarPosition.Value;
         }
 
         private void CreateSkillUI()
         {
-            skillsScrollRect.verticalScrollbar = Main.ModConfig.ShowScrollbar.Value ? skillsScrollbar : null;
-            skillsScrollbar.gameObject.SetActive(Main.ModConfig.ShowScrollbar.Value);
+            skillsScrollRect.verticalScrollbar = ModEntry.ModConfig.ShowScrollbar.Value ? skillsScrollbar : null;
+            skillsScrollbar.gameObject.SetActive(ModEntry.ModConfig.ShowScrollbar.Value);
 
             closeButton.onClick.RemoveAllListeners();
             resetPointsButton.onClick.RemoveAllListeners();
@@ -328,7 +329,7 @@ namespace DeepWolf.CharacterProgressionMod
 
         private static void RPC_LevelUpEffect(long sender, ZPackage package)
         {
-            if (!Main.ModConfig.LevelUpVFX.Value) {
+            if (!ModEntry.ModConfig.LevelUpVFX.Value) {
                 return;
             }
 
@@ -399,19 +400,19 @@ namespace DeepWolf.CharacterProgressionMod
 
             switch (itemType) {
                 case "Woodcutting":
-                    if (Main.ModConfig.DisplayWoodcuttingXpText.Value) {
+                    if (ModEntry.ModConfig.DisplayWoodcuttingXpText.Value) {
                         SpawnFloatingXPText(totalXpAward);
                     }
 
                     break;
                 case "Mining":
-                    if (Main.ModConfig.DisplayMiningXpText.Value) {
+                    if (ModEntry.ModConfig.DisplayMiningXpText.Value) {
                         SpawnFloatingXPText(totalXpAward);
                     }
 
                     break;
                 case "Pickable":
-                    if (Main.ModConfig.DisplayPickupXpText.Value) {
+                    if (ModEntry.ModConfig.DisplayPickupXpText.Value) {
                         SpawnFloatingXPText(totalXpAward);
                     }
 
@@ -451,7 +452,7 @@ namespace DeepWolf.CharacterProgressionMod
                         totalXpGained += restedBonusXp;
                     }
 
-                    if (Main.ModConfig.DisplayMonsterXpText.Value) {
+                    if (ModEntry.ModConfig.DisplayMonsterXpText.Value) {
                         SpawnFloatingXPText(totalXpGained);
                     }
                 }
@@ -461,7 +462,7 @@ namespace DeepWolf.CharacterProgressionMod
 
         private static void SpawnFloatingXPText(int totalXpGained)
         {
-            if (totalXpGained > 0 && Main.ModConfig.DisplayXpFloatingText.Value) {
+            if (totalXpGained > 0 && ModEntry.ModConfig.DisplayXpFloatingText.Value) {
                 var spread = 0.35f;
                 Vector3 spawnSpread;
 
@@ -483,7 +484,7 @@ namespace DeepWolf.CharacterProgressionMod
         public void AddExperience(int xp, XPType type = XPType.Regular)
         {
             if (!IsPlayerMaxLevel() && xp > 0) {
-                if (Main.ModConfig.DisplayXpInCorner.Value) {
+                if (ModEntry.ModConfig.DisplayXpInCorner.Value) {
                     switch (type) {
                         case XPType.Regular:
                             Player.m_localPlayer.Message(MessageHud.MessageType.TopLeft, "You gained +" + xp + "xp");
@@ -543,15 +544,15 @@ namespace DeepWolf.CharacterProgressionMod
 
             var xpString = "";
 
-            xpString += Main.ModConfig.ShowXp.Value ? playerXP.ToString() : "";
-            if (Main.ModConfig.ShowXp.Value) {
-                xpString += Main.ModConfig.ShowRequiredXp.Value ? " / " + xpToNextLevel : "";
-                xpString += Main.ModConfig.ShowPercentageXp.Value
+            xpString += ModEntry.ModConfig.ShowXp.Value ? playerXP.ToString() : "";
+            if (ModEntry.ModConfig.ShowXp.Value) {
+                xpString += ModEntry.ModConfig.ShowRequiredXp.Value ? " / " + xpToNextLevel : "";
+                xpString += ModEntry.ModConfig.ShowPercentageXp.Value
                     ? " (" + (xpPercentage * 100).ToString("N0") + "%)"
                     : "";
             }
             else {
-                xpString += Main.ModConfig.ShowPercentageXp.Value ? (xpPercentage * 100).ToString("N0") + "%" : "";
+                xpString += ModEntry.ModConfig.ShowPercentageXp.Value ? (xpPercentage * 100).ToString("N0") + "%" : "";
             }
 
             if (instantUpdate) {
@@ -570,7 +571,7 @@ namespace DeepWolf.CharacterProgressionMod
 
         public void UpdateLevelText()
         {
-            levelText.text = Main.ModConfig.ShowLevel.Value ? "Level " + playerLevel : "";
+            levelText.text = ModEntry.ModConfig.ShowLevel.Value ? "Level " + playerLevel : "";
             levelTextShadow.text = levelText.text;
         }
 
