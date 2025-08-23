@@ -95,7 +95,6 @@
         <Compile Include="XP\XPBarFade_Patch.cs" />
         <Compile Include="Custom Effect Scripts\XPText.cs" />
         <Compile Include="XP\XpTable.cs" />
-        <Compile Include="XP\MonsterXP.cs" />
         <Compile Include="XP\XPManager.cs" />
         <Compile Include="UIManager.cs" />
         <Compile Include="XP\PatchXP_Monster.cs" />
