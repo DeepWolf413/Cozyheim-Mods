@@ -126,7 +126,6 @@
         <EmbeddedResource Include="Resources\default_configs\woodcutting\groups\yggdrasil_tree.json" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="App.config" />
         <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
