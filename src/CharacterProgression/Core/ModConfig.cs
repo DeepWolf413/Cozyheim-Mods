@@ -79,12 +79,6 @@ namespace CharacterProgressionMod.Core
             RestedXpMultiplier = CreateConfigEntry("XP Multipliers", "restedXPMultiplier", 30f,
                                                    "[ServerSync] Bonus XP gained while rested. (0 = No Bonus, 30 = +30%)",
                                                    true);
-            BaseXpSpreadMin = CreateConfigEntry("XP Multipliers", "baseXpSpreadMin", 5f,
-                                                "[ServerSync] Base XP spread, Minimum. (0 = Same as XP table, 5 = -5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.",
-                                                true);
-            BaseXpSpreadMax = CreateConfigEntry("XP Multipliers", "baseXpSpreadMax", 5f,
-                                                "[ServerSync] Base XP spread, Maximum. (0 = Same as XP table, 5 = +5% from XP table) Used to ensure that the same monster don't reward the exact same amount of XP every time.",
-                                                true);
 
             // Generate config entries for XP Tables
             // Pickables
@@ -131,8 +125,6 @@ namespace CharacterProgressionMod.Core
             return configEntry;
         }
 
-        #region Properties
-
         public ConfigEntry<float> DifficultyScalerStarRatio { get; }
         public ConfigEntry<bool> DisplayMiningXpText { get; }
         public ConfigEntry<bool> DisplayMonsterXpText { get; }
@@ -162,8 +154,6 @@ namespace CharacterProgressionMod.Core
 
         // XP Multipliers
         public ConfigEntry<float> AllXpMultiplier { get; }
-        public ConfigEntry<float> BaseXpSpreadMax { get; }
-        public ConfigEntry<float> BaseXpSpreadMin { get; }
         public ConfigEntry<bool> CriticalHitShake { get; }
         public ConfigEntry<float> CriticalHitShakeIntensity { get; }
         public ConfigEntry<bool> CriticalHitVFX { get; }
@@ -194,7 +184,5 @@ namespace CharacterProgressionMod.Core
         public ConfigEntry<float> DifficultyScalerNightRatio { get; }
         public ConfigEntry<KeyCode> AddMultiplePointsKey { get; }
         public ConfigEntry<int> AddMultiplePointsAmount { get; }
-
-        #endregion
     }
 }

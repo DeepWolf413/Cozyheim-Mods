@@ -53,8 +53,6 @@ namespace CharacterProgressionMod
                     return;
             }
 
-            var baseXpSpreadMin = Mathf.Min(1 - _config.BaseXpSpreadMin.Value / 100f, 1f);
-            var baseXpSpreadMax = Mathf.Max(1 + _config.BaseXpSpreadMax.Value / 100f, 1f);
             var globalExpMultiplier = Mathf.Max(0f, _config.AllXpMultiplier.Value / 100f);
             var restedMultiplier = Mathf.Max(0f, _config.RestedXpMultiplier.Value / 100f);
 
@@ -65,7 +63,7 @@ namespace CharacterProgressionMod
                 return;
             }
 
-            experience = (int)(experience * globalExpMultiplier * Random.Range(baseXpSpreadMin, baseXpSpreadMax));
+            experience = (int)(experience * globalExpMultiplier);
             var restedBonusXp = experience * restedMultiplier;
 
             var expReward = new ExpReward(sourceType, (int)experience, 0, (int)restedBonusXp);
@@ -89,16 +87,12 @@ namespace CharacterProgressionMod
             var creatureName = source.name;
             var creatureLevel = source.m_level;
 
-            var baseXpSpreadMin = Mathf.Min(1 - _config.BaseXpSpreadMin.Value / 100f, 1f);
-            var baseXpSpreadMax = Mathf.Max(1 + _config.BaseXpSpreadMax.Value / 100f, 1f);
             var creatureLevelMultiplier = Mathf.Max(0f, _config.MonsterLvlXpMultiplier.Value / 100f);
             var expMultiplier = Mathf.Max(0f, _config.AllXpMultiplier.Value / 100f);
             var restedMultiplier = Mathf.Max(0f, _config.RestedXpMultiplier.Value / 100f);
 
-            var rndExpSpread = Random.Range(baseXpSpreadMin, baseXpSpreadMax);
             var expTable = XPManager.CreaturesXpTable;
-            var baseExp = expTable.GetXp(creatureName) * expPercentagePerInstigator *
-                          rndExpSpread * expMultiplier;
+            var baseExp = expTable.GetXp(creatureName) * expPercentagePerInstigator * expMultiplier;
             var creatureLevelExpBonus = (creatureLevel - 1) * creatureLevelMultiplier * baseExp;
             var restedExpBonus = baseExp * restedMultiplier;
             var expReward = new ExpReward(ExpSource.CreatureKill, (int)baseExp, (int)creatureLevelExpBonus,
