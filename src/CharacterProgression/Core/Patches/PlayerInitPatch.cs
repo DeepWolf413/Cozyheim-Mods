@@ -1,15 +1,19 @@
 ﻿using HarmonyLib;
 
-namespace CharacterProgressionMod.Core.Patches
+namespace CharacterProgressionMod
 {
-    [HarmonyPatch(typeof(Player))]
-    internal static class PlayerInitPatch
+    internal static partial class Patcher
     {
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(Player.Awake))]
-        private static void PlayerAwake_Postfix(Player __instance)
+        [HarmonyPatch(typeof(Player))]
+        internal static class PlayerInitPatch
         {
-            __instance.gameObject.AddComponent<PlayerExpPool>();
+            [HarmonyPostfix]
+            [HarmonyPatch(nameof(Player.Awake))]
+            private static void PlayerAwake_Postfix(Player __instance)
+            {
+                var playerExpPool = __instance.gameObject.AddComponent<PlayerExpPool>();
+                playerExpPool.Initialize(_config);
+            }
         }
     }
 }

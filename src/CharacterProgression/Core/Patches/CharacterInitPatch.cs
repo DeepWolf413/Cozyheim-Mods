@@ -1,20 +1,23 @@
 ﻿using HarmonyLib;
 
-namespace CharacterProgressionMod.Core.Patches
+namespace CharacterProgressionMod
 {
-    [HarmonyPatch(typeof(Character))]
-    internal static class CharacterInitPatch
+    internal static partial class Patcher
     {
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(Character.Awake))]
-        private static void CharacterAwake_Postfix(Character __instance)
+        [HarmonyPatch(typeof(Character))]
+        internal static class CharacterInitPatch
         {
-            if (__instance.IsPlayer() || !__instance.IsOwner()) {
-                return;
-            }
+            [HarmonyPostfix]
+            [HarmonyPatch(nameof(Character.Awake))]
+            private static void CharacterAwake_Postfix(Character __instance)
+            {
+                if (__instance.IsPlayer() || !__instance.IsOwner()) {
+                    return;
+                }
 
-            __instance.gameObject.AddComponent<DamageRegistry>();
-            __instance.gameObject.AddComponent<RewardExpOnDeath>();
+                __instance.gameObject.AddComponent<DamageRegistry>();
+                __instance.gameObject.AddComponent<RewardExpOnDeath>();
+            }
         }
     }
 }

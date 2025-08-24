@@ -7,7 +7,7 @@ namespace CharacterProgressionMod
     ///     Responsible for keeping track of damage dealt to the entity this component is attached to.
     /// </summary>
     /// <remarks>
-    ///     Only player damage is tracked - damage is added by <see cref="Patches.DamageRecorderPatch" />.
+    ///     Only player damage is tracked - damage is added by <see cref="Patcher.DamageRecorderPatch" />.
     ///     <para>
     ///         The idea is to use the recorded damage to calculate the experience reward for players upon killing a
     ///         creature.

@@ -1,13 +1,11 @@
-﻿using CharacterProgressionMod.Core;
-using HarmonyLib;
-using UnityEngine;
+﻿using HarmonyLib;
 
 namespace CharacterProgressionMod
 {
-    internal class PatchXP_Pickable : MonoBehaviour
+    internal static partial class Patcher
     {
         [HarmonyPatch]
-        private class PatchClass
+        private static class PickablePatch
         {
             [HarmonyPrefix]
             [HarmonyPatch(typeof(Beehive), "Interact")]
@@ -16,8 +14,8 @@ namespace CharacterProgressionMod
                 if (__instance == null || character == null || ___m_nview == null) {
                     return;
                 }
-
-                if (!ModEntry.ModConfig.PickableXpEnabled.Value) {
+                
+                if (!_config.PickableXpEnabled.Value) {
                     return;
                 }
 

@@ -5,15 +5,18 @@ using Logger = Jotunn.Logger;
 
 namespace CharacterProgressionMod
 {
-    public sealed class PlayerExpPool : MonoBehaviour
+    internal sealed class PlayerExpPool : MonoBehaviour
     {
         private const string LevelSaveKey = "Cozyheim.Level";
         private const string TotalExpSaveKey = "Cozyheim.TotalExperience";
 
         private Player _player;
+        private ModConfig _config;
 
         public static PlayerExpPool Local { get; private set; }
         private string RpcAddExperience { get; } = RpcId.Create("AddExperience");
+
+        public void Initialize(ModConfig config) => _config = config;
 
         private void Awake()
         {
@@ -50,10 +53,10 @@ namespace CharacterProgressionMod
                     return;
             }
 
-            var baseXpSpreadMin = Mathf.Min(1 - ModEntry.ModConfig.BaseXpSpreadMin.Value / 100f, 1f);
-            var baseXpSpreadMax = Mathf.Max(1 + ModEntry.ModConfig.BaseXpSpreadMax.Value / 100f, 1f);
-            var globalExpMultiplier = Mathf.Max(0f, ModEntry.ModConfig.AllXpMultiplier.Value / 100f);
-            var restedMultiplier = Mathf.Max(0f, ModEntry.ModConfig.RestedXpMultiplier.Value / 100f);
+            var baseXpSpreadMin = Mathf.Min(1 - _config.BaseXpSpreadMin.Value / 100f, 1f);
+            var baseXpSpreadMax = Mathf.Max(1 + _config.BaseXpSpreadMax.Value / 100f, 1f);
+            var globalExpMultiplier = Mathf.Max(0f, _config.AllXpMultiplier.Value / 100f);
+            var restedMultiplier = Mathf.Max(0f, _config.RestedXpMultiplier.Value / 100f);
 
             var experience = xpTable.GetXp(sourceName) * multiplier;
             if (experience <= 0) {
@@ -86,11 +89,11 @@ namespace CharacterProgressionMod
             var creatureName = source.name;
             var creatureLevel = source.m_level;
 
-            var baseXpSpreadMin = Mathf.Min(1 - ModEntry.ModConfig.BaseXpSpreadMin.Value / 100f, 1f);
-            var baseXpSpreadMax = Mathf.Max(1 + ModEntry.ModConfig.BaseXpSpreadMax.Value / 100f, 1f);
-            var creatureLevelMultiplier = Mathf.Max(0f, ModEntry.ModConfig.MonsterLvlXpMultiplier.Value / 100f);
-            var expMultiplier = Mathf.Max(0f, ModEntry.ModConfig.AllXpMultiplier.Value / 100f);
-            var restedMultiplier = Mathf.Max(0f, ModEntry.ModConfig.RestedXpMultiplier.Value / 100f);
+            var baseXpSpreadMin = Mathf.Min(1 - _config.BaseXpSpreadMin.Value / 100f, 1f);
+            var baseXpSpreadMax = Mathf.Max(1 + _config.BaseXpSpreadMax.Value / 100f, 1f);
+            var creatureLevelMultiplier = Mathf.Max(0f, _config.MonsterLvlXpMultiplier.Value / 100f);
+            var expMultiplier = Mathf.Max(0f, _config.AllXpMultiplier.Value / 100f);
+            var restedMultiplier = Mathf.Max(0f, _config.RestedXpMultiplier.Value / 100f);
 
             var rndExpSpread = Random.Range(baseXpSpreadMin, baseXpSpreadMax);
             var expTable = XPManager.CreaturesXpTable;

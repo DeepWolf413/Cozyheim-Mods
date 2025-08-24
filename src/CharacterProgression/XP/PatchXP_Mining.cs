@@ -1,13 +1,11 @@
-﻿using CharacterProgressionMod.Core;
-using HarmonyLib;
-using UnityEngine;
+﻿using HarmonyLib;
 
 namespace CharacterProgressionMod
 {
-    internal class PatchXP_Mining : MonoBehaviour
+    internal static partial class Patcher
     {
         [HarmonyPatch]
-        private class PatchClass
+        private static class MiningPatch
         {
             [HarmonyPrefix]
             [HarmonyPatch(typeof(MineRock5), nameof(MineRock5.Awake))]
@@ -95,11 +93,10 @@ namespace CharacterProgressionMod
 
             private static void MiningXP(string name, HitData hit)
             {
-                // Check if the XP system is enabled
-                if (!ModEntry.ModConfig.MiningXpEnabled.Value) {
+                if (!_config.MiningXpEnabled.Value) {
                     return;
                 }
-
+                
                 if (hit.m_damage.m_pickaxe <= 0) {
                     return;
                 }

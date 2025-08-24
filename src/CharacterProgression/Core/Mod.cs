@@ -1,10 +1,12 @@
-﻿namespace CharacterProgressionMod.Core
+﻿using BepInEx;
+
+namespace CharacterProgressionMod.Core
 {
-    public sealed class Mod
+    internal sealed class Mod
     {
         public static bool IsInitialized { get; private set; }
 
-        internal Mod()
+        internal Mod(BaseUnityPlugin plugin)
         {
             if (IsInitialized) {
                 Jotunn.Logger.LogWarning("The mod is already initialized.");
@@ -12,6 +14,10 @@
             }
             
             IsInitialized = true;
+            var config = new ModConfig(plugin.Config);
+            var resources = new ModResources(config);
+            
+            Patcher.Initialize(config);
         }
     }
 }

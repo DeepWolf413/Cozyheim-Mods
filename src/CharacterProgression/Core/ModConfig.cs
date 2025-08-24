@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CharacterProgressionMod.Core
 {
-    public sealed class ModConfig
+    internal sealed class ModConfig
     {
         private const string CustomFolder = "custom";
         private const string CategoriesFolderName = "categories";
