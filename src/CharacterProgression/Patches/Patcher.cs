@@ -1,7 +1,7 @@
-﻿using CharacterProgressionMod.Core;
-using HarmonyLib;
+﻿using HarmonyLib;
+using CharacterProgressionMod.Core;
 
-namespace CharacterProgressionMod
+namespace CharacterProgressionMod.Patches
 {
     [HarmonyPatch]
     internal static partial class Patcher

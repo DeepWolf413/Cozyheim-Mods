@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace CharacterProgressionMod
+namespace CharacterProgressionMod.Patches
 {
     internal static partial class Patcher
     {

@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using CharacterProgressionMod.Patches;
 
 namespace CharacterProgressionMod.Core
 {

@@ -52,10 +52,10 @@
         <Compile Include="Core\ModDependencies.cs" />
         <Compile Include="Core\ModInfo.cs" />
         <Compile Include="Core\ModResources.cs" />
-        <Compile Include="Core\Patches\CharacterInitPatch.cs" />
-        <Compile Include="Core\Patches\DamageRecorderPatch.cs" />
-        <Compile Include="Core\Patches\PlayerInitPatch.cs" />
-        <Compile Include="Skills\Patcher.cs" />
+        <Compile Include="Patches\CharacterInitPatch.cs" />
+        <Compile Include="Patches\DamageRecorderPatch.cs" />
+        <Compile Include="Patches\Patcher.cs" />
+        <Compile Include="Patches\PlayerInitPatch.cs" />
         <Compile Include="Utilities\RpcId.cs" />
         <Compile Include="Utilities\RpcInvoke.cs" />
         <Compile Include="XP\ExpReward.cs" />
@@ -113,6 +113,7 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Gui\" />
+      <Folder Include="XP\Data\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
