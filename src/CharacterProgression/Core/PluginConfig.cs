@@ -69,7 +69,7 @@ namespace CharacterProgressionMod.Core
             UseCustomExperienceTable = CreateConfigEntry("Leveling", "UseCustomPlayerLevelTable", false, "[ServerSync] Whether to use the custom player level table.", true);
             MaxLevel = CreateConfigEntry("Leveling", "MaxLevel", 50, "[ServerSync] The maximum level a player can reach. This setting is ignored if using a custom player level table.", true);
             MaxLevelTotalExperience = CreateConfigEntry("Leveling", "MaxLevelTotalExp", 100000, "[ServerSync] How much experience in total is needed to reach max level. This setting is ignored if using a custom player level table.", true);
-            ExperienceFormula = CreateConfigEntry("Leveling", "ExpFormula", CharacterProgressionMod.ExperienceFormula.InCubic, "[ServerSync] The formula to use to determine how much experience each level requires. This setting is ignored if using a custom player level table.", true);
+            ExperienceFormula = CreateConfigEntry("Leveling", "ExpFormula", CharacterProgressionMod.LevelExperienceFormula.InCubic, "[ServerSync] The formula to use to determine how much experience each level requires. This setting is ignored if using a custom player level table.", true);
             MonsterLvlXpMultiplier = CreateConfigEntry("XP Multipliers", "monsterLvlXPMultiplier", 50f,
                                                        "[ServerSync] Bonus XP gained per monster level. (0 = No Bonus, 50 = +50% per level)",
                                                        true);
@@ -151,7 +151,7 @@ namespace CharacterProgressionMod.Core
         public ConfigEntry<bool> UseCustomExperienceTable { get; }
         public ConfigEntry<int> MaxLevel { get; }
         public ConfigEntry<int> MaxLevelTotalExperience { get; }
-        public ConfigEntry<ExperienceFormula> ExperienceFormula { get; }
+        public ConfigEntry<LevelExperienceFormula> ExperienceFormula { get; }
 
         // Heads-up Display
         public ConfigEntry<bool> ShowLevel { get; }

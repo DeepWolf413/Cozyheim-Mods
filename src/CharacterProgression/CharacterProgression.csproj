@@ -62,9 +62,9 @@
         <Compile Include="Patches\PlayerInitPatch.cs" />
         <Compile Include="XP\Data\BiomeExperienceConfig.cs" />
         <Compile Include="XP\Data\LevelEvaluationResult.cs" />
-        <Compile Include="XP\ExperienceFormula.cs" />
-        <Compile Include="XP\ExperienceTableGenerator.cs" />
-        <Compile Include="XP\ExperienceTable.cs" />
+        <Compile Include="XP\LevelExperienceFormula.cs" />
+        <Compile Include="XP\LevelExperienceTableGenerator.cs" />
+        <Compile Include="XP\LevelExperienceTable.cs" />
         <Compile Include="XP\PlayerLevelProgression.cs" />
         <Compile Include="XP\XpTable.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

@@ -25,13 +25,13 @@ namespace CharacterProgressionMod.Core
                 ExperienceTable = new ExperienceTable(loadedJson);*/
             }
             else {
-                var experienceTableGenerator = new ExperienceTableGenerator(_config.MaxLevel.Value, _config.MaxLevelTotalExperience.Value, _config.ExperienceFormula.Value);
-                ExperienceTable = experienceTableGenerator.Generate();
+                var experienceTableGenerator = new LevelExperienceTableGenerator(_config.MaxLevel.Value, _config.MaxLevelTotalExperience.Value, _config.ExperienceFormula.Value);
+                LevelExperienceTable = experienceTableGenerator.Generate();
             }
         }
 
         public AssetBundle AssetBundle { get; }
-        public ExperienceTable ExperienceTable { get; private set; }
+        public LevelExperienceTable LevelExperienceTable { get; private set; }
 
         private void LoadAssets()
         {

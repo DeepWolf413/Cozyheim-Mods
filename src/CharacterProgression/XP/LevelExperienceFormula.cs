@@ -1,6 +1,6 @@
 ﻿namespace CharacterProgressionMod
 {
-    public enum ExperienceFormula
+    public enum LevelExperienceFormula
     {
         Linear,
         /// <summary>

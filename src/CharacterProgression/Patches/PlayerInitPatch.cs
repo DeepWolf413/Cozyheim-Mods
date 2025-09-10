@@ -12,7 +12,7 @@ namespace CharacterProgressionMod.Patches
             private static void PlayerAwake_Postfix(Player __instance)
             {
                 var playerExpPool = __instance.gameObject.AddComponent<PlayerLevelProgression>();
-                playerExpPool.ExperienceTable = _resources.ExperienceTable;
+                playerExpPool.LevelExperienceTable = _resources.LevelExperienceTable;
             }
         }
     }

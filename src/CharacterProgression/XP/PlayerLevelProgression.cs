@@ -11,19 +11,19 @@ namespace CharacterProgressionMod
 
         private Player _player;
         private string _addExperienceRpcId;
-        private ExperienceTable _experienceTable;
+        private LevelExperienceTable _levelExperienceTable;
         private LevelEvaluationResult _currentLevelEvaluation;
 
-        public ExperienceTable ExperienceTable
+        public LevelExperienceTable LevelExperienceTable
         {
-            get => _experienceTable;
+            get => _levelExperienceTable;
             set
             {
-                if (_experienceTable == value || _player is null) {
+                if (_levelExperienceTable == value || _player is null) {
                     return;
                 }
                 
-                _experienceTable = value;
+                _levelExperienceTable = value;
                 UpdateLevel();
             }
         }
@@ -119,11 +119,11 @@ namespace CharacterProgressionMod
         
         private void UpdateLevel()
         {
-            if (_experienceTable == null) {
+            if (_levelExperienceTable == null) {
                 return;
             }
 
-            _currentLevelEvaluation = _experienceTable.EvaluateLevel(GetTotalExperience());
+            _currentLevelEvaluation = _levelExperienceTable.EvaluateLevel(GetTotalExperience());
             
             _player.m_customData[LevelSaveKey] = _currentLevelEvaluation.Level.ToString();
             Jotunn.Logger.LogDebug(_currentLevelEvaluation.ToString());

@@ -3,16 +3,16 @@ using System.Linq;
 
 namespace CharacterProgressionMod
 {
-    public class ExperienceTable
+    public class LevelExperienceTable
     {
         private readonly int[] _entries;
         
         public int MaxLevel { get; }
 
         /// <summary>
-        /// Initializes a new instance of <see cref="ExperienceTable"/> with the specified entries.
+        /// Initializes a new instance of <see cref="LevelExperienceTable"/> with the specified entries.
         /// </summary>
-        public ExperienceTable(int[] entries)
+        public LevelExperienceTable(int[] entries)
         {
             if (entries.Length == 0) {
                 Jotunn.Logger.LogWarning("No entries was given.");
@@ -28,7 +28,7 @@ namespace CharacterProgressionMod
         /// <summary>
         /// Loads the experience table from json.
         /// </summary>
-        public ExperienceTable(string experienceTableJson)
+        public LevelExperienceTable(string experienceTableJson)
         {
             if (string.IsNullOrEmpty(experienceTableJson)) {
                 Jotunn.Logger.LogError("Invalid json for experience table.");
