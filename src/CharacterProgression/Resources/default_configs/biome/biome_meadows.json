@@ -1,0 +1,15 @@
+﻿{
+  "Meadows": {
+    "Foraging": {
+      "BaseExp": 5
+    },
+    "Woodcutting": {
+      "BaseExp": 10,
+      "TierMultiplier": 1.2
+    },
+    "Mining": {
+      "BaseExp": 5,
+      "TierMultiplier": 1.2
+    }
+  }
+}

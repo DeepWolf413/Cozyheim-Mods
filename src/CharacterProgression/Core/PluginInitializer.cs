@@ -1,22 +1,19 @@
 ﻿using System.Reflection;
 using BepInEx;
 using CharacterProgressionMod.Commands;
+using CharacterProgressionMod.Patches;
 using HarmonyLib;
 using Jotunn.Managers;
 using Jotunn.Utils;
 
 namespace CharacterProgressionMod.Core
 {
-    [BepInPlugin(ModInfo.Guid, ModInfo.ModName, ModInfo.Version)]
+    [BepInPlugin(PluginInfo.Guid, PluginInfo.ModName, PluginInfo.Version)]
     [BepInDependency(Jotunn.Main.ModGuid)]
-    [BepInDependency(ModDependencies.JewelcraftingModGuid, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(PluginDependencyFinder.Guids.SmoothbrainsJewelcrafting, BepInDependency.DependencyFlags.SoftDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
-    internal sealed class ModBootstrap : BaseUnityPlugin
+    internal sealed class PluginInitializer : BaseUnityPlugin
     {
-        public const string ConfigFolder = "xp_tables";
-
-        private readonly Harmony _harmony = new(ModInfo.Guid);
-
         private void Awake()
         {
             static void InitCommands()
@@ -25,16 +22,16 @@ namespace CharacterProgressionMod.Core
                 CommandManager.Instance.AddConsoleCommand(new LevelUpCommand());
             }
             
-            _harmony.PatchAll(Assembly.GetExecutingAssembly());
-            ModDependencies.CheckForLoadedDependencies();
             InitCommands();
             
-            var mod = new Mod(this);
+            var config = new PluginConfig(Config);
+            var resources = new ModResources(config);
+            Patcher.PatchAll(config, resources);
         }
 
         private void OnDestroy()
         {
-            _harmony.UnpatchSelf();
+            Patcher.Unpatch();
         }
     }
 }

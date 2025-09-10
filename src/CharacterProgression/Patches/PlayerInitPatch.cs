@@ -11,8 +11,8 @@ namespace CharacterProgressionMod.Patches
             [HarmonyPatch(nameof(Player.Awake))]
             private static void PlayerAwake_Postfix(Player __instance)
             {
-                var playerExpPool = __instance.gameObject.AddComponent<PlayerExpPool>();
-                playerExpPool.Initialize(_config);
+                var playerExpPool = __instance.gameObject.AddComponent<PlayerLevelProgression>();
+                playerExpPool.ExperienceTable = _resources.ExperienceTable;
             }
         }
     }

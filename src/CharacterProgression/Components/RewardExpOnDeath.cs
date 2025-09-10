@@ -36,11 +36,11 @@ namespace CharacterProgressionMod
                     continue;
                 }
 
-                if (!player.TryGetComponent(out PlayerExpPool expPool)) {
+                if (!player.TryGetComponent(out PlayerLevelProgression expPool)) {
                     continue;
                 }
 
-                expPool.CreateKillExperienceReward(_character);
+                //expPool.CreateKillExperienceReward(_character);
             }
         }
     }

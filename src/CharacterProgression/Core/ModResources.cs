@@ -1,4 +1,5 @@
-﻿using Jotunn.Configs;
+﻿using CharacterProgressionMod.Loaders;
+using Jotunn.Configs;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
@@ -9,24 +10,31 @@ namespace CharacterProgressionMod.Core
     internal class ModResources
     {
         private const string AssetsPath = "Assets/_Leveling System/";
-        private readonly ModConfig _config;
-        
-        public AssetBundle AssetBundle { get; }
+        private readonly PluginConfig _config;
 
-        public ModResources(ModConfig config)
+        public ModResources(PluginConfig config)
         {
             _config = config;
             AssetBundle = AssetUtils.LoadAssetBundleFromResources("leveling_system");
             PrefabManager.OnVanillaPrefabsAvailable += LoadAssets;
+
+            if (_config.UseCustomExperienceTable.Value) {
+                // TODO: Implement loading for custom experience table.
+                /*const string levelTablePath = "default_configs.player.xp_tables.default.json";
+                var loadedJson = EmbeddedResourceLoader.Load(levelTablePath);
+                ExperienceTable = new ExperienceTable(loadedJson);*/
+            }
+            else {
+                var experienceTableGenerator = new ExperienceTableGenerator(_config.MaxLevel.Value, _config.MaxLevelTotalExperience.Value, _config.ExperienceFormula.Value);
+                ExperienceTable = experienceTableGenerator.Generate();
+            }
         }
-        
+
+        public AssetBundle AssetBundle { get; }
+        public ExperienceTable ExperienceTable { get; private set; }
+
         private void LoadAssets()
         {
-            if (_config is null) {
-                Jotunn.Logger.LogError("Missing reference to config.");
-                return;
-            }
-            
             // Canvas UI with the XP Bar
             var levelSystem = AssetBundle.LoadAsset<GameObject>(AssetsPath + "Prefabs/LevelingSystemUI.prefab");
             PrefabManager.Instance.AddPrefab(levelSystem);

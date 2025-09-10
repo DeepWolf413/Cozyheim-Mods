@@ -4,20 +4,22 @@ using UnityEngine;
 
 namespace CharacterProgressionMod.Core
 {
-    internal sealed class ModConfig
+    public sealed class PluginConfig
     {
         private const string CustomFolder = "custom";
         private const string CategoriesFolderName = "categories";
 
         private readonly ConfigFile _configFile;
 
-        public ModConfig(ConfigFile modConfigFile)
+        /// <summary>
+        /// Binds config values to the specified <see cref="ConfigFile"/>.
+        /// </summary>
+        /// <param name="configFile">The <see cref="ConfigFile"/> that will used for binding.</param>
+        public PluginConfig(ConfigFile configFile)
         {
-            _configFile = modConfigFile;
+            _configFile = configFile;
             _configFile.SaveOnConfigSet = true;
-
-            #region Initialize config entries
-
+            
             // XP Bar
             ShowLevel = CreateConfigEntry("XP Bar", "showLevel", true, "Display Level text");
             ShowXp = CreateConfigEntry("XP Bar", "showXp", true, "Display XP text");
@@ -46,13 +48,7 @@ namespace CharacterProgressionMod.Core
 
             // VFX
             LevelUpVFX = CreateConfigEntry("VFX", "levelUpVFX", true, "Display visual effects when leveling up");
-            CriticalHitVFX = CreateConfigEntry("VFX", "criticalHitVFX", true,
-                                               "Display visual effects when dealing a critical hit");
-            CriticalHitShake = CreateConfigEntry("VFX", "criticalHitShake", true,
-                                                 "Shake the camera when dealing a critical hit");
-            CriticalHitShakeIntensity =
-                CreateConfigEntry("VFX", "criticalHitShakeIntensity", 2f, "Intensity of the camera shake");
-
+            
             // XP Text
             DisplayXpInCorner = CreateConfigEntry("XP Text", "displayXPInCorner", true,
                                                   "Display XP gained in top left corner");
@@ -69,10 +65,11 @@ namespace CharacterProgressionMod.Core
             XpFontSize = CreateConfigEntry("XP Text", "xpFontSize", 100f,
                                            "The size  (in percentage) of the floating xp text. (100 = 100%, 50 = 50% etc.)");
 
-            // XP Multipliers
-            AllXpMultiplier = CreateConfigEntry("XP Multipliers", "XPMultipliers", 100f,
-                                                "[ServerSync] XP gained (in percentage) compared to the Monster XP Table. (100 = Same as XP table, 150 = +50%, 70 = -30%)",
-                                                true);
+            // Experience
+            UseCustomExperienceTable = CreateConfigEntry("Leveling", "UseCustomPlayerLevelTable", false, "[ServerSync] Whether to use the custom player level table.", true);
+            MaxLevel = CreateConfigEntry("Leveling", "MaxLevel", 50, "[ServerSync] The maximum level a player can reach. This setting is ignored if using a custom player level table.", true);
+            MaxLevelTotalExperience = CreateConfigEntry("Leveling", "MaxLevelTotalExp", 100000, "[ServerSync] How much experience in total is needed to reach max level. This setting is ignored if using a custom player level table.", true);
+            ExperienceFormula = CreateConfigEntry("Leveling", "ExpFormula", CharacterProgressionMod.ExperienceFormula.InCubic, "[ServerSync] The formula to use to determine how much experience each level requires. This setting is ignored if using a custom player level table.", true);
             MonsterLvlXpMultiplier = CreateConfigEntry("XP Multipliers", "monsterLvlXPMultiplier", 50f,
                                                        "[ServerSync] Bonus XP gained per monster level. (0 = No Bonus, 50 = +50% per level)",
                                                        true);
@@ -92,8 +89,6 @@ namespace CharacterProgressionMod.Core
             // Woodcutting
             WoodcuttingXpEnabled = CreateConfigEntry("XP Table", "woodcuttingXpEnabled", true,
                                                      "[ServerSync] Gain XP when chopping trees", true);
-
-            #endregion
         }
 
         public static string CustomMiningDirectory => Path.Combine(CustomFolder, "mining");
@@ -125,7 +120,6 @@ namespace CharacterProgressionMod.Core
             return configEntry;
         }
 
-        public ConfigEntry<float> DifficultyScalerStarRatio { get; }
         public ConfigEntry<bool> DisplayMiningXpText { get; }
         public ConfigEntry<bool> DisplayMonsterXpText { get; }
         public ConfigEntry<bool> DisplayPickupXpText { get; }
@@ -134,8 +128,6 @@ namespace CharacterProgressionMod.Core
 
         // XP Text
         public ConfigEntry<bool> DisplayXpInCorner { get; }
-
-        public ConfigEntry<bool> EnableDifficultyScalerXp { get; }
 
         // VFX
         public ConfigEntry<bool> LevelUpVFX { get; }
@@ -151,38 +143,22 @@ namespace CharacterProgressionMod.Core
         public ConfigEntry<bool> WoodcuttingXpEnabled { get; }
         public ConfigEntry<float> XpFontSize { get; }
         public ConfigEntry<KeyCode> AddMaxPointsKey { get; }
+        public ConfigEntry<float> PointsPerLevel { get; }
+        public ConfigEntry<KeyCode> AddMultiplePointsKey { get; }
+        public ConfigEntry<int> AddMultiplePointsAmount { get; }
 
-        // XP Multipliers
-        public ConfigEntry<float> AllXpMultiplier { get; }
-        public ConfigEntry<bool> CriticalHitShake { get; }
-        public ConfigEntry<float> CriticalHitShakeIntensity { get; }
-        public ConfigEntry<bool> CriticalHitVFX { get; }
-        public ConfigEntry<bool> DifficultyScalerBiome { get; }
-        public ConfigEntry<float> DifficultyScalerBiomeRatio { get; }
-        public ConfigEntry<bool> DifficultyScalerBoss { get; }
-        public ConfigEntry<float> DifficultyScalerBossRatio { get; }
-        public ConfigEntry<bool> DifficultyScalerNight { get; }
-        public ConfigEntry<bool> DifficultyScalerOverallDamage { get; }
-        public ConfigEntry<float> DifficultyScalerOverallDamageRatio { get; }
-        public ConfigEntry<bool> DifficultyScalerStar { get; }
-        public ConfigEntry<bool> DifficultyScalerOverallHealth { get; }
-        public ConfigEntry<float> DifficultyScalerOverallHealthRatio { get; }
+        // Player Experience
+        public ConfigEntry<bool> UseCustomExperienceTable { get; }
+        public ConfigEntry<int> MaxLevel { get; }
+        public ConfigEntry<int> MaxLevelTotalExperience { get; }
+        public ConfigEntry<ExperienceFormula> ExperienceFormula { get; }
 
-        // Config entries
-        // -----------
-        // XP Bar
+        // Heads-up Display
         public ConfigEntry<bool> ShowLevel { get; }
         public ConfigEntry<bool> ShowXp { get; }
         public ConfigEntry<bool> ShowRequiredXp { get; }
         public ConfigEntry<bool> ShowPercentageXp { get; }
         public ConfigEntry<float> XpBarSize { get; }
         public ConfigEntry<Vector2> XpBarPosition { get; }
-
-        // Levels
-        public ConfigEntry<float> PointsPerLevel { get; }
-
-        public ConfigEntry<float> DifficultyScalerNightRatio { get; }
-        public ConfigEntry<KeyCode> AddMultiplePointsKey { get; }
-        public ConfigEntry<int> AddMultiplePointsAmount { get; }
     }
 }
