@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using CharacterProgressionMod.Formulas;
 
 namespace CharacterProgressionMod
 {
@@ -9,19 +8,19 @@ namespace CharacterProgressionMod
         {
             MaxLevel = 10;
             MaxLevelTotalExperience = 5000;
-            LevelExperienceFormula = LevelExperienceFormula.InCubic;
+            MaxExperienceFormula = new InCubicMaxExperienceFormula();
         }
         
-        public LevelExperienceTableGenerator(int maxLevel, int maxLevelTotalExperience, LevelExperienceFormula levelExperienceFormula)
+        public LevelExperienceTableGenerator(int maxLevel, int maxLevelTotalExperience, IMaxExperienceFormula maxExperienceFormula)
         {
             MaxLevel = maxLevel;
             MaxLevelTotalExperience = maxLevelTotalExperience;
-            LevelExperienceFormula = levelExperienceFormula;
+            MaxExperienceFormula = maxExperienceFormula;
         }
 
         public int MaxLevel { get; set; }
         public int MaxLevelTotalExperience { get; set; }
-        public LevelExperienceFormula LevelExperienceFormula { get; set; }
+        public IMaxExperienceFormula MaxExperienceFormula { get; set; }
 
         public LevelExperienceTable Generate()
         {
@@ -30,30 +29,10 @@ namespace CharacterProgressionMod
             var tableEntryCount = MaxLevel - 1;
             var table = new int[tableEntryCount];
 
-            int EvaluateMaxExperience(int level)
-            {
-                var nextLevel = level + 1;
-                
-                switch (LevelExperienceFormula) {
-                    case LevelExperienceFormula.Linear:
-                        var maxExperiencePerLevel = MaxLevelTotalExperience / MaxLevel;
-                        return maxExperiencePerLevel * level;
-                    case LevelExperienceFormula.InCubic:
-                        var levelProgress = (float)nextLevel / MaxLevel;
-                        var curveProgress = levelProgress * levelProgress * levelProgress;
-                        return Mathf.RoundToInt(MaxLevelTotalExperience * curveProgress);
-                    default:
-                        Jotunn.Logger.LogError($"Unhandled experience formula: {LevelExperienceFormula}.");
-                        break;
-                }
-
-                return 1;
-            }
-            
             Jotunn.Logger.LogDebug("Generating experience table...");
             for (var entryIndex = 0; entryIndex < table.Length; entryIndex++) {
                 var level = entryIndex + 1;
-                var levelMaxExperience = EvaluateMaxExperience(level);
+                var levelMaxExperience = MaxExperienceFormula.EvaluateMaxExperience(level, MaxLevel, MaxLevelTotalExperience);
                 table[entryIndex] = levelMaxExperience;
                 Jotunn.Logger.LogDebug($"Level: {level} | MaxExperience: {levelMaxExperience}");
             }

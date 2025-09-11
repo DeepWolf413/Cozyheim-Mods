@@ -25,7 +25,7 @@ namespace CharacterProgressionMod.Core
                 ExperienceTable = new ExperienceTable(loadedJson);*/
             }
             else {
-                var experienceTableGenerator = new LevelExperienceTableGenerator(_config.MaxLevel.Value, _config.MaxLevelTotalExperience.Value, _config.ExperienceFormula.Value);
+                var experienceTableGenerator = new LevelExperienceTableGenerator(_config.MaxLevel.Value, _config.MaxLevelTotalExperience.Value, _config.GetSelectedMaxExperienceFormula());
                 LevelExperienceTable = experienceTableGenerator.Generate();
             }
         }
