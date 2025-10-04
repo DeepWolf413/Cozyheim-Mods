@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-
-namespace CharacterProgressionMod
+﻿namespace CharacterProgressionMod
 {
     public class LevelExperienceTable
     {
@@ -23,7 +19,7 @@ namespace CharacterProgressionMod
             _entries = entries;
             // One is added because the table is stored like level:maxExperience, which means the last entry - with max level being 90 - is 89.
             MaxLevel = _entries.Length + 1;
-            Jotunn.Logger.LogDebug($"Successfully loaded a player experience table. Max level is {MaxLevel}");
+            Jotunn.Logger.LogDebug($"Player level table has been created! Max level is {MaxLevel}.");
         }
 
         public LevelExperienceTable(LevelTableGenerationSettings generationSettings)
@@ -39,21 +35,9 @@ namespace CharacterProgressionMod
                 var nextLevel = levelIndex + nextLevelOffset;
                 maxExperience = generationSettings.MaxExperienceModifierFormula.Evaluate(nextLevel, maxExperience);
             }
-        }
-        
-        /// <summary>
-        /// Loads the experience table from json.
-        /// </summary>
-        public LevelExperienceTable(string experienceTableJson)
-        {
-            if (string.IsNullOrEmpty(experienceTableJson)) {
-                Jotunn.Logger.LogError("Invalid json for experience table.");
-                return;
-            }
-            
-            var xpTable = SimpleJson.SimpleJson.DeserializeObject<Dictionary<string, int>>(experienceTableJson);
-            _entries = xpTable.Values.ToArray();
-            Jotunn.Logger.LogDebug($"Successfully loaded a player experience table. Max level is {MaxLevel}");
+
+            MaxLevel = _entries.Length + 1;
+            Jotunn.Logger.LogDebug($"Player level table has been created! Max level is {MaxLevel}.");
         }
         
         public int GetMaxExperience(int level)
