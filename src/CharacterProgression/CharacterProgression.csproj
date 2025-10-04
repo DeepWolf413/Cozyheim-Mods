@@ -61,12 +61,9 @@
         <Compile Include="Patches\Patcher.cs" />
         <Compile Include="Patches\PlayerInitPatch.cs" />
         <Compile Include="XP\Data\BiomeExperienceConfig.cs" />
+        <Compile Include="XP\Data\MaxExperienceModifierFormula.cs" />
         <Compile Include="XP\Data\LevelEvaluationResult.cs" />
-        <Compile Include="XP\Formulas\InCubicMaxExperienceFormula.cs" />
-        <Compile Include="XP\Formulas\LinearMaxExperienceFormula.cs" />
-        <Compile Include="XP\IMaxExperienceFormula.cs" />
-        <Compile Include="XP\MaxExperienceFormulaOptions.cs" />
-        <Compile Include="XP\LevelExperienceTableGenerator.cs" />
+        <Compile Include="XP\Data\LevelTableGenerationSettings.cs" />
         <Compile Include="XP\LevelExperienceTable.cs" />
         <Compile Include="XP\PlayerLevelProgression.cs" />
         <Compile Include="XP\XpTable.cs" />

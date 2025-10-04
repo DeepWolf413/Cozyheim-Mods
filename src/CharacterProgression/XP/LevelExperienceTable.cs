@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace CharacterProgressionMod
 {
@@ -23,6 +24,21 @@ namespace CharacterProgressionMod
             // One is added because the table is stored like level:maxExperience, which means the last entry - with max level being 90 - is 89.
             MaxLevel = _entries.Length + 1;
             Jotunn.Logger.LogDebug($"Successfully loaded a player experience table. Max level is {MaxLevel}");
+        }
+
+        public LevelExperienceTable(LevelTableGenerationSettings generationSettings)
+        {
+            var tableEntryCount = generationSettings.MaxLevel - 1;
+            _entries = new int[tableEntryCount];
+
+            int maxExperience = generationSettings.InitialMaxExperience;
+            for (var levelIndex = 0; levelIndex < _entries.Length; levelIndex++) {
+                _entries[levelIndex] = maxExperience;
+
+                const int nextLevelOffset = 2;
+                var nextLevel = levelIndex + nextLevelOffset;
+                maxExperience = generationSettings.MaxExperienceModifierFormula.Evaluate(nextLevel, maxExperience);
+            }
         }
         
         /// <summary>

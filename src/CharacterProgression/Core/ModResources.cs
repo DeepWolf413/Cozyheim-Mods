@@ -1,5 +1,4 @@
-﻿using CharacterProgressionMod.Loaders;
-using Jotunn.Configs;
+﻿using Jotunn.Configs;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace CharacterProgressionMod.Core
 {
-    internal class ModResources
+    public class ModResources
     {
         private const string AssetsPath = "Assets/_Leveling System/";
         private readonly PluginConfig _config;
@@ -18,20 +17,20 @@ namespace CharacterProgressionMod.Core
             AssetBundle = AssetUtils.LoadAssetBundleFromResources("leveling_system");
             PrefabManager.OnVanillaPrefabsAvailable += LoadAssets;
 
-            if (_config.UseCustomExperienceTable.Value) {
-                // TODO: Implement loading for custom experience table.
-                /*const string levelTablePath = "default_configs.player.xp_tables.default.json";
-                var loadedJson = EmbeddedResourceLoader.Load(levelTablePath);
-                ExperienceTable = new ExperienceTable(loadedJson);*/
-            }
-            else {
-                var experienceTableGenerator = new LevelExperienceTableGenerator(_config.MaxLevel.Value, _config.MaxLevelTotalExperience.Value, _config.GetSelectedMaxExperienceFormula());
-                LevelExperienceTable = experienceTableGenerator.Generate();
-            }
+            var maxLevel = _config.MaxLevel.Value;
+            var initialMaxExperience = _config.InitialMaxExperience.Value;
+            var maxExperienceIncreaseCurve = _config.MaxExperienceModifierFormula.Value;
+
+            LevelExperienceTable = new LevelExperienceTable(new LevelTableGenerationSettings(maxLevel, initialMaxExperience, maxExperienceIncreaseCurve));
         }
 
         public AssetBundle AssetBundle { get; }
         public LevelExperienceTable LevelExperienceTable { get; private set; }
+
+        public void SetLevelExperienceTable(LevelExperienceTable experienceTable)
+        {
+            LevelExperienceTable = experienceTable;
+        }
 
         private void LoadAssets()
         {
